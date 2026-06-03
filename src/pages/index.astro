@@ -1,0 +1,254 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import PresentationVisuals from "../components/PresentationVisuals.astro";
+import Objectives from "../components/Objectives.astro";
+import ConversionFunnel from "../components/ConversionFunnel.astro";
+import Map from "../components/Map.astro";
+import Testimonials from "../components/Testimonials.astro";
+import QualitativeSummary from "../components/QualitativeSummary.astro";
+import AlliesEcosystem from "../components/AlliesEcosystem.astro";
+import FocusDistribution from "../components/FocusDistribution.astro";
+import ProgressInsights from "../components/ProgressInsights.astro";
+import ExecutiveConclusion from "../components/ExecutiveConclusion.astro";
+import Sponsors from "../components/Sponsors.astro";
+import Footer from "../components/Footer.astro";
+import AppScripts from "../components/AppScripts.astro";
+import PdfDownload from "../components/PdfDownload.astro";
+---
+
+<Layout
+  title="Kids&Clouds para Cajasol | Dashboard"
+  description="Dashboard ejecutivo de seguimiento territorial para el proyecto Kids&Clouds."
+>
+  <main class="dashboard-compact relative min-h-screen overflow-x-hidden bg-slate-50 pt-[4.5rem] text-base text-slate-600 dark:bg-[#030712] dark:text-slate-300 sm:pt-[5rem] md:pt-[5.5rem]">
+    <div class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_15%_0%,rgba(59,130,246,0.14),transparent_55%),radial-gradient(ellipse_at_85%_15%,rgba(139,92,246,0.1),transparent_50%),radial-gradient(ellipse_at_50%_100%,rgba(245,188,2,0.06),transparent_45%)] dark:bg-[radial-gradient(ellipse_at_20%_0%,rgba(59,130,246,0.1),transparent_50%),radial-gradient(ellipse_at_80%_20%,rgba(139,92,246,0.08),transparent_45%)]"></div>
+    <div
+      data-parallax="0.06"
+      class="pointer-events-none fixed -left-20 top-1/3 -z-10 h-64 w-64 animate-float-soft rounded-full bg-blue-400/10 blur-3xl dark:bg-blue-600/15"
+    ></div>
+    <div
+      data-parallax="0.1"
+      class="pointer-events-none fixed -right-16 bottom-1/4 -z-10 h-72 w-72 animate-float-soft rounded-full bg-violet-400/10 blur-3xl dark:bg-purple-600/12"
+      style="animation-delay: 2s"
+    ></div>
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 opacity-[0.05] dark:opacity-[0.03]"
+      style="background-image: linear-gradient(rgba(15,23,42,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.07) 1px, transparent 1px); background-size: 48px 48px;"
+    >
+    </div>
+    <Header />
+    <Hero />
+    <PresentationVisuals />
+    <Objectives />
+    <ConversionFunnel />
+    <Map />
+    <Testimonials />
+    <QualitativeSummary />
+    <AlliesEcosystem />
+    <div class="mx-auto grid w-full max-w-6xl gap-4 px-5 py-5 lg:grid-cols-2 lg:items-stretch">
+      <FocusDistribution embedded />
+      <ProgressInsights embedded />
+    </div>
+    <ExecutiveConclusion />
+    <Sponsors />
+    <Footer />
+    <PdfDownload />
+    <AppScripts />
+
+    <div
+      id="video-modal"
+      class="fixed inset-0 z-[61] flex hidden items-center justify-center bg-slate-900/90 p-4 opacity-0 backdrop-blur-lg transition-all duration-300 dark:bg-slate-950/95"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Reproducción de vídeo"
+    >
+      <button
+        id="close-video-modal"
+        type="button"
+        class="absolute right-6 top-6 z-10 rounded-full border border-slate-800 bg-slate-900/50 p-3 font-mono text-2xl font-bold text-slate-400 transition-colors hover:text-white"
+        aria-label="Cerrar vídeo"
+      >
+        ✕
+      </button>
+      <div class="w-full max-w-4xl">
+        <video
+          id="modal-video"
+          class="max-h-[85vh] w-full rounded-xl border border-slate-200 bg-black shadow-2xl dark:border-slate-700"
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+        <p id="video-modal-error" class="mt-3 hidden text-center text-sm text-slate-300">
+          No se pudo cargar el vídeo. Comprueba que el archivo <code class="text-amber-300">public/video_acuerdo.mp4</code> existe.
+        </p>
+      </div>
+    </div>
+
+    <div
+      id="image-modal"
+      class="image-modal fixed inset-0 z-[70] flex hidden items-center justify-center bg-slate-900/95 p-0 opacity-0 backdrop-blur-lg transition-opacity duration-300 dark:bg-slate-950/98"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Vista ampliada de imagen"
+    >
+      <button
+        id="close-modal"
+        type="button"
+        class="absolute right-4 top-4 z-10 rounded-full border border-slate-800 bg-slate-900/50 p-3 font-mono text-2xl font-bold text-slate-400 transition-colors hover:text-white sm:right-6 sm:top-6"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+      <div class="image-modal__stage flex items-center justify-center px-2 py-10 sm:px-4">
+        <img
+          id="modal-img"
+          src=""
+          alt="Ampliación"
+          class="image-modal__img max-h-[85vh] max-w-[90vw] rounded-lg border border-slate-200/80 object-contain shadow-2xl shadow-blue-500/25 ring-2 ring-blue-500/25 dark:border-slate-600 dark:ring-blue-400/30"
+        />
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        const initImageGallery = () => {
+          const modal = document.getElementById("image-modal");
+          const modalImg = document.getElementById("modal-img");
+          const closeBtn = document.getElementById("close-modal");
+          if (!modal || !modalImg) return;
+
+          const resolveGalleryImg = (el) => {
+            if (!el) return null;
+            if (el.tagName === "IMG") return el;
+            return el.querySelector("img");
+          };
+
+          const openModal = (img) => {
+            if (!img) return;
+            const src = img.getAttribute("src") || img.currentSrc || "";
+            if (!src) return;
+            modalImg.src = src;
+            modalImg.alt = img.alt || "Ampliación";
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            modal.classList.remove("opacity-0");
+            modal.classList.add("opacity-100");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+          };
+
+          const closeModal = () => {
+            modal.classList.add("hidden");
+            modal.classList.remove("flex", "opacity-100");
+            modal.classList.add("opacity-0");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+            modalImg.removeAttribute("src");
+          };
+
+          document.addEventListener("click", (event) => {
+            const trigger = event.target.closest(".gallery-card");
+            if (!trigger || modal.contains(trigger)) return;
+            const img = resolveGalleryImg(trigger);
+            if (!img) return;
+            event.preventDefault();
+            event.stopPropagation();
+            openModal(img);
+          });
+
+          document.addEventListener("keydown", (event) => {
+            const trigger = event.target.closest(".gallery-card");
+            if (!trigger || modal.contains(trigger)) return;
+            if (event.key !== "Enter" && event.key !== " ") return;
+            const img = resolveGalleryImg(trigger);
+            if (!img) return;
+            event.preventDefault();
+            openModal(img);
+          });
+
+          closeBtn?.addEventListener("click", (event) => {
+            event.stopPropagation();
+            closeModal();
+          });
+          modal.addEventListener("click", (event) => {
+            if (event.target === modal) closeModal();
+          });
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+          });
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initImageGallery);
+        } else {
+          initImageGallery();
+        }
+
+        const videoModal = document.getElementById("video-modal");
+        const modalVideo = document.getElementById("modal-video");
+        const closeVideoBtn = document.getElementById("close-video-modal");
+        const videoError = document.getElementById("video-modal-error");
+        if (videoModal && modalVideo) {
+          const openVideoModal = (src) => {
+            videoError?.classList.add("hidden");
+            modalVideo.classList.remove("hidden");
+            modalVideo.src = src;
+            modalVideo.currentTime = 0;
+            videoModal.classList.remove("hidden");
+            videoModal.classList.remove("opacity-100");
+            videoModal.classList.add("opacity-0");
+            document.body.style.overflow = "hidden";
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                videoModal.classList.remove("opacity-0");
+                videoModal.classList.add("opacity-100");
+                modalVideo.play().catch(() => {
+                  videoError?.classList.remove("hidden");
+                });
+              }, 10);
+            });
+          };
+
+          const closeVideoModal = () => {
+            videoModal.classList.remove("opacity-100");
+            videoModal.classList.add("opacity-0");
+            modalVideo.pause();
+            document.body.style.overflow = "";
+            setTimeout(() => {
+              videoModal.classList.add("hidden");
+              modalVideo.removeAttribute("src");
+              modalVideo.load();
+            }, 300);
+          };
+
+          modalVideo.addEventListener("error", () => {
+            modalVideo.classList.add("hidden");
+            videoError?.classList.remove("hidden");
+          });
+
+          document.querySelectorAll(".video-play-trigger").forEach((trigger) => {
+            const src = trigger.getAttribute("data-video-src");
+            if (!src) return;
+            trigger.addEventListener("click", () => openVideoModal(src));
+            trigger.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openVideoModal(src);
+              }
+            });
+          });
+
+          closeVideoBtn?.addEventListener("click", closeVideoModal);
+          videoModal.addEventListener("click", (e) => {
+            if (e.target === videoModal) closeVideoModal();
+          });
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && !videoModal.classList.contains("hidden")) closeVideoModal();
+          });
+        }
+      })();
+    </script>
+  </main>
+</Layout>

@@ -1,0 +1,195 @@
+---
+const provinces = [
+  { name: "Huelva", count: 0 },
+  { name: "Sevilla", count: 6 },
+  { name: "Cádiz", count: 3 },
+  { name: "Córdoba", count: 2 },
+  { name: "Jaén", count: 0 },
+  { name: "Málaga", count: 4 },
+  { name: "Granada", count: 0 },
+  { name: "Almería", count: 0 },
+];
+---
+
+<section id="cobertura" class="andalusia-exec mx-auto w-full max-w-6xl px-5" aria-label="Mapa ejecutivo de Andalucía">
+  <header class="reveal mb-3">
+    <p class="section-eyebrow">Cobertura Geográfica</p>
+    <h2 class="section-title mt-2">Mapa Interactivo de Centros Activos por Provincia</h2>
+    <p class="mt-2 max-w-3xl text-sm text-slate-300">
+      Pasa el ratón por cada provincia para ver su estado y número de centros activos.
+    </p>
+  </header>
+
+  <div class="reveal-scale card-fx shine-border map-stage panel-glass overflow-hidden shadow-xl dark:bg-[#0a111e] dark:shadow-2xl dark:shadow-black/40">
+    <div class="map-stage-toolbar flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 px-4 py-2.5">
+      <div class="map-command inline-flex max-w-full items-center gap-2 rounded-xl border border-slate-600/40 bg-slate-900/70 px-3 py-2 text-xs font-bold text-slate-200 backdrop-blur sm:text-sm">
+        <span class="status-led"></span>
+        <span>Estatus del Proyecto: 16 Centros Firmados y 75 en Gestión</span>
+      </div>
+
+      <div class="map-legend-premium shrink-0 rounded-xl border border-slate-600/30 bg-slate-900/70 p-2.5 backdrop-blur">
+        <div class="legend-row flex items-center gap-2 text-xs text-slate-300">
+          <span class="legend-chip active h-2.5 w-2.5 rounded-full bg-blue-500"></span>
+          Provincia con centros activos
+        </div>
+        <div class="legend-row mt-2 flex items-center gap-2 text-xs text-slate-300">
+          <span class="legend-chip onboarding h-2.5 w-2.5 rounded-full bg-amber-500"></span>
+          Próxima fase / sin activos
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="andalusia-map-container"
+      class="map-canvas relative flex min-h-[300px] items-center justify-center px-4 py-4 sm:min-h-[360px] md:min-h-[400px]"
+      aria-live="polite"
+    >
+      <svg class="andalusia-svg mx-auto h-full w-full max-h-[400px]" viewBox="0 0 963.58722 560.20435" role="img" aria-label="Cargando silueta de Andalucía">
+        <text x="50%" y="50%" text-anchor="middle" fill="#94a3b8" font-size="16">Cargando mapa de Andalucía...</text>
+      </svg>
+    </div>
+
+    <div class="map-stage-footer border-t border-slate-800/80 bg-slate-950/40 px-3 py-3">
+      <p class="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">Centros activos por provincia</p>
+      <div
+        class="province-data-panel grid grid-cols-2 gap-2 sm:grid-cols-4"
+        aria-label="Centros activos por provincia"
+      >
+        {
+          provinces.map((province) => (
+            <div
+              class:list={[
+                "province-data-item transition duration-300 hover:scale-[1.02]",
+                province.count > 0 && "province-data-item--active",
+              ]}
+            >
+              <strong>{province.name}:</strong> {province.count} activos
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .andalusia-exec .status-led {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+    animation: led-pulse 1.8s infinite;
+  }
+
+  @keyframes led-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+    }
+    80% {
+      box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  .andalusia-exec .province-data-item {
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+    line-height: 1.25;
+    color: #cbd5e1;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  .andalusia-exec .province-data-item--active {
+    border-color: rgba(59, 130, 246, 0.45);
+    background: rgba(29, 78, 216, 0.15);
+    color: #e2e8f0;
+  }
+
+  .andalusia-exec .province-data-item strong {
+    color: #f8fafc;
+    font-weight: 700;
+  }
+
+  .andalusia-exec .province path {
+    fill: #1e293b;
+    stroke: #475569;
+    stroke-width: 1.2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+  }
+
+  .andalusia-exec .province.has-active path {
+    fill: #1d4ed8;
+  }
+
+  .andalusia-exec .province.has-active:hover path {
+    fill: #3b82f6;
+    stroke: #93c5fd;
+    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5));
+  }
+
+  .andalusia-exec .province.no-active:hover path {
+    fill: #334155;
+    stroke: #64748b;
+  }
+
+  .andalusia-exec .province-label {
+    fill: #e2e8f0;
+    font-size: 10px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  .andalusia-exec .province-count {
+    fill: #f8fafc;
+    font-size: 12px;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  .andalusia-exec .province-tip {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+  }
+
+  .andalusia-exec .province:hover .province-tip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .andalusia-exec .province-tip div {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 9px;
+    color: #f8fafc;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(10, 17, 30, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+  }
+
+  .andalusia-exec .andalusia-svg {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 400px;
+    display: block;
+    object-fit: contain;
+  }
+
+  .andalusia-exec #andalusia-map-container .andalusia-svg {
+    max-height: min(400px, 48vh);
+  }
+</style>

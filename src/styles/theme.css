@@ -1,0 +1,192 @@
+/* Tema claro (por defecto) — overrides para el dashboard */
+html:not(.dark) .dashboard-compact {
+  color: #475569;
+}
+
+html:not(.dark) .dashboard-compact .text-slate-300 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .dashboard-compact .text-slate-400 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .dashboard-compact .text-slate-500 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .dashboard-compact .text-slate-200 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .dashboard-compact .text-white {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .dashboard-compact .text-indigo-300 {
+  color: #4338ca !important;
+}
+
+html:not(.dark) .dashboard-compact .text-blue-300 {
+  color: #1d4ed8 !important;
+}
+
+html:not(.dark) .dashboard-compact .text-blue-200 {
+  color: #1e40af !important;
+}
+
+html:not(.dark) .dashboard-compact .text-blue-400 {
+  color: #2563eb !important;
+}
+
+html:not(.dark) .dashboard-compact .text-amber-400 {
+  color: #d97706 !important;
+}
+
+html:not(.dark) .dashboard-compact .text-emerald-300 {
+  color: #059669 !important;
+}
+
+html:not(.dark) .dashboard-compact .bg-\[\#030712\],
+html:not(.dark) .dashboard-compact .bg-\[\#0a111e\],
+html:not(.dark) .dashboard-compact .bg-\[\#050505\] {
+  background-color: #f8fafc !important;
+}
+
+html:not(.dark) .dashboard-compact .bg-slate-950,
+html:not(.dark) .dashboard-compact .bg-slate-950\/40,
+html:not(.dark) .dashboard-compact .bg-slate-950\/50,
+html:not(.dark) .dashboard-compact .bg-slate-950\/60,
+html:not(.dark) .dashboard-compact .bg-slate-950\/80 {
+  background-color: #f1f5f9 !important;
+}
+
+html:not(.dark) .dashboard-compact .bg-slate-900,
+html:not(.dark) .dashboard-compact .bg-slate-900\/30,
+html:not(.dark) .dashboard-compact .bg-slate-900\/50,
+html:not(.dark) .dashboard-compact .bg-slate-900\/60,
+html:not(.dark) .dashboard-compact .bg-slate-900\/70,
+html:not(.dark) .dashboard-compact .bg-slate-900\/80 {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .dashboard-compact .from-slate-900\/90 {
+  --tw-gradient-from: rgb(255 255 255 / 0.95) !important;
+}
+
+html:not(.dark) .dashboard-compact .to-slate-950\/90 {
+  --tw-gradient-to: rgb(248 250 252 / 0.98) !important;
+}
+
+html:not(.dark) .dashboard-compact .border-slate-800,
+html:not(.dark) .dashboard-compact .border-slate-800\/50,
+html:not(.dark) .dashboard-compact .border-slate-800\/60,
+html:not(.dark) .dashboard-compact .border-slate-800\/80 {
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .dashboard-compact .border-slate-700,
+html:not(.dark) .dashboard-compact .border-slate-700\/60,
+html:not(.dark) .dashboard-compact .border-slate-700\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .dashboard-compact .border-slate-600\/30,
+html:not(.dark) .dashboard-compact .border-slate-600\/40 {
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) .dashboard-compact .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .dashboard-compact .hover\:bg-slate-800:hover,
+html:not(.dark) .dashboard-compact .hover\:bg-slate-800\/80:hover,
+html:not(.dark) .dashboard-compact .hover\:bg-slate-900:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .dashboard-compact .card-fx:hover {
+  box-shadow:
+    0 16px 32px rgba(15, 23, 42, 0.08),
+    0 0 20px rgba(59, 130, 246, 0.08);
+}
+
+html:not(.dark) .dashboard-compact .bg-indigo-500\/10 {
+  background-color: rgb(99 102 241 / 0.08) !important;
+}
+
+html:not(.dark) .dashboard-compact .bg-blue-500\/10 {
+  background-color: rgb(59 130 246 / 0.08) !important;
+}
+
+html:not(.dark) .dashboard-compact .bg-blue-600\/20 {
+  background-color: rgb(37 99 235 / 0.1) !important;
+}
+
+html:not(.dark) .dashboard-compact .opacity-\[0\.03\] {
+  opacity: 0.06 !important;
+}
+
+/* Mapa Andalucía — modo claro */
+html:not(.dark) .andalusia-exec .province path {
+  fill: #e2e8f0;
+  stroke: #94a3b8;
+}
+
+html:not(.dark) .andalusia-exec .province.has-active path {
+  fill: #3b82f6;
+}
+
+html:not(.dark) .andalusia-exec .province.has-active:hover path {
+  fill: #2563eb;
+  stroke: #1d4ed8;
+}
+
+html:not(.dark) .andalusia-exec .province.no-active:hover path {
+  fill: #cbd5e1;
+  stroke: #64748b;
+}
+
+html:not(.dark) .andalusia-exec .province-label {
+  fill: #334155;
+}
+
+html:not(.dark) .andalusia-exec .province-count {
+  fill: #0f172a;
+}
+
+html:not(.dark) .andalusia-exec .province-data-item {
+  color: #475569;
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+html:not(.dark) .andalusia-exec .province-data-item strong {
+  color: #0f172a;
+}
+
+html:not(.dark) .andalusia-exec .province-data-item--active {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.08);
+  color: #1e293b;
+}
+
+html:not(.dark) .andalusia-exec .province-tip div {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #cbd5e1;
+}
+
+/* Botón tema */
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+html.dark .theme-toggle .icon-sun {
+  display: none;
+}
+
+html.dark .theme-toggle .icon-moon {
+  display: block;
+}

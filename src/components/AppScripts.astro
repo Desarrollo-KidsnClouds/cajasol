@@ -1,0 +1,198 @@
+<script is:inline>
+  const THEME_KEY = "theme";
+
+  const applyTheme = (isDark) => {
+    document.documentElement.classList.toggle("dark", isDark);
+    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+    const toggle = document.getElementById("themeToggle");
+    if (toggle) {
+      toggle.setAttribute("aria-pressed", String(isDark));
+      toggle.setAttribute("aria-label", isDark ? "Activar modo claro" : "Activar modo oscuro");
+      toggle.title = isDark ? "Modo claro" : "Modo oscuro";
+    }
+  };
+
+  const themeToggle = document.getElementById("themeToggle");
+  applyTheme(document.documentElement.classList.contains("dark"));
+  themeToggle?.addEventListener("click", () => {
+    applyTheme(!document.documentElement.classList.contains("dark"));
+  });
+
+  const siteHeader = document.querySelector("header");
+
+  const onScroll = () => {
+    siteHeader?.classList.toggle("header-scrolled", window.scrollY > 16);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    document.querySelectorAll(".panel-glass").forEach((el) => {
+      if (!el.classList.contains("reveal") && !el.classList.contains("reveal-scale")) {
+        el.classList.add("scroll-wow");
+      }
+    });
+
+    document.querySelectorAll("main section:not(#inicio)").forEach((section) => {
+      section.classList.add("scroll-section");
+    });
+
+    document.querySelectorAll("[data-scroll-stagger], .grid.gap-2, .grid.gap-3, .grid.gap-4").forEach((grid) => {
+      if (grid.children.length >= 2 && !grid.hasAttribute("data-scroll-stagger")) {
+        grid.setAttribute("data-scroll-stagger", "");
+      }
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          if (entry.isIntersecting) {
+            const delay = el.getAttribute("data-reveal-delay");
+            if (delay) el.style.setProperty("--reveal-delay", delay);
+            el.classList.add("is-visible");
+          } else {
+            el.classList.remove("is-visible");
+            el.style.removeProperty("--reveal-delay");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    document
+      .querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .scroll-wow")
+      .forEach((el) => revealObserver.observe(el));
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-in-view", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" }
+    );
+    document.querySelectorAll(".scroll-section").forEach((el) => sectionObserver.observe(el));
+
+    const staggerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const container = entry.target;
+          if (entry.isIntersecting) {
+            container.classList.add("is-stagger-visible");
+            Array.from(container.children).forEach((child, i) => {
+              child.style.setProperty("--stagger-i", String(i));
+            });
+          } else {
+            container.classList.remove("is-stagger-visible");
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+    );
+    document.querySelectorAll("[data-scroll-stagger]").forEach((el) => staggerObserver.observe(el));
+
+    const funnelChart = document.getElementById("funnel-chart");
+    if (funnelChart) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            funnelChart.classList.toggle("is-animated", entry.isIntersecting);
+          });
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(funnelChart);
+    }
+
+    const progressSection = document.getElementById("seguimiento");
+    const fills = progressSection?.querySelectorAll(".progress-fill") ?? [];
+    if (progressSection && fills.length) {
+      const animateFills = (visible) => {
+        fills.forEach((fill, index) => {
+          const target = visible ? fill.dataset.targetWidth || "0%" : "0%";
+          setTimeout(() => {
+            fill.style.transition = visible
+              ? "width 900ms cubic-bezier(0.22, 1, 0.36, 1)"
+              : "width 500ms ease";
+            fill.style.width = target;
+          }, visible ? index * 100 : 0);
+        });
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => animateFills(entry.isIntersecting));
+        },
+        { threshold: 0.25 }
+      );
+      observer.observe(progressSection);
+    }
+
+    document.querySelectorAll("[data-parallax]").forEach((el, i) => {
+      if (!el.dataset.parallax) el.dataset.parallax = String(0.04 + i * 0.02);
+    });
+    let parallaxTicking = false;
+    const updateParallax = () => {
+      const y = window.scrollY;
+      document.querySelectorAll("[data-parallax]").forEach((el) => {
+        const speed = parseFloat(el.dataset.parallax || "0.05");
+        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+      });
+      parallaxTicking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!parallaxTicking) {
+          parallaxTicking = true;
+          requestAnimationFrame(updateParallax);
+        }
+      },
+      { passive: true }
+    );
+    updateParallax();
+  } else {
+    document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .scroll-wow").forEach((el) => {
+      el.classList.add("is-visible");
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const id = anchor.getAttribute("href");
+      if (!id || id === "#") return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  const andalusiaMapContainer = document.getElementById("andalusia-map-container");
+  if (andalusiaMapContainer) {
+    const mapUrl = "/andalusia-interactive.svg";
+    const renderSvgImageFallback = () => {
+      andalusiaMapContainer.innerHTML = `
+        <img
+          src="${mapUrl}"
+          alt="Silueta de Andalucía por provincias"
+          class="andalusia-svg"
+        />
+      `;
+    };
+    fetch(mapUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error("No se pudo cargar el SVG");
+        return response.text();
+      })
+      .then((svgMarkup) => {
+        andalusiaMapContainer.innerHTML = svgMarkup;
+      })
+      .catch((error) => {
+        console.error("Error cargando mapa de Andalucía:", error);
+        renderSvgImageFallback();
+      });
+  }
+</script>

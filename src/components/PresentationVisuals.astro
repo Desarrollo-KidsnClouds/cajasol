@@ -1,0 +1,46 @@
+---
+const galleryImages = [
+  {
+    src: "/imagen_.png",
+    alt: "Infraestructura visual del despliegue tecnológico — lámina 1",
+  },
+  {
+    src: "/imagen.png",
+    alt: "Infraestructura visual del despliegue tecnológico — lámina 2",
+  },
+];
+---
+
+<section id="presentacion" class="mx-auto w-full max-w-6xl px-5" aria-label="Material de presentación institucional">
+  <header class="reveal mb-3">
+    <p class="section-eyebrow section-eyebrow--amber">Presentación</p>
+    <h2 class="section-title mt-2">Láminas del convenio</h2>
+    <p class="mt-1 max-w-xl text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+      Clic en cualquier lámina para verla a tamaño completo
+    </p>
+  </header>
+
+  <div class="grid grid-cols-2 gap-4 sm:gap-5" data-scroll-stagger>
+    {
+      galleryImages.map((item, index) => (
+        <article
+          class="gallery-card gallery-card-fx reveal-scale card-fx shine-border group aspect-video flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl"
+          data-reveal-delay={`${index * 60}ms`}
+          role="button"
+          tabindex="0"
+          aria-label={`Ver ${item.alt} a tamaño completo`}
+        >
+          <img
+            src={item.src}
+            alt={item.alt}
+            width={640}
+            height={360}
+            class="h-full w-full rounded-xl object-contain opacity-80 transition-all duration-500 group-hover:opacity-100"
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        </article>
+      ))
+    }
+  </div>
+</section>

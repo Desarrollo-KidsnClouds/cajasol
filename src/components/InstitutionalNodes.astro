@@ -1,0 +1,72 @@
+---
+const nodes = [
+  {
+    city: "Madrid",
+    role: "Sede Central",
+    description:
+      "Coordina la relación institucional con Fundación Cajasol, centraliza la gobernanza del convenio y canaliza los informes ejecutivos para la presidencia.",
+    iconBg: "bg-blue-500/15 text-blue-400",
+    accent: "from-blue-500/10 to-transparent",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-3"/><path d="M9 9v0"/><path d="M9 12v0"/><path d="M9 15v0"/><path d="M9 18v0"/></svg>`,
+  },
+  {
+    city: "Barcelona",
+    role: "Hub Tecnológico",
+    description:
+      "Impulsa el desarrollo de producto, integraciones y escalabilidad de Kids&Clouds, garantizando innovación continua para el despliegue educativo.",
+    iconBg: "bg-indigo-500/15 text-indigo-400",
+    accent: "from-indigo-500/10 to-transparent",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m7 8 3 3 3-3 3 3"/></svg>`,
+  },
+  {
+    city: "Valencia",
+    role: "Centro de Soporte",
+    description:
+      "Atiende formación, onboarding y acompañamiento a centros y familias, con foco en resolución ágil y calidad de la experiencia de uso.",
+    iconBg: "bg-cyan-500/15 text-cyan-400",
+    accent: "from-cyan-500/10 to-transparent",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  },
+  {
+    city: "Andalucía",
+    role: "Despliegue Original",
+    description:
+      "Territorio estratégico del convenio: concentración de centros implantados, seguimiento provincial y ejecución territorial de la subvención de 50.000€.",
+    iconBg: "bg-brand/20 text-amber-300",
+    accent: "from-brand/15 to-transparent",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  },
+];
+---
+
+<section id="nodos" class="mx-auto w-full max-w-6xl px-6 py-16" aria-label="Nodos institucionales del proyecto">
+  <div class="mb-12 text-center">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Red territorial</p>
+    <h2 class="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">Nodos institucionales del convenio</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-base text-slate-300">
+      Cuatro ámbitos coordinados que articulan la alianza estratégica entre Kids&Clouds, Fundación Cajasol y el ecosistema educativo.
+    </p>
+  </div>
+
+  <div class="grid gap-6 sm:grid-cols-2">
+    {
+      nodes.map((node) => (
+        <article class="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/50 p-6 backdrop-blur transition-all duration-300 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/5">
+          <div class="absolute right-6 top-6 flex h-3 w-3" aria-hidden="true">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex h-3 w-3 rounded-full bg-blue-400"></span>
+          </div>
+          <div
+            class={`pointer-events-none absolute inset-0 bg-gradient-to-br opacity-0 transition group-hover:opacity-100 ${node.accent}`}
+          />
+          <div class="relative z-10">
+            <div class={`mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl ${node.iconBg}`} set:html={node.icon} />
+            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-indigo-400">{node.city}</p>
+            <h3 class="mt-1 text-xl font-bold">{node.role}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-300">{node.description}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

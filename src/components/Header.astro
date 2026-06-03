@@ -1,0 +1,195 @@
+---
+const navLinks = [
+  { href: "#presentacion", label: "Presentación" },
+  { href: "#objetivos", label: "Objetivos" },
+  { href: "#embudo", label: "Embudo" },
+  { href: "#cobertura", label: "Mapa" },
+  { href: "#seguimiento", label: "Seguimiento" },
+  { href: "#ecosistema-aliados", label: "Aliados" },
+  { href: "#conclusion", label: "Conclusión" },
+];
+---
+
+<header
+  class="no-print fixed top-0 z-50 w-full border-b border-slate-200/90 bg-white/95 backdrop-blur-xl transition-all duration-300 dark:border-slate-800/60 dark:bg-[#030712]/92"
+>
+  <div
+    class="h-0.5 w-full bg-gradient-to-r from-amber-400/30 via-blue-500/45 to-amber-400/30"
+    aria-hidden="true"
+  ></div>
+
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-1.5 overflow-visible px-4 py-2 sm:px-6 sm:py-2.5">
+    <div class="flex min-w-0 flex-1 items-center gap-2">
+      <a
+        href="#inicio"
+        class="group flex shrink-0 items-center gap-0"
+        aria-label="Kids&Clouds - Inicio"
+      >
+        <span class="header-logo-wrap">
+          <img
+            src="/logo_web_nuevo.png"
+            alt="Logo Kids&Clouds"
+            width="220"
+            height="72"
+            class="header-logo"
+            loading="eager"
+            decoding="async"
+          />
+        </span>
+        <span class="header-title block truncate text-xs font-bold leading-tight tracking-tight text-slate-900 min-[380px]:whitespace-nowrap sm:text-sm md:text-base lg:text-lg dark:text-white">
+          Convenio Fundación Cajasol
+        </span>
+      </a>
+
+      <nav
+        id="mainNav"
+        class="header-nav-scroll min-w-0 flex-1 border-l border-slate-200 pl-2 sm:pl-3 dark:border-slate-700/80"
+        aria-label="Navegación principal"
+      >
+        <ul class="flex items-center gap-2 sm:gap-3 md:gap-4">
+          {
+            navLinks.map((link) => (
+              <li class="shrink-0">
+                <a
+                  href={link.href}
+                  class="whitespace-nowrap text-xs font-medium text-slate-600 transition-colors hover:text-slate-900 sm:text-sm dark:text-slate-300 dark:hover:text-white"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <button
+      id="themeToggle"
+      type="button"
+      class="theme-toggle inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 sm:h-9 sm:w-9 dark:border-slate-700 dark:bg-slate-900 dark:text-amber-300 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+      aria-label="Activar modo oscuro"
+      aria-pressed="false"
+      title="Modo oscuro"
+    >
+      <svg class="icon-sun h-[1.15rem] w-[1.15rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+      </svg>
+      <svg class="icon-moon h-[1.15rem] w-[1.15rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header-nav-scroll {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .header-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Acerca el dibujo del PNG (suele traer mucho margen transparente) sin cambiar de archivo */
+  .header-title {
+    margin-left: -0.65rem;
+  }
+
+  .header-logo-wrap {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    overflow: visible;
+    width: 8.5rem;
+    height: 2.75rem;
+    margin-right: -0.85rem;
+  }
+
+  .header-logo {
+    height: 2.5rem;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+    object-position: left center;
+    transform: scale(1.55);
+    transform-origin: left center;
+    filter: drop-shadow(0 1px 3px rgba(15, 23, 42, 0.12));
+    transition: transform 0.3s ease;
+  }
+
+  .group:hover .header-logo {
+    transform: scale(1.6);
+  }
+
+  @media (min-width: 640px) {
+    .header-title {
+      margin-left: -0.85rem;
+    }
+
+    .header-logo-wrap {
+      width: 10rem;
+      height: 3rem;
+      margin-right: -1.1rem;
+    }
+
+    .header-logo {
+      height: 2.75rem;
+      transform: scale(1.65);
+    }
+
+    .group:hover .header-logo {
+      transform: scale(1.7);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .header-title {
+      margin-left: -1rem;
+    }
+
+    .header-logo-wrap {
+      width: 11.5rem;
+      height: 3.25rem;
+      margin-right: -1.25rem;
+    }
+
+    .header-logo {
+      height: 3rem;
+      transform: scale(1.75);
+    }
+
+    .group:hover .header-logo {
+      transform: scale(1.8);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-title {
+      margin-left: -1.15rem;
+    }
+
+    .header-logo-wrap {
+      width: 12.5rem;
+      margin-right: -1.35rem;
+    }
+
+    .header-logo {
+      height: 3.25rem;
+      transform: scale(1.85);
+    }
+
+    .group:hover .header-logo {
+      transform: scale(1.9);
+    }
+  }
+
+  html.dark .header-logo {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45)) brightness(1.12) contrast(1.08);
+  }
+
+  html.dark .group:hover .header-logo {
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5)) brightness(1.15) contrast(1.1);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kids&Clouds Dashboard",
+  description = "Dashboard ejecutivo para la subvención Cajasol",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        if (stored === "dark") document.documentElement.classList.add("dark");
+      })();
+    </script>
+    <style is:global>
+      @media print {
+        .no-print,
+        header,
+        footer {
+          display: none !important;
+        }
+
+        html,
+        body {
+          background: #ffffff !important;
+          color: #111827 !important;
+        }
+      }
+    </style>
+    <style is:global>
+  /* Aquí es donde se ponen los @import de CSS, no en la terminal */
+  @import "flowbite/src/themes/default"; 
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
+<script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+
+  </head>
+  
+
+  <body class="bg-slate-50 text-slate-600 antialiased dark:bg-[#030712] dark:text-slate-300">
+    <slot />
+  </body>
+</html>
