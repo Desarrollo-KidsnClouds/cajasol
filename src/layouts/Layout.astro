@@ -8,31 +8,57 @@ export interface Props {
 
 const {
   title = "Kids&Clouds Dashboard",
-  description = "Dashboard ejecutivo para la subvención Cajasol",
+  description = "Dashboard ejecutivo para el patrocinio Cajasol",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth dark">
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var stored = localStorage.getItem("knc-theme");
+        if (stored === "light") {
+          root.classList.remove("dark");
+          root.style.colorScheme = "light";
+        } else {
+          root.classList.add("dark");
+          root.style.colorScheme = "dark";
+        }
+      })();
+    </script>
+    <style is:inline>
+      html.dark {
+        color-scheme: dark;
+      }
+      html.dark body {
+        background-color: #0b0b0b !important;
+        color: #a8a8a8;
+      }
+      html:not(.dark) body {
+        background-color: #f8fafc;
+        color: #475569;
+      }
+      html:not(.dark) {
+        color-scheme: light;
+      }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark" />
     <title>{title}</title>
+
+    <link rel="icon" href="/logo_web_nuevo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/logo_web_nuevo.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <script is:inline>
-      (function () {
-        const stored = localStorage.getItem("theme");
-        if (stored === "dark") document.documentElement.classList.add("dark");
-      })();
-    </script>
     <style is:global>
       @media print {
         .no-print,
@@ -48,20 +74,10 @@ const {
         }
       }
     </style>
-    <style is:global>
-  /* Aquí es donde se ponen los @import de CSS, no en la terminal */
-  @import "flowbite/src/themes/default"; 
-
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-</style>
-<script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
-
   </head>
   
 
-  <body class="bg-slate-50 text-slate-600 antialiased dark:bg-[#030712] dark:text-slate-300">
+  <body class="bg-slate-50 text-slate-600 antialiased dark:bg-[#0b0b0b] dark:text-[#a8a8a8]">
     <slot />
   </body>
 </html>

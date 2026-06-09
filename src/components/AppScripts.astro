@@ -1,8 +1,9 @@
 <script is:inline>
-  const THEME_KEY = "theme";
+  const THEME_KEY = "knc-theme";
 
   const applyTheme = (isDark) => {
     document.documentElement.classList.toggle("dark", isDark);
+    document.documentElement.style.colorScheme = isDark ? "dark" : "light";
     localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
     const toggle = document.getElementById("themeToggle");
     if (toggle) {
@@ -13,7 +14,8 @@
   };
 
   const themeToggle = document.getElementById("themeToggle");
-  applyTheme(document.documentElement.classList.contains("dark"));
+  const storedTheme = localStorage.getItem(THEME_KEY);
+  applyTheme(storedTheme !== "light");
   themeToggle?.addEventListener("click", () => {
     applyTheme(!document.documentElement.classList.contains("dark"));
   });
@@ -107,29 +109,6 @@
       observer.observe(funnelChart);
     }
 
-    const progressSection = document.getElementById("seguimiento");
-    const fills = progressSection?.querySelectorAll(".progress-fill") ?? [];
-    if (progressSection && fills.length) {
-      const animateFills = (visible) => {
-        fills.forEach((fill, index) => {
-          const target = visible ? fill.dataset.targetWidth || "0%" : "0%";
-          setTimeout(() => {
-            fill.style.transition = visible
-              ? "width 900ms cubic-bezier(0.22, 1, 0.36, 1)"
-              : "width 500ms ease";
-            fill.style.width = target;
-          }, visible ? index * 100 : 0);
-        });
-      };
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => animateFills(entry.isIntersecting));
-        },
-        { threshold: 0.25 }
-      );
-      observer.observe(progressSection);
-    }
-
     document.querySelectorAll("[data-parallax]").forEach((el, i) => {
       if (!el.dataset.parallax) el.dataset.parallax = String(0.04 + i * 0.02);
     });
@@ -159,6 +138,21 @@
     });
   }
 
+  const getHeaderScrollOffset = () => {
+    // El header ya no es fijo, solo descontamos el alto de la barra inferior móvil si existe
+    const bottomNav = document.querySelector(".mobile-bottom-nav");
+    return bottomNav ? 8 : 8;
+  };
+
+  const scrollToSection = (target) => {
+    const y = Math.max(
+      0,
+      target.getBoundingClientRect().top + window.scrollY - getHeaderScrollOffset()
+    );
+    window.scrollTo({ top: y, behavior: "smooth" });
+    history.pushState(null, "", `#${target.id}`);
+  };
+
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (e) => {
       const id = anchor.getAttribute("href");
@@ -166,9 +160,17 @@
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollToSection(target);
     });
   });
+
+  const initialHash = window.location.hash;
+  if (initialHash) {
+    const initialTarget = document.querySelector(initialHash);
+    if (initialTarget) {
+      requestAnimationFrame(() => scrollToSection(initialTarget));
+    }
+  }
 
   const andalusiaMapContainer = document.getElementById("andalusia-map-container");
   if (andalusiaMapContainer) {
@@ -189,10 +191,148 @@
       })
       .then((svgMarkup) => {
         andalusiaMapContainer.innerHTML = svgMarkup;
+
+        // Tooltip HTML que sigue al cursor
+        const tip = document.createElement("div");
+        tip.id = "province-html-tip";
+        andalusiaMapContainer.appendChild(tip);
+
+        andalusiaMapContainer.addEventListener("mousemove", (e) => {
+          const province = e.target.closest(".province");
+          if (!province) {
+            tip.style.display = "none";
+            return;
+          }
+          const tipEl = province.querySelector(".province-tip div");
+          const text = tipEl ? tipEl.textContent.trim() : province.getAttribute("data-centros") !== null ? province.className.replace(/province(-\w+)?/g, "").trim() : null;
+          if (!text) { tip.style.display = "none"; return; }
+
+          tip.textContent = text;
+          tip.style.display = "block";
+
+          const rect = andalusiaMapContainer.getBoundingClientRect();
+          let x = e.clientX - rect.left + 14;
+          let y = e.clientY - rect.top - 46;
+          const tw = tip.offsetWidth;
+          const th = tip.offsetHeight;
+          if (x + tw > rect.width - 8) x = e.clientX - rect.left - tw - 14;
+          if (y < 4) y = e.clientY - rect.top + 14;
+          if (y + th > rect.height - 4) y = rect.height - th - 6;
+          tip.style.left = x + "px";
+          tip.style.top = y + "px";
+
+          if (province.classList.contains("has-active")) {
+            tip.classList.add("has-active-tip");
+          } else {
+            tip.classList.remove("has-active-tip");
+          }
+        });
+
+        andalusiaMapContainer.addEventListener("mouseleave", () => {
+          tip.style.display = "none";
+        });
       })
       .catch((error) => {
         console.error("Error cargando mapa de Andalucía:", error);
         renderSvgImageFallback();
       });
+  }
+
+  const imageLightbox = document.getElementById("image-lightbox");
+  const imageLightboxImg = document.getElementById("image-lightbox-img");
+
+  if (imageLightbox && imageLightboxImg) {
+    const resolveGalleryImg = (el) => {
+      if (!el) return null;
+      if (el.tagName === "IMG") return el;
+      return el.querySelector("img");
+    };
+
+    const fitLightboxImage = (naturalWidth, naturalHeight) => {
+      const maxW = window.innerWidth * 0.96;
+      const maxH = window.innerHeight * 0.9;
+      const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight);
+      const w = Math.round(naturalWidth * scale);
+      const h = Math.round(naturalHeight * scale);
+
+      imageLightboxImg.style.width = `${w}px`;
+      imageLightboxImg.style.height = `${h}px`;
+      imageLightboxImg.style.maxWidth = "none";
+      imageLightboxImg.style.maxHeight = "none";
+    };
+
+    const openImageLightbox = (thumbImg) => {
+      const src =
+        thumbImg.getAttribute("data-zoom-src") ||
+        thumbImg.currentSrc ||
+        thumbImg.getAttribute("src") ||
+        "";
+      if (!src) return;
+
+      const loader = new Image();
+      loader.onload = () => {
+        imageLightboxImg.src = src;
+        imageLightboxImg.alt = thumbImg.alt || "Ampliación";
+        fitLightboxImage(loader.naturalWidth, loader.naturalHeight);
+        imageLightbox.showModal();
+      };
+      loader.onerror = () => {
+        console.error("No se pudo cargar la imagen:", src);
+      };
+      loader.src = src;
+    };
+
+    const closeImageLightbox = () => {
+      if (imageLightbox.open) {
+        imageLightbox.close();
+      }
+      imageLightboxImg.removeAttribute("src");
+      imageLightboxImg.style.width = "";
+      imageLightboxImg.style.height = "";
+    };
+
+    imageLightbox.addEventListener("close", () => {
+      imageLightboxImg.removeAttribute("src");
+      imageLightboxImg.style.width = "";
+      imageLightboxImg.style.height = "";
+    });
+
+    imageLightbox.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeImageLightbox();
+    });
+
+    imageLightbox.addEventListener("click", (event) => {
+      if (!imageLightboxImg.contains(event.target)) {
+        closeImageLightbox();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest(".gallery-card");
+      if (!trigger || imageLightbox.contains(trigger)) return;
+      const img = resolveGalleryImg(trigger);
+      if (!img) return;
+      event.preventDefault();
+      event.stopPropagation();
+      openImageLightbox(img);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      const trigger = event.target.closest(".gallery-card");
+      if (!trigger || imageLightbox.contains(trigger)) return;
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const img = resolveGalleryImg(trigger);
+      if (!img) return;
+      event.preventDefault();
+      openImageLightbox(img);
+    });
+
+    window.addEventListener("resize", () => {
+      if (!imageLightbox.open || !imageLightboxImg.src) return;
+      const nw = imageLightboxImg.naturalWidth;
+      const nh = imageLightboxImg.naturalHeight;
+      if (nw && nh) fitLightboxImage(nw, nh);
+    });
   }
 </script>

@@ -1,0 +1,86 @@
+---
+/**
+ * Cartera — 3 recuadros en boceto para Repercusión (contenido pendiente de material real).
+ * Para publicar: copiar los <article> en Testimonials.astro dentro de .repercusion-grid
+ */
+const loremTestimonial =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+---
+
+<!-- 1. Video en la escuela -->
+<article class="repercusion-card reveal card-fx shine-border panel-glass" data-reveal-delay="60ms">
+  <span class="badge-glow badge-glow--amber repercusion-card__badge">Video en la escuela</span>
+  <div class="repercusion-card__media">
+    <button
+      type="button"
+      class="video-play-trigger video-frame group relative h-full w-full cursor-pointer border-0 bg-transparent p-0 text-left"
+      data-video-src="/video_acuerdo.mp4"
+      aria-label="Reproducir demostración en vivo en el centro educativo"
+    >
+      <video
+        src="/video_acuerdo.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        class="pointer-events-none h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+      </video>
+      <div
+        class="absolute inset-0 flex items-center justify-center bg-slate-950/35 transition duration-300 group-hover:bg-slate-950/50"
+        aria-hidden="true"
+      >
+        <span
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg ring-4 ring-white/30 transition duration-300 group-hover:scale-110 sm:h-14 sm:w-14"
+        >
+          <svg class="ml-1 h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </span>
+      </div>
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+    </button>
+  </div>
+  <div class="repercusion-card__body">
+    <h3 class="repercusion-card__title">Demostración en vivo</h3>
+    <p class="repercusion-card__text">
+      Una demostración real del uso de Kids&Clouds en el día a día de un centro educativo: comunicación con familias,
+      gestión de alumnos, organización de tareas y acceso rápido a la información desde una única plataforma.
+    </p>
+    <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
+  </div>
+</article>
+
+<!-- 2. Video en familia -->
+<article class="repercusion-card reveal card-fx shine-border panel-glass" data-reveal-delay="120ms">
+  <span class="badge-glow badge-glow--amber repercusion-card__badge">Video en familia</span>
+  <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
+    <span class="repercusion-card__quote-mark">▶</span>
+  </div>
+  <div class="repercusion-card__body">
+    <h3 class="repercusion-card__title">La voz de las familias</h3>
+    <p class="repercusion-card__text">
+      Testimonios reales de madres, padres y tutores sobre cómo Kids&Clouds facilita la comunicación con el centro,
+      reduce la carga organizativa y contribuye a una mejor conciliación familiar.
+    </p>
+    <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
+  </div>
+</article>
+
+<!-- 3. Testimonio docente (boceto ficticio) -->
+<article class="repercusion-card reveal-right card-fx shine-border panel-glass" data-reveal-delay="180ms">
+  <span class="badge-glow badge-glow--amber repercusion-card__badge">Testimonio docente</span>
+  <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
+    <span class="repercusion-card__quote-mark">"</span>
+  </div>
+  <div class="repercusion-card__body">
+    <p class="repercusion-card__text">{loremTestimonial}</p>
+    <div class="repercusion-card__footer">
+      <p class="repercusion-card__name">Nombre Apellido Apellido</p>
+      <p class="repercusion-card__role">Cargo</p>
+      <p class="repercusion-card__role">Nombre centro educativo</p>
+    </div>
+  </div>
+</article>

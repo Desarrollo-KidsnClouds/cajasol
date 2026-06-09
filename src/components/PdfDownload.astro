@@ -1,16 +1,35 @@
 <script>
-  const PDF_PATH = "/Convenio_knc.pdf";
-  const PDF_FILENAME = "Convenio_knc.pdf";
+  const DOWNLOADS = {
+    press: {
+      path: "/Cajasol nota de prensa.docx",
+      filename: "Cajasol nota de prensa.docx",
+    },
+    presentation: {
+      path: "/Cajasol_mkt.pdf",
+      filename: "Cajasol_mkt.pdf",
+    },
+  };
+
+  function triggerDownload(path, filename) {
+    const link = document.createElement("a");
+    link.href = encodeURI(path);
+    link.download = filename;
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 
   document.querySelectorAll("[data-download-pdf]").forEach((button) => {
     button.addEventListener("click", () => {
-      const link = document.createElement("a");
-      link.href = PDF_PATH;
-      link.download = PDF_FILENAME;
-      link.rel = "noopener";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      triggerDownload(DOWNLOADS.press.path, DOWNLOADS.press.filename);
+    });
+  });
+
+  document.querySelectorAll("[data-download-presentation]").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      triggerDownload(DOWNLOADS.presentation.path, DOWNLOADS.presentation.filename);
     });
   });
 </script>

@@ -1,4 +1,3 @@
-/* Tema claro (por defecto) — overrides para el dashboard */
 html:not(.dark) .dashboard-compact {
   color: #475569;
 }
@@ -40,7 +39,7 @@ html:not(.dark) .dashboard-compact .text-blue-400 {
 }
 
 html:not(.dark) .dashboard-compact .text-amber-400 {
-  color: #d97706 !important;
+  color: #c9923a !important;
 }
 
 html:not(.dark) .dashboard-compact .text-emerald-300 {
@@ -128,28 +127,34 @@ html:not(.dark) .dashboard-compact .opacity-\[0\.03\] {
   opacity: 0.06 !important;
 }
 
-/* Mapa Andalucía — modo claro */
+/* Mapa Andalucía — modo claro (slate + ámbar de marca) */
 html:not(.dark) .andalusia-exec .province path {
-  fill: #e2e8f0;
-  stroke: #94a3b8;
+  fill: #f1f5f9;
+  stroke: #cbd5e1;
 }
 
 html:not(.dark) .andalusia-exec .province.has-active path {
-  fill: #3b82f6;
+  fill: #f0b552;
+  stroke: #d99e3f;
 }
 
 html:not(.dark) .andalusia-exec .province.has-active:hover path {
-  fill: #2563eb;
-  stroke: #1d4ed8;
+  fill: #f5c06d;
+  stroke: #c9923a;
+  filter: drop-shadow(0 0 10px rgba(240, 181, 82, 0.35));
 }
 
 html:not(.dark) .andalusia-exec .province.no-active:hover path {
-  fill: #cbd5e1;
-  stroke: #64748b;
+  fill: #e2e8f0;
+  stroke: #818cf8;
 }
 
 html:not(.dark) .andalusia-exec .province-label {
-  fill: #334155;
+  fill: #475569;
+}
+
+html:not(.dark) .andalusia-exec .province.has-active .province-label {
+  fill: #7a571c;
 }
 
 html:not(.dark) .andalusia-exec .province-count {
@@ -167,15 +172,15 @@ html:not(.dark) .andalusia-exec .province-data-item strong {
 }
 
 html:not(.dark) .andalusia-exec .province-data-item--active {
-  border-color: rgba(59, 130, 246, 0.45);
-  background: rgba(59, 130, 246, 0.08);
-  color: #1e293b;
+  border-color: rgba(240, 181, 82, 0.5);
+  background: rgba(240, 181, 82, 0.12);
+  color: #7a571c;
 }
 
 html:not(.dark) .andalusia-exec .province-tip div {
-  color: #0f172a;
-  background: rgba(255, 255, 255, 0.95);
-  border-color: #cbd5e1;
+  color: #7a571c;
+  background: rgba(254, 249, 238, 0.96);
+  border-color: rgba(240, 181, 82, 0.4);
 }
 
 /* Botón tema */
