@@ -111,12 +111,19 @@ const implantedPct = pct(implanted, targetCenters);
       white-space: nowrap;
       font-size: clamp(1rem, 5.5vw, 1.35rem);
     }
+
+    #embudo .funnel-chart-card {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
-  #embudo .funnel-chart-card {
-    width: 105%;
-    max-width: 105%;
-    margin-inline: auto;
+  @media (min-width: 641px) {
+    #embudo .funnel-chart-card {
+      width: 105%;
+      max-width: 105%;
+      margin-inline: auto;
+    }
   }
 
   .funnel-card {

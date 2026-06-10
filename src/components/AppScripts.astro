@@ -40,7 +40,9 @@
     });
 
     document.querySelectorAll("main section:not(#inicio)").forEach((section) => {
-      section.classList.add("scroll-section");
+      if (!window.matchMedia("(max-width: 768px)").matches) {
+        section.classList.add("scroll-section");
+      }
     });
 
     document.querySelectorAll("[data-scroll-stagger], .grid.gap-2, .grid.gap-3, .grid.gap-4").forEach((grid) => {
@@ -50,30 +52,31 @@
     });
 
     const revealObserver = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
           const el = entry.target;
-          if (entry.isIntersecting) {
-            const delay = el.getAttribute("data-reveal-delay");
-            if (delay) el.style.setProperty("--reveal-delay", delay);
-            el.classList.add("is-visible");
-          } else {
-            el.classList.remove("is-visible");
-            el.style.removeProperty("--reveal-delay");
-          }
+          const delay = el.getAttribute("data-reveal-delay");
+          if (delay) el.style.setProperty("--reveal-delay", delay);
+          el.classList.add("is-visible");
+          observer.unobserve(el);
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -4% 0px" }
     );
 
     document
-      .querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .scroll-wow")
+      .querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .scroll-wow, .img-reveal, .img-reveal-left, .img-reveal-right, .img-reveal-zoom"
+      )
       .forEach((el) => revealObserver.observe(el));
 
     const sectionObserver = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
-          entry.target.classList.toggle("is-in-view", entry.isIntersecting);
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in-view");
+          observer.unobserve(entry.target);
         });
       },
       { threshold: 0.08, rootMargin: "0px 0px -5% 0px" }
@@ -81,20 +84,18 @@
     document.querySelectorAll(".scroll-section").forEach((el) => sectionObserver.observe(el));
 
     const staggerObserver = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
           const container = entry.target;
-          if (entry.isIntersecting) {
-            container.classList.add("is-stagger-visible");
-            Array.from(container.children).forEach((child, i) => {
-              child.style.setProperty("--stagger-i", String(i));
-            });
-          } else {
-            container.classList.remove("is-stagger-visible");
-          }
+          container.classList.add("is-stagger-visible");
+          Array.from(container.children).forEach((child, i) => {
+            child.style.setProperty("--stagger-i", String(i));
+          });
+          observer.unobserve(container);
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
     );
     document.querySelectorAll("[data-scroll-stagger]").forEach((el) => staggerObserver.observe(el));
 
@@ -114,28 +115,34 @@
     document.querySelectorAll("[data-parallax]").forEach((el, i) => {
       if (!el.dataset.parallax) el.dataset.parallax = String(0.04 + i * 0.02);
     });
-    let parallaxTicking = false;
-    const updateParallax = () => {
-      const y = window.scrollY;
-      document.querySelectorAll("[data-parallax]").forEach((el) => {
-        const speed = parseFloat(el.dataset.parallax || "0.05");
-        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
-      });
-      parallaxTicking = false;
-    };
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!parallaxTicking) {
-          parallaxTicking = true;
-          requestAnimationFrame(updateParallax);
-        }
-      },
-      { passive: true }
-    );
-    updateParallax();
+    if (!window.matchMedia("(max-width: 768px)").matches) {
+      let parallaxTicking = false;
+      const updateParallax = () => {
+        const y = window.scrollY;
+        document.querySelectorAll("[data-parallax]").forEach((el) => {
+          const speed = parseFloat(el.dataset.parallax || "0.05");
+          el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+        });
+        parallaxTicking = false;
+      };
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!parallaxTicking) {
+            parallaxTicking = true;
+            requestAnimationFrame(updateParallax);
+          }
+        },
+        { passive: true }
+      );
+      updateParallax();
+    }
   } else {
-    document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .scroll-wow").forEach((el) => {
+    document
+      .querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right, .reveal-scale, .scroll-wow, .img-reveal, .img-reveal-left, .img-reveal-right, .img-reveal-zoom"
+      )
+      .forEach((el) => {
       el.classList.add("is-visible");
     });
   }
@@ -281,28 +288,36 @@
     };
 
     const openImageLightbox = (thumbImg) => {
-      const src =
+      const rawSrc =
         thumbImg.getAttribute("data-zoom-src") ||
         thumbImg.currentSrc ||
         thumbImg.getAttribute("src") ||
         "";
-      if (!src) return;
+      if (!rawSrc) return;
 
-      const loader = new Image();
-      loader.onload = () => {
-        imageLightboxImg.src = src;
-        imageLightboxImg.alt = thumbImg.alt || "Ampliación";
-        fitLightboxImage(loader.naturalWidth, loader.naturalHeight);
-        imageLightbox.showModal();
-        if (document.activeElement instanceof HTMLElement) {
-          document.activeElement.blur();
-        }
-        imageLightbox.focus({ preventScroll: true });
+      const tryOpen = (src, attempt = 0) => {
+        const loader = new Image();
+        loader.onload = () => {
+          imageLightboxImg.src = src;
+          imageLightboxImg.alt = thumbImg.alt || "Ampliación";
+          fitLightboxImage(loader.naturalWidth, loader.naturalHeight);
+          imageLightbox.showModal();
+          if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+          imageLightbox.focus({ preventScroll: true });
+        };
+        loader.onerror = () => {
+          if (attempt === 0 && rawSrc !== encodeURI(rawSrc)) {
+            tryOpen(encodeURI(rawSrc), 1);
+            return;
+          }
+          console.error("No se pudo cargar la imagen:", src);
+        };
+        loader.src = src;
       };
-      loader.onerror = () => {
-        console.error("No se pudo cargar la imagen:", src);
-      };
-      loader.src = src;
+
+      tryOpen(rawSrc);
     };
 
     const resetLightboxLayout = () => {

@@ -9,6 +9,10 @@
   --color-brand-dark: #b8942e;
   --color-surface: #0b0b0b;
   --color-border: rgba(212, 175, 55, 0.15);
+  --animate-img-up: img-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-img-left: img-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-img-right: img-right 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-img-zoom: img-zoom 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @import "flowbite/src/themes/default";
@@ -102,6 +106,58 @@ body {
   }
 }
 
+@keyframes img-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.9);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes img-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.92) rotate(-1.5deg);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes img-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.92) rotate(1.5deg);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes img-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.82) translateY(20px);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
 @layer components {
   .animate-float-soft {
     animation: float-soft 5s ease-in-out infinite;
@@ -118,6 +174,35 @@ body {
 
   .animate-spin-slow {
     animation: spin-slow 18s linear infinite;
+  }
+
+  .img-reveal,
+  .img-reveal-left,
+  .img-reveal-right,
+  .img-reveal-zoom {
+    opacity: 0;
+    will-change: transform, opacity, filter;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+
+  .img-reveal.is-visible {
+    animation: var(--animate-img-up);
+  }
+
+  .img-reveal-left.is-visible {
+    animation: var(--animate-img-left);
+  }
+
+  .img-reveal-right.is-visible {
+    animation: var(--animate-img-right);
+  }
+
+  .img-reveal-zoom.is-visible {
+    animation: var(--animate-img-zoom);
+  }
+
+  .img-reveal-hover {
+    @apply transition-transform duration-500 ease-out motion-safe:hover:scale-[1.03];
   }
 
   /* Scroll reveal — entra y sale al hacer scroll */
@@ -205,6 +290,31 @@ body {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
+  }
+
+  @media (max-width: 768px) {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale,
+    .reveal-blur,
+    .scroll-wow,
+    [data-scroll-stagger] > * {
+      filter: none;
+    }
+
+    .reveal.is-visible,
+    .reveal-left.is-visible,
+    .reveal-right.is-visible,
+    .reveal-scale.is-visible,
+    .reveal-blur.is-visible,
+    .scroll-wow.is-visible,
+    .img-reveal.is-visible,
+    .img-reveal-left.is-visible,
+    .img-reveal-right.is-visible,
+    .img-reveal-zoom.is-visible {
+      will-change: auto;
+    }
   }
 
   /* ——— Tarjetas interactivas ——— */
@@ -447,6 +557,10 @@ body {
   .reveal-blur,
   .scroll-wow,
   .scroll-section,
+  .img-reveal,
+  .img-reveal-left,
+  .img-reveal-right,
+  .img-reveal-zoom,
   [data-scroll-stagger] > * {
     opacity: 1;
     transform: none;

@@ -30,7 +30,8 @@
       <div class="repercusion-card__media repercusion-card__media--full-image">
         <button
           type="button"
-          class="gallery-card repercusion-visual group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="180ms"
           aria-label="Ver fases de la alianza a tamaño completo"
         >
           <img
@@ -70,17 +71,41 @@
           En curso
         </span>
       </div>
-      <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
-        <span class="repercusion-card__quote-mark">"</span>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="180ms"
+          aria-label="Ampliar testimonio docente"
+        >
+          <img
+            src="/profesor.png"
+            alt="Profesor en un aula de educación infantil"
+            data-zoom-src="/profesor.png"
+            class="repercusion-visual__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="repercusion-zoom-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
       </div>
       <div class="repercusion-card__body">
+        <h3 class="repercusion-card__title">Lo más bonito de la profesión</h3>
         <p class="repercusion-card__text repercusion-card__text--justify">
-          Llevábamos años buscando una herramienta que unificara la comunicación con las familias sin depender de grupos de WhatsApp ni correos que nadie leía a tiempo. Desde que implantamos Kids&Clouds, la gestión es más ágil, las familias están más implicadas y los tutores dedican menos tiempo a tareas administrativas. Ha sido la decisión más acertada de los últimos tres años.
+          «Trabajar en una guardería es acompañar los primeros pasos, descubrimientos y sonrisas de cada niño.
+          Ver cómo crecen felices cada día es, sin duda, lo más bonito de nuestra profesión.»
         </p>
         <div class="repercusion-card__footer">
-          <p class="repercusion-card__name">María González Herrera</p>
-          <p class="repercusion-card__role">Directora pedagógica</p>
-          <p class="repercusion-card__role">CEIP San Isidoro · Sevilla</p>
+          <p class="repercusion-card__name">Manuel Romero</p>
+          <p class="repercusion-card__role">Educador infantil</p>
+          <p class="repercusion-card__role">Guardería en Sevilla</p>
         </div>
       </div>
     </article>
@@ -94,18 +119,39 @@
           En curso
         </span>
       </div>
-      <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
-        <span class="repercusion-card__quote-mark">"</span>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="200ms"
+          aria-label="Ampliar experiencia de aula"
+        >
+          <img
+            src="/experiencia.png"
+            alt="Experiencia de aula acogedora con alumnos y docente"
+            data-zoom-src="/experiencia.png"
+            class="repercusion-visual__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="repercusion-zoom-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
       </div>
       <div class="repercusion-card__body">
+        <h3 class="repercusion-card__title">Un aula acogedora y participativa</h3>
         <p class="repercusion-card__text repercusion-card__text--justify">
-          Al principio tenía mis dudas, pero Kids&Clouds resultó ser mucho más sencilla de lo esperado. En menos de una semana todo el equipo la usaba con soltura. Las familias agradecen la comunicación ordenada y sin ruido. Ha cambiado la dinámica del aula para mejor.
+          La experiencia en el aula se vive con cercanía, ilusión y un ambiente agradable en el que
+          los niños aprenden, participan y se sienten acompañados. Kids&Clouds permite que las familias
+          compartan ese día a día educativo de forma sencilla y cercana.
         </p>
-        <div class="repercusion-card__footer">
-          <p class="repercusion-card__name">Javier Ruiz Montoya</p>
-          <p class="repercusion-card__role">Tutor de 4.º de Primaria</p>
-          <p class="repercusion-card__role">Colegio Ntra. Sra. del Carmen · Málaga</p>
-        </div>
+        <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
       </div>
     </article>
   </div>

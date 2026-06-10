@@ -43,12 +43,18 @@
           </svg>
           Descargar Nota de Prensa
         </button>
-        <a
-          href="#presentacion"
-          class="card-fx panel-glass inline-flex rounded-xl px-5 py-2.5 text-sm font-semibold text-[#D4AF37] hover:!scale-[1.02]"
+        <button
+          type="button"
+          data-download-presentation
+          class="card-fx panel-glass no-print inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-[#D4AF37] hover:!scale-[1.02]"
         >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
           Ver presentación
-        </a>
+        </button>
       </div>
     </div>
 
@@ -88,7 +94,8 @@
     <div class="hero-product-shots col-span-full mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
       <button
         type="button"
-        class="gallery-card hero-product-shot group cursor-zoom-in border-0 bg-transparent p-0"
+        class="gallery-card hero-product-shot img-reveal-left img-reveal-hover group cursor-zoom-in border-0 bg-transparent p-0"
+        data-reveal-delay="0ms"
         aria-label="Ampliar captura de experiencia de aula"
       >
         <img
@@ -118,7 +125,8 @@
       </button>
       <button
         type="button"
-        class="gallery-card hero-product-shot group cursor-zoom-in border-0 bg-transparent p-0"
+        class="gallery-card hero-product-shot img-reveal-right img-reveal-hover group cursor-zoom-in border-0 bg-transparent p-0"
+        data-reveal-delay="120ms"
         aria-label="Ampliar captura de comunicación con familias"
       >
         <img
