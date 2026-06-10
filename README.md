@@ -79,7 +79,7 @@ El flujo es siempre el mismo, tres comandos:
 ```bash
 git add .
 git commit -m "descripción de lo que has cambiado"
-git push origin main
+git push 
 ```
 
 En cuanto subes el código a GitHub (`git push`), **Vercel lo detecta automáticamente y publica la nueva versión** en la web en aproximadamente 1 minuto. No hay que hacer nada más.
@@ -88,41 +88,76 @@ La web no necesita ninguna contraseña ni clave secreta para funcionar.
 
 ---
 
-## ¿Cómo pasarlo a la cuenta de la empresa? (Migración)
+## Repositorio y despliegue en la cuenta de empresa
 
-Ahora mismo el proyecto está en una cuenta personal. Para pasarlo a la empresa:
 
-**Paso 1 — Mover el código a GitHub de empresa**
+
+---
+
+
+
+### Paso 1 — Subir el código al repositorio
+
+Abre una terminal en la carpeta del proyecto y ejecuta estos comandos uno a uno:
+
 ```bash
-git remote remove origin
-git remote add origin https://github.com/TU-EMPRESA/cajasol.git
+# Inicializar Git en la carpeta (solo si no está ya inicializado)
+git init
+
+# Apuntar al repositorio de empresa 
+git remote add origin https://github.com/Desarrollo-KidsnClouds/knc_app.git
+
+# Añadir todos los archivos
+git add .
+
+# Crear el primer commit (instantánea del proyecto)
+git commit -m "primer commit"
+
+# Subir el código a GitHub
 git push -u origin main
 ```
 
-**Paso 2 — Conectar Vercel a ese nuevo repositorio**
+> Si Git te pide usuario y contraseña de GitHub, introduce los de la cuenta de empresa. Si falla la autenticación, GitHub recomienda usar un **Personal Access Token** en lugar de contraseña: puedes crearlo en *GitHub → Settings → Developer settings → Personal access tokens*.
+
+Cuando termine, entra en [github.com/Desarrollo-KidsnClouds/knc_app](https://github.com/Desarrollo-KidsnClouds/knc_app) y verás todos los archivos del proyecto ahí.
+
+---
+
+### Paso 3 — Conectar Vercel al repositorio
+
+Vercel es quien toma el código de GitHub y lo convierte en una web pública automáticamente.
+
 1. Entrar en [vercel.com](https://vercel.com) con la cuenta de empresa
-2. `Add New Project` → `Import Git Repository` → seleccionar `cajasol`
-3. Configuración (Vercel lo detecta solo, pero por si acaso):
-   - Framework: **Astro**
-   - Build command: `npm run build`
-   - Output directory: `dist`
-4. Pulsar **Deploy** → listo
+2. Pulsar **"Add New Project"**
+3. En la sección *Import Git Repository*, seleccionar **GitHub** y autorizar el acceso a la organización/empresa
+4. Buscar y seleccionar el repositorio `cajasol`
+5. Vercel detecta que es un proyecto Astro solo. Confirmar la configuración:
+   - Framework Preset: **Astro**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+6. Pulsar **"Deploy"**
 
-**Paso 3 — Enlazar desde WordPress con el plugin Redirection**
+Vercel tardará ~1 minuto en construir y publicar la web. Al terminar te dará una URL del estilo `cajasol.vercel.app`. **La web ya está publicada.**
 
-La forma más sencilla si ya tienes una web en WordPress. No hay que tocar DNS ni configurar nada técnico.
+A partir de ahora, cada `git push` que hagas actualizará la web automáticamente.
+
+---
+
+### Paso 4 —  Enlazar desde WordPress con el plugin Redirection
+
+El objetivo es que la web sea accesible en `kidsandclouds.es/cajasol`. Para conseguirlo sin tocar el dominio principal ni la web de WordPress:
 
 1. En WordPress, instalar el plugin gratuito **"Redirection"** (si no lo tienes ya)
 2. Ir a **Herramientas → Redirection → Añadir nueva**
 3. Rellenar:
-   - **URL de origen:** `/cajasol` *(o la ruta que quieras, ej: `/dashboard`)*
-   - **URL de destino:** la URL de Vercel donde está el dashboard *(ej: `https://cajasol.vercel.app`)*
+   - **URL de origen:** `/cajasol`
+   - **URL de destino:** la URL de Vercel donde está publicado el dashboard *(ej: `https://cajasol.vercel.app`)*
 4. Tipo de redirección: **301 (Permanente)** → así Google no penaliza el posicionamiento
 5. Guardar → funciona al instante
 
-Con esto, cualquiera que entre a `tuweb.es/cajasol` será redirigido automáticamente al dashboard.
+A partir de ese momento, cualquiera que entre a `kidsandclouds.es/cajasol` será redirigido automáticamente al dashboard.
 
-> Esta es la opción más rápida. No requiere tocar DNS, no afecta a nada del sitio WordPress actual y se puede deshacer en cualquier momento desde el mismo plugin.
+> No requiere tocar DNS, no afecta al resto del sitio WordPress y se puede deshacer en cualquier momento desde el mismo plugin.
 
 ---
 
