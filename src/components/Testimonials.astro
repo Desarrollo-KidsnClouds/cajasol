@@ -62,8 +62,29 @@
           En curso
         </span>
       </div>
-      <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
-        <span class="repercusion-card__quote-mark">"</span>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual group h-full w-full cursor-pointer border-0 bg-transparent p-0"
+          aria-label="Ver testimonio docente a tamaño completo"
+        >
+          <img
+            src="/imagen1_claro.png"
+            alt="Testimonio docente"
+            data-zoom-src="/imagen1_claro.png"
+            class="repercusion-visual__img theme-img theme-img--light"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/imagen1_oscuro.png"
+            alt="Testimonio docente"
+            data-zoom-src="/imagen1_oscuro.png"
+            class="repercusion-visual__img theme-img theme-img--dark"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
       </div>
       <div class="repercusion-card__body">
         <p class="repercusion-card__text repercusion-card__text--justify">
@@ -86,8 +107,29 @@
           En curso
         </span>
       </div>
-      <div class="repercusion-card__media repercusion-card__media--quote" aria-hidden="true">
-        <span class="repercusion-card__quote-mark">"</span>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual group h-full w-full cursor-pointer border-0 bg-transparent p-0"
+          aria-label="Ver experiencia de aula a tamaño completo"
+        >
+          <img
+            src="/imagen2_claro.png"
+            alt="Experiencia de aula"
+            data-zoom-src="/imagen2_claro.png"
+            class="repercusion-visual__img theme-img theme-img--light"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="/imagen2_oscuro.png"
+            alt="Experiencia de aula"
+            data-zoom-src="/imagen2_oscuro.png"
+            class="repercusion-visual__img theme-img theme-img--dark"
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
       </div>
       <div class="repercusion-card__body">
         <p class="repercusion-card__text repercusion-card__text--justify">
@@ -365,6 +407,19 @@
     object-fit: contain;
     object-position: center center;
     transition: opacity 0.3s ease;
+  }
+
+  /* Cambio de imagen según modo claro/oscuro */
+  .theme-img--dark {
+    display: none;
+  }
+
+  html.dark .theme-img--light {
+    display: none;
+  }
+
+  html.dark .theme-img--dark {
+    display: block;
   }
 
   .repercusion-visual:hover .repercusion-visual__img {

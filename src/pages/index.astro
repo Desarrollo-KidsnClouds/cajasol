@@ -18,6 +18,7 @@ import PdfDownload from "../components/PdfDownload.astro";
   title="Kids&Clouds para Cajasol | Dashboard"
   description="Dashboard ejecutivo de seguimiento territorial para el proyecto Kids&Clouds."
 >
+  <Header />
   <main class="dashboard-compact relative min-h-screen overflow-x-hidden bg-slate-50 text-base leading-relaxed text-slate-600 dark:bg-[#0b0b0b] dark:text-[#a8a8a8]">
     <div class="pointer-events-none fixed inset-0 -z-10 hidden dark:block bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.05),transparent_60%)]"></div>
     <div
@@ -25,7 +26,6 @@ import PdfDownload from "../components/PdfDownload.astro";
       style="background-image: linear-gradient(rgba(212,175,55,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.4) 1px, transparent 1px); background-size: 64px 64px;"
     ></div>
     <div class="pointer-events-none fixed inset-0 -z-10 dark:hidden bg-[radial-gradient(ellipse_at_15%_0%,rgba(59,130,246,0.1),transparent_55%),radial-gradient(ellipse_at_85%_15%,rgba(139,92,246,0.07),transparent_50%)]"></div>
-    <Header />
     <Hero />
     <PresentationVisuals />
     {/* <Objectives /> */}
@@ -66,7 +66,7 @@ import PdfDownload from "../components/PdfDownload.astro";
       </div>
     </div>
 
-    <dialog id="image-lightbox" class="image-lightbox" aria-label="Vista ampliada de imagen">
+    <dialog id="image-lightbox" class="image-lightbox" aria-label="Vista ampliada de imagen" tabindex="-1">
       <div class="image-lightbox__body">
         <img id="image-lightbox-img" alt="" />
       </div>

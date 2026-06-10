@@ -70,7 +70,32 @@ npm run build      # Genera la versión final de producción (carpeta /dist)
 npm run preview    # Previsualiza esa versión final en local
 ```
 
+---
 
+## Desplegar cambios manualmente
+
+Si prefieres publicar directamente desde tu máquina sin pasar por Git, usa el CLI de Vercel:
+
+```bash
+vercel --prod
+```
+
+Este comando construye el proyecto y lo sube a producción en ~1 minuto. Al terminar, el resultado es visible en:
+
+**[cajasol.vercel.app](https://cajasol.vercel.app)**
+
+> **Requisito previo:** tener el CLI instalado y la sesión iniciada. Si es la primera vez:
+> ```bash
+> npm install -g vercel   # instalar el CLI (solo una vez)
+> vercel login            # iniciar sesión con la cuenta de empresa
+> ```
+
+| Comando | Qué hace |
+|---|---|
+| `vercel` | Despliega en una URL de previsualización (para probar antes de publicar) |
+| `vercel --prod` | Despliega directamente en producción → `cajasol.vercel.app` |
+
+---
 
 ## Repositorio y despliegue en la cuenta de empresa
 

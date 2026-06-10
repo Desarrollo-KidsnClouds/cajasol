@@ -20,10 +20,12 @@
     applyTheme(!document.documentElement.classList.contains("dark"));
   });
 
-  const siteHeader = document.querySelector("header");
+  const siteHeader = document.querySelector(".site-header");
+  const siteHeaderInner = document.querySelector(".site-header-inner");
 
   const onScroll = () => {
-    siteHeader?.classList.toggle("header-scrolled", window.scrollY > 16);
+    const scrolled = window.scrollY > 16;
+    siteHeaderInner?.classList.toggle("header-scrolled", scrolled);
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -139,9 +141,11 @@
   }
 
   const getHeaderScrollOffset = () => {
-    // El header ya no es fijo, solo descontamos el alto de la barra inferior móvil si existe
-    const bottomNav = document.querySelector(".mobile-bottom-nav");
-    return bottomNav ? 8 : 8;
+    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
+    if (isDesktop && siteHeader) {
+      return siteHeader.getBoundingClientRect().height + 20;
+    }
+    return 8;
   };
 
   const scrollToSection = (target) => {
@@ -245,7 +249,18 @@
     const resolveGalleryImg = (el) => {
       if (!el) return null;
       if (el.tagName === "IMG") return el;
-      return el.querySelector("img");
+      const imgs = Array.from(el.querySelectorAll("img"));
+      if (imgs.length === 0) return null;
+      if (imgs.length === 1) return imgs[0];
+
+      const visibleImg = imgs.find((img) => getComputedStyle(img).display !== "none");
+      if (visibleImg) return visibleImg;
+
+      const isDark = document.documentElement.classList.contains("dark");
+      return (
+        el.querySelector(isDark ? ".theme-img--dark" : ".theme-img--light") ||
+        imgs[0]
+      );
     };
 
     const fitLightboxImage = (naturalWidth, naturalHeight) => {
@@ -275,6 +290,10 @@
         imageLightboxImg.alt = thumbImg.alt || "Ampliación";
         fitLightboxImage(loader.naturalWidth, loader.naturalHeight);
         imageLightbox.showModal();
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+        imageLightbox.focus({ preventScroll: true });
       };
       loader.onerror = () => {
         console.error("No se pudo cargar la imagen:", src);
@@ -289,6 +308,9 @@
       imageLightboxImg.removeAttribute("src");
       imageLightboxImg.style.width = "";
       imageLightboxImg.style.height = "";
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
     };
 
     imageLightbox.addEventListener("close", () => {
@@ -315,6 +337,9 @@
       if (!img) return;
       event.preventDefault();
       event.stopPropagation();
+      if (trigger instanceof HTMLElement) {
+        trigger.blur();
+      }
       openImageLightbox(img);
     });
 
