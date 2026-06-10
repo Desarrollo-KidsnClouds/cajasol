@@ -5,6 +5,7 @@ import Hero from "../components/Hero.astro";
 import PresentationVisuals from "../components/PresentationVisuals.astro";
 import Objectives from "../components/Objectives.astro";
 import ConversionFunnel from "../components/ConversionFunnel.astro";
+import ProductShowcase from "../components/ProductShowcase.astro";
 import Map from "../components/Map.astro";
 import Testimonials from "../components/Testimonials.astro";
 import AlliesEcosystem from "../components/AlliesEcosystem.astro";
@@ -30,6 +31,7 @@ import PdfDownload from "../components/PdfDownload.astro";
     <PresentationVisuals />
     {/* <Objectives /> */}
     <ConversionFunnel />
+    <ProductShowcase />
     <Map />
     <AlliesEcosystem />
     <Testimonials />
@@ -68,7 +70,19 @@ import PdfDownload from "../components/PdfDownload.astro";
 
     <dialog id="image-lightbox" class="image-lightbox" aria-label="Vista ampliada de imagen" tabindex="-1">
       <div class="image-lightbox__body">
-        <img id="image-lightbox-img" alt="" />
+        <button
+          id="close-image-lightbox"
+          type="button"
+          class="image-lightbox__close"
+          aria-label="Cerrar imagen"
+        >
+          ✕
+        </button>
+        <div class="image-lightbox__content">
+          <div id="image-lightbox-frame" class="image-lightbox__frame">
+            <img id="image-lightbox-img" alt="" />
+          </div>
+        </div>
       </div>
     </dialog>
 

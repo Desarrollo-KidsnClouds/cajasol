@@ -3,14 +3,13 @@ const stages = [
   { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 296, conv: null,  convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
   { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 80,  conv: "27%", convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
   { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 45,  conv: "56%", convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
-  { label: "Firmados",           legendLabel: "Centros firmados",                value: 16,  conv: "36%", convNote: "de reuniones",                  fill: "#0d9488", fillLight: "#2dd4bf", icon: "✍️" },
-  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 15,  conv: "94%", convNote: "de firmados",                   fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
+  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 16,  conv: "36%", convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
 ];
 
 const targetCenters = 70;
 const implanted = stages[stages.length - 1].value;
 const n = stages.length;
-const ROW_H = 66;
+const ROW_H = 69;
 const GAP   = 4;
 
 function pct(num: number, den: number) {
@@ -41,7 +40,7 @@ const implantedPct = pct(implanted, targetCenters);
     <h2 class="section-title mt-1">Del contacto a la implantación</h2>
   </header>
 
-  <div class="reveal-scale card-fx shine-border panel-glass p-4">
+  <div class="funnel-chart-card reveal-scale card-fx shine-border panel-glass p-4">
 
     <!-- Barra de progreso resumen -->
     <div class="mb-4 flex items-center gap-3">
@@ -114,6 +113,12 @@ const implantedPct = pct(implanted, targetCenters);
     }
   }
 
+  #embudo .funnel-chart-card {
+    width: 105%;
+    max-width: 105%;
+    margin-inline: auto;
+  }
+
   .funnel-card {
     background: rgba(248,250,252,0.9);
     border-top: 1px solid rgba(226,232,240,0.8);
@@ -174,7 +179,7 @@ const implantedPct = pct(implanted, targetCenters);
 
   .fc-num {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.47rem;
     font-weight: 800;
     line-height: 1;
     display: block;
@@ -191,8 +196,8 @@ const implantedPct = pct(implanted, targetCenters);
   /* ── Grid principal ── */
   .funnel-main-grid {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 12px;
+    grid-template-columns: 210px 1fr;
+    gap: 13px;
   }
 
   .funnel-pyramid-col,
@@ -204,7 +209,7 @@ const implantedPct = pct(implanted, targetCenters);
 
   /* ── Fila (misma altura en ambas columnas) ── */
   .funnel-row {
-    min-height: 62px;
+    min-height: 65px;
     flex: 1;
   }
 
@@ -216,7 +221,7 @@ const implantedPct = pct(implanted, targetCenters);
   }
 
   /* ── Texto pirámide ── */
-  .pyr-val { font-size: 1.1rem; }
+  .pyr-val { font-size: 1.155rem; }
   .pyr-lbl { font-size: 0.55rem; }
 
   /* ── Tablet ── */

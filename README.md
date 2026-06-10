@@ -132,7 +132,7 @@ Cuando termine, entra en [github.com/Desarrollo-KidsnClouds/knc_app](https://git
 
 ---
 
-### Paso 2 — Conectar Vercel al repositorio
+### Paso 2 — Conectar Vercel al repositorio 
 
 Vercel es quien toma el código de GitHub y lo convierte en una web pública automáticamente.
 
