@@ -1,11 +1,11 @@
 ---
 const provinces = [
   { name: "Huelva", count: 0 },
-  { name: "Sevilla", count: 6 },
-  { name: "Cádiz", count: 3 },
-  { name: "Córdoba", count: 2 },
+  { name: "Sevilla", count: 14 },
+  { name: "Cádiz", count: 0 },
+  { name: "Córdoba", count: 1 },
   { name: "Jaén", count: 0 },
-  { name: "Málaga", count: 4 },
+  { name: "Málaga", count: 1 },
   { name: "Granada", count: 0 },
   { name: "Almería", count: 0 },
 ];
@@ -21,21 +21,10 @@ const provinces = [
   </header>
 
   <div class="reveal-scale card-fx shine-border map-stage panel-glass overflow-hidden shadow-xl dark:bg-[#0a111e] dark:shadow-2xl dark:shadow-black/40">
-    <div class="map-stage-toolbar flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 px-4 py-2.5">
-      <div class="map-command inline-flex max-w-full items-center gap-2 rounded-xl border border-slate-600/40 bg-slate-900/70 px-3 py-2 text-xs font-bold text-slate-200 backdrop-blur sm:text-sm">
+    <div class="map-stage-toolbar border-b border-slate-200 px-4 py-2.5 dark:border-slate-700/80">
+      <div class="map-command inline-flex w-full max-w-full flex-wrap items-center gap-2 rounded-xl border border-slate-600/40 bg-slate-900/70 px-3 py-2 text-sm font-bold leading-snug text-slate-200 backdrop-blur sm:text-base dark:border-slate-600/50 dark:bg-slate-800/80">
         <span class="status-led"></span>
         <span>Estatus del Proyecto: 16 Centros Firmados y 75 en Gestión</span>
-      </div>
-
-      <div class="map-legend-premium shrink-0 rounded-xl border border-slate-600/30 bg-slate-900/70 p-2.5 backdrop-blur">
-        <div class="legend-row flex items-center gap-2 text-xs text-slate-300">
-          <span class="legend-chip active h-2.5 w-2.5 rounded-full bg-blue-500"></span>
-          Provincia con centros activos
-        </div>
-        <div class="legend-row mt-2 flex items-center gap-2 text-xs text-slate-300">
-          <span class="legend-chip onboarding h-2.5 w-2.5 rounded-full bg-amber-500"></span>
-          Próxima fase / sin activos
-        </div>
       </div>
     </div>
 
@@ -47,29 +36,55 @@ const provinces = [
       <svg class="andalusia-svg mx-auto h-full w-full max-h-[400px]" viewBox="0 0 963.58722 560.20435" role="img" aria-label="Cargando silueta de Andalucía">
         <text x="50%" y="50%" text-anchor="middle" fill="#94a3b8" font-size="16">Cargando mapa de Andalucía...</text>
       </svg>
+      <div id="province-html-tip"></div>
     </div>
 
-    <div class="map-stage-footer border-t border-slate-800/80 bg-slate-950/40 px-3 py-3">
-      <p class="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">Centros activos por provincia</p>
-      <div
-        class="province-data-panel grid grid-cols-2 gap-2 sm:grid-cols-4"
-        aria-label="Centros activos por provincia"
-      >
-        {
-          provinces.map((province) => (
-            <div
-              class:list={[
-                "province-data-item transition duration-300 hover:scale-[1.02]",
-                province.count > 0 && "province-data-item--active",
-              ]}
-            >
-              <strong>{province.name}:</strong> {province.count} activos
-            </div>
-          ))
-        }
+    <div class="map-stage-footer border-t border-slate-800/80 bg-slate-950/40 px-4 py-4 dark:border-slate-700/80 dark:bg-[#0a111e]">
+
+      <!-- Centros por provincia -->
+      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-slate-400 dark:text-slate-400">Centros activos por provincia</p>
+      <div class="province-data-panel grid grid-cols-2 gap-2 sm:grid-cols-4" aria-label="Centros activos por provincia">
+        {provinces.map((province) => (
+          <div class:list={["province-data-item transition duration-300 hover:scale-[1.02]", province.count > 0 && "province-data-item--active"]}>
+            <strong>{province.name}:</strong> {province.count} activos
+          </div>
+        ))}
+      </div>
+
+      <!-- Separador -->
+      <div class="my-3 border-t border-slate-700/30"></div>
+
+      <!-- Alumnos por provincia -->
+      <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-slate-400 dark:text-slate-400">Alumnos incorporados por provincia</p>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+
+        <div class="alumni-card flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700/40 dark:bg-slate-800/30">
+          <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Sevilla</span>
+          <span class="font-extrabold text-slate-900 dark:text-white" style="font-family:'Poppins'; font-size:1.1rem;">898</span>
+        </div>
+
+        <div class="alumni-card flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700/40 dark:bg-slate-800/30">
+          <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Málaga</span>
+          <span class="font-extrabold text-slate-900 dark:text-white" style="font-family:'Poppins'; font-size:1.1rem;">70</span>
+        </div>
+
+        <div class="alumni-card flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700/40 dark:bg-slate-800/30">
+          <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">Córdoba</span>
+          <span class="font-extrabold text-slate-900 dark:text-white" style="font-family:'Poppins'; font-size:1.1rem;">30</span>
+        </div>
+
+        <div class="alumni-card flex flex-col gap-1 rounded-lg border border-[#D4AF37]/35 bg-[#D4AF37]/8 px-3 py-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm font-semibold text-[#f0b552]">Total</span>
+            <span class="font-extrabold text-[#f0b552]" style="font-family:'Poppins'; font-size:1.1rem;">998</span>
+          </div>
+          <span class="w-fit rounded-md border border-[#D4AF37]/25 bg-[#D4AF37]/10 px-1.5 py-0.5 text-[10px] font-bold text-[#f0b552]">16 centros</span>
+        </div>
+
       </div>
     </div>
   </div>
+
 </section>
 
 <style is:global>
@@ -77,37 +92,44 @@ const provinces = [
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+    background: #f0b552;
+    box-shadow: 0 0 0 0 rgba(240, 181, 82, 0.75);
     animation: led-pulse 1.8s infinite;
   }
 
   @keyframes led-pulse {
     0% {
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
+      box-shadow: 0 0 0 0 rgba(240, 181, 82, 0.75);
     }
     80% {
-      box-shadow: 0 0 0 12px rgba(34, 197, 94, 0);
+      box-shadow: 0 0 0 12px rgba(240, 181, 82, 0);
     }
     100% {
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      box-shadow: 0 0 0 0 rgba(240, 181, 82, 0);
     }
   }
 
   .andalusia-exec .province-data-item {
     border-radius: 8px;
-    padding: 6px 8px;
-    font-size: 11px;
-    line-height: 1.25;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 1.4;
     color: #cbd5e1;
     background: rgba(30, 41, 59, 0.6);
     border: 1px solid rgba(148, 163, 184, 0.2);
   }
 
+  @media (min-width: 640px) {
+    .andalusia-exec .province-data-item {
+      font-size: 15px;
+      padding: 8px 12px;
+    }
+  }
+
   .andalusia-exec .province-data-item--active {
-    border-color: rgba(59, 130, 246, 0.45);
-    background: rgba(29, 78, 216, 0.15);
-    color: #e2e8f0;
+    border-color: rgba(240, 181, 82, 0.45);
+    background: rgba(201, 146, 58, 0.22);
+    color: #fdf0d6;
   }
 
   .andalusia-exec .province-data-item strong {
@@ -115,70 +137,170 @@ const provinces = [
     font-weight: 700;
   }
 
+  html.dark .andalusia-exec .province-data-item {
+    color: #94a3b8;
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  html.dark .andalusia-exec .province-data-item--active {
+    color: #fdf0d6;
+    background: rgba(240, 181, 82, 0.18);
+    border-color: rgba(240, 181, 82, 0.5);
+  }
+
+  html.dark .andalusia-exec .province-data-item strong {
+    color: #f1f5f9;
+  }
+
+  /* Modo oscuro: más contraste sobre fondo #0a111e */
+  html.dark .andalusia-exec .province path {
+    fill: #3d4f66;
+    stroke: #94a3b8;
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+  }
+
+  html.dark .andalusia-exec .province.has-active path {
+    fill: #d99e3f;
+    stroke: #f0b552;
+  }
+
+  html.dark .andalusia-exec .province.has-active:hover path {
+    fill: #f0b552;
+    stroke: #f8cf85;
+    filter: drop-shadow(0 0 18px rgba(240, 181, 82, 0.65));
+  }
+
+  html.dark .andalusia-exec .province.no-active:hover path {
+    fill: #4b5e78;
+    stroke: #a5b4fc;
+  }
+
+  html.dark .andalusia-exec .province-label {
+    fill: #f1f5f9;
+    font-size: 15px;
+    font-weight: 700;
+    text-anchor: middle;
+    pointer-events: none;
+    paint-order: stroke fill;
+    stroke: rgba(15, 23, 42, 0.85);
+    stroke-width: 2.5px;
+  }
+
+  html.dark .andalusia-exec .province.has-active .province-label {
+    fill: #ffffff;
+    stroke: rgba(120, 53, 15, 0.9);
+  }
+
+  html.dark .andalusia-exec .province-count {
+    fill: #0f172a;
+    font-size: 17px;
+    font-weight: 800;
+    text-anchor: middle;
+    pointer-events: none;
+    paint-order: stroke fill;
+    stroke: rgba(255, 255, 255, 0.35);
+    stroke-width: 1px;
+  }
+
+  /* Fallback si no hay clase dark en html (mismos valores legibles) */
   .andalusia-exec .province path {
-    fill: #1e293b;
-    stroke: #475569;
-    stroke-width: 1.2;
+    fill: #3d4f66;
+    stroke: #94a3b8;
+    stroke-width: 1.4;
     stroke-linejoin: round;
     stroke-linecap: round;
     transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
   }
 
   .andalusia-exec .province.has-active path {
-    fill: #1d4ed8;
+    fill: #d99e3f;
+    stroke: #f0b552;
   }
 
   .andalusia-exec .province.has-active:hover path {
-    fill: #3b82f6;
-    stroke: #93c5fd;
-    filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5));
+    fill: #f0b552;
+    stroke: #f8cf85;
+    filter: drop-shadow(0 0 18px rgba(240, 181, 82, 0.65));
   }
 
   .andalusia-exec .province.no-active:hover path {
-    fill: #334155;
-    stroke: #64748b;
+    fill: #4b5e78;
+    stroke: #a5b4fc;
   }
 
   .andalusia-exec .province-label {
-    fill: #e2e8f0;
-    font-size: 10px;
-    font-weight: 600;
+    fill: #f1f5f9;
+    font-size: 15px;
+    font-weight: 700;
     text-anchor: middle;
     pointer-events: none;
+    paint-order: stroke fill;
+    stroke: rgba(15, 23, 42, 0.85);
+    stroke-width: 2.5px;
+  }
+
+  .andalusia-exec .province.has-active .province-label {
+    fill: #ffffff;
+    stroke: rgba(120, 53, 15, 0.9);
   }
 
   .andalusia-exec .province-count {
-    fill: #f8fafc;
-    font-size: 12px;
-    font-weight: 700;
+    fill: #0f172a;
+    font-size: 17px;
+    font-weight: 800;
     text-anchor: middle;
     pointer-events: none;
   }
 
+  /* Ocultar los foreignObject tooltips del SVG — sustituidos por tooltip HTML */
   .andalusia-exec .province-tip {
-    opacity: 0;
-    transform: translateY(6px);
-    transition: all 0.25s ease;
-    pointer-events: none;
+    display: none !important;
   }
 
-  .andalusia-exec .province:hover .province-tip {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .andalusia-exec .province-tip div {
-    display: inline-block;
-    padding: 6px 10px;
+  /* Tooltip HTML que sigue al cursor */
+  #province-html-tip {
+    position: absolute;
+    display: none;
+    padding: 7px 13px;
     border-radius: 9px;
-    color: #f8fafc;
-    font-size: 11px;
+    color: #fffbeb;
+    font-size: 13px;
     font-weight: 700;
-    background: rgba(10, 17, 30, 0.7);
-    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(240, 181, 82, 0.55);
     backdrop-filter: blur(8px);
+    pointer-events: none;
+    z-index: 50;
     white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    transition: opacity 0.15s ease;
   }
+  html.dark #province-html-tip {
+    background: rgba(15, 23, 42, 0.97);
+    border-color: rgba(240, 181, 82, 0.5);
+  }
+  #province-html-tip.has-active-tip {
+    border-color: #f0b552;
+    background: rgba(122, 87, 28, 0.92);
+  }
+
+  .alumni-card {
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .alumni-card:hover {
+    border-color: rgba(240, 181, 82, 0.6) !important;
+    background: rgba(240, 181, 82, 0.08) !important;
+    box-shadow: 0 0 0 1px rgba(240, 181, 82, 0.25), 0 4px 16px rgba(240, 181, 82, 0.15);
+  }
+  .alumni-card:hover p {
+    color: #f0b552 !important;
+  }
+
 
   .andalusia-exec .andalusia-svg {
     width: 100%;
@@ -193,3 +315,34 @@ const provinces = [
     max-height: min(400px, 48vh);
   }
 </style>
+
+<!-- ── Impacto en familias ── -->
+<div class="reveal mx-auto mt-6 w-full max-w-6xl px-5">
+
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+    <div class="flex flex-wrap items-center gap-3">
+      <p class="section-eyebrow section-eyebrow--amber">Impacto en familias andaluzas</p>
+      <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">
+        Familias beneficiadas <span class="font-extrabold text-[#f0b552]" style="font-family:'Poppins';">823</span><span class="text-slate-400 dark:text-slate-500"> / 3.500</span>
+      </span>
+    </div>
+    <span class="text-xl font-extrabold text-[#f0b552]" style="font-family:'Poppins';">23,5%</span>
+  </div>
+
+  <!-- Barra -->
+  <div class="relative h-3 w-full rounded-full bg-slate-100 dark:bg-slate-800" style="margin-top: 2rem;">
+    <!-- Relleno -->
+    <div class="h-full rounded-full" style="width:23.5%; background:linear-gradient(90deg,#f0b552,#b45309); box-shadow:0 0 10px rgba(240,181,82,0.45);"></div>
+    <!-- Punto + etiqueta -->
+    <div class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style="left:23.5%;">
+      <div class="h-5 w-5 rounded-full border-2 border-white bg-[#f0b552] shadow-[0_0_10px_rgba(240,181,82,0.8)] dark:border-slate-900"></div>
+      <span class="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#f0b552] px-2.5 py-0.5 text-xs font-extrabold text-white shadow-md" style="font-family:'Poppins';">823</span>
+    </div>
+  </div>
+
+  <div class="mt-2 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
+    <span>0 familias</span>
+    <span>3.500 familias</span>
+  </div>
+
+</div>

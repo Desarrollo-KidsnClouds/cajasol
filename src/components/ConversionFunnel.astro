@@ -1,204 +1,259 @@
 ---
 const stages = [
-  { label: "Centros contactados", value: 296, fill: "#64748b", fillLight: "#94a3b8", conv: null },
-  { label: "Webinars realizados", value: 54, fill: "#3b82f6", fillLight: "#60a5fa", conv: "18,2%" },
-  { label: "Demos de presentación", value: 45, fill: "#6366f1", fillLight: "#818cf8", conv: "83,3%" },
-  { label: "Centros firmados", value: 16, fill: "#8b5cf6", fillLight: "#a78bfa", conv: "35,6%" },
-  { label: "Centros implantados", value: 15, fill: "#10b981", fillLight: "#34d399", conv: "93,8%" },
+  { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 296, conv: null,  convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
+  { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 80,  conv: "27%", convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
+  { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 45,  conv: "56%", convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
+  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 16,  conv: "36%", convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
 ];
 
 const targetCenters = 70;
-const implanted = 15;
-const inManagement = 75;
-const progressPct = Math.round((implanted / targetCenters) * 100);
-const globalRate = ((stages[4].value / stages[0].value) * 100).toFixed(1).replace(".", ",");
+const implanted = stages[stages.length - 1].value;
+const n = stages.length;
+const ROW_H = 69;
+const GAP   = 4;
 
-const cx = 250;
-const segH = 62;
-const gap = 5;
-const startY = 20;
-const maxHalf = 200;
-const minHalf = 48;
+function pct(num: number, den: number) {
+  if (!den) return "—";
+  const p = (num / den) * 100;
+  return p >= 10 ? `${Math.round(p)}%` : `${p.toFixed(1).replace(".",",")}%`;
+}
 
-const segments = stages.map((stage, i) => {
-  const y1 = startY + i * (segH + gap);
-  const y2 = y1 + segH;
-  const w1 = maxHalf - ((maxHalf - minHalf) * i) / stages.length;
-  const w2 = maxHalf - ((maxHalf - minHalf) * (i + 1)) / stages.length;
-  const path = `M ${cx - w1} ${y1} L ${cx + w1} ${y1} L ${cx + w2} ${y2} L ${cx - w2} ${y2} Z`;
-  const midY = (y1 + y2) / 2;
-  return { ...stage, path, y1, y2, midY, w1, w2, index: i };
+// Clip-path trapezoids: maxWidth% → minWidth%
+const maxW = 100, minW = 32;
+const segData = stages.map((s, i) => {
+  const tW = maxW - (maxW - minW) * i / n;
+  const bW = maxW - (maxW - minW) * (i + 1) / n;
+  const tL = (100 - tW) / 2, bL = (100 - bW) / 2;
+  return {
+    ...s,
+    clip: `polygon(${tL.toFixed(1)}% 0%,${(tL+tW).toFixed(1)}% 0%,${(bL+bW).toFixed(1)}% 100%,${bL.toFixed(1)}% 100%)`,
+  };
 });
 
-const svgHeight = startY + stages.length * (segH + gap) + 12;
+const containerH = n * ROW_H + (n - 1) * GAP;
+const implantedPct = pct(implanted, targetCenters);
 ---
 
 <section id="embudo" class="mx-auto w-full max-w-6xl px-5" aria-label="Embudo de conversión comercial">
   <header class="reveal mb-3">
-    <p class="section-eyebrow section-eyebrow--indigo">Pipeline comercial</p>
-    <h2 class="section-title mt-2">Del contacto al centro implantado</h2>
-    <p class="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
-      Visualización del recorrido comercial desde la captación hasta la implantación en centros.
-    </p>
+    <p class="section-eyebrow section-eyebrow--amber">Centros educativos</p>
+    <h2 class="section-title mt-1">Del contacto a la implantación</h2>
   </header>
 
-  <div class="reveal-scale card-fx shine-border panel-glass overflow-hidden p-4 sm:p-6">
-    <div class="mb-5 flex flex-wrap items-center justify-center gap-3 sm:justify-between">
-      <div class="text-center sm:text-left">
-        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Objetivo del convenio</p>
-        <p class="mt-1 text-xl font-bold text-slate-900 dark:text-white">
-          <span class="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">{implanted}</span>
-          <span class="text-slate-500"> / {targetCenters}</span> centros
-        </p>
+  <div class="funnel-chart-card reveal-scale card-fx shine-border panel-glass p-4">
+
+    <!-- Barra de progreso resumen -->
+    <div class="mb-4 flex items-center gap-3">
+      <div class="flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" style="height:6px;">
+        <div style={`width:${implantedPct}; height:100%; background:linear-gradient(90deg,#f0b552,#b45309); border-radius:9999px;`}></div>
       </div>
-      <div class="flex flex-wrap justify-center gap-2">
-        <span class="badge-glow badge-glow--indigo">{progressPct}% objetivo</span>
-        <span class="badge-glow badge-glow--amber">{inManagement} en gestión</span>
-        <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
-          {globalRate}% conversión total
-        </span>
-      </div>
+      <span class="shrink-0 text-xs font-bold text-amber-600 dark:text-amber-400">{implanted}/{targetCenters} implantados — {implantedPct}</span>
     </div>
 
-    <div id="funnel-chart" class="funnel-chart grid items-center gap-6 lg:grid-cols-[1fr_240px]">
-      <div class="relative mx-auto w-full max-w-xl">
-        <svg
-          viewBox={`0 0 500 ${svgHeight}`}
-          class="funnel-svg h-auto w-full max-h-[420px] drop-shadow-2xl"
-          role="img"
-          aria-label="Gráfico embudo: 296 contactados, 54 webinars, 45 demos, 16 firmados, 15 implantados"
-        >
-          <defs>
-            {
-              segments.map((seg) => (
-                <linearGradient id={`funnel-grad-${seg.index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color={seg.fillLight} />
-                  <stop offset="100%" stop-color={seg.fill} />
-                </linearGradient>
-              ))
-            }
-            <filter id="funnel-glow" x="-15%" y="-15%" width="130%" height="130%">
-              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(59,130,246,0.4)" />
-            </filter>
-          </defs>
+    <!-- Grid principal -->
+    <div class="funnel-main-grid">
 
-          <ellipse cx={cx} cy={svgHeight - 4} rx={minHalf + 20} ry="8" fill="rgba(16,185,129,0.25)" class="funnel-base-glow" />
-
-          {
-            segments.map((seg) => (
-              <g class="funnel-segment" data-segment-index={seg.index} style={`--delay: ${seg.index * 0.12}s`}>
-                <path
-                  d={seg.path}
-                  fill={`url(#funnel-grad-${seg.index})`}
-                  class="funnel-segment-path"
-                  filter="url(#funnel-glow)"
-                  stroke="rgba(255,255,255,0.15)"
-                  stroke-width="1"
-                />
-                <text
-                  x={cx}
-                  y={seg.midY - 6}
-                  text-anchor="middle"
-                  class="funnel-segment-value"
-                  fill="#ffffff"
-                  font-size="22"
-                  font-weight="800"
-                >
-                  {seg.value}
-                </text>
-                <text
-                  x={cx}
-                  y={seg.midY + 14}
-                  text-anchor="middle"
-                  class="funnel-segment-label"
-                  fill="rgba(255,255,255,0.92)"
-                  font-size="11"
-                  font-weight="600"
-                >
-                  {seg.label}
-                </text>
-              </g>
-            ))
-          }
-        </svg>
-
-        <div class="pointer-events-none absolute inset-0 hidden items-center justify-center md:flex" aria-hidden="true">
-          <div class="h-[85%] w-px bg-gradient-to-b from-transparent via-indigo-500/20 to-transparent"></div>
-        </div>
+      <!-- ── Pirámide (izquierda) ── -->
+      <div class="funnel-pyramid-col">
+        {segData.map((seg) => (
+          <div class="funnel-row" style="position:relative; overflow:hidden; border-radius:6px;">
+            <!-- Fondo trapezoidal -->
+            <div style={`position:absolute; inset:0; background:linear-gradient(160deg,${seg.fillLight},${seg.fill}); clip-path:${seg.clip}; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);`}></div>
+            <!-- Número centrado -->
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+              <span class="pyr-val" style="font-family:'Poppins',sans-serif; font-weight:800; color:#fff; line-height:1; text-shadow:0 1px 4px rgba(0,0,0,0.5);">{seg.value}</span>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <aside class="funnel-legend mx-auto w-full max-w-xs space-y-2 lg:max-w-none" data-scroll-stagger aria-label="Leyenda del embudo">
-        {
-          stages.map((stage, i) => (
-            <div
-              class="funnel-legend-item reveal flex items-center gap-3 rounded-xl border border-slate-200/80 bg-slate-50/80 px-3 py-2.5 transition duration-300 hover:scale-[1.02] hover:border-slate-300 hover:shadow-md dark:border-slate-700/60 dark:bg-slate-800/50"
-              data-reveal-delay={`${i * 60}ms`}
-            >
-              <span
-                class="h-10 w-1.5 shrink-0 rounded-full"
-                style={`background: linear-gradient(180deg, ${stage.fillLight}, ${stage.fill})`}
-              />
-              <div class="min-w-0 flex-1">
-                <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">{stage.label}</p>
-                <p class="text-lg font-extrabold text-slate-900 dark:text-white">{stage.value}</p>
+      <!-- ── Tarjetas (derecha) ── -->
+      <div class="funnel-cards-col">
+        {segData.map((seg, i) => (
+          <div
+            class="funnel-card funnel-row"
+            style={`border-left:3px solid ${seg.fill};`}
+          >
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%;">
+              <!-- Info -->
+              <div style="min-width:0; flex:1;">
+                <p class="fc-title">{seg.legendLabel}</p>
+                <p class="fc-meta">
+                  {seg.conv ? (
+                    <>
+                      <span class="fc-badge fc-badge--conv" style={`background:${seg.fill}22; color:${seg.fill};`}>{seg.conv}</span>
+                      {seg.convNote}
+                    </>
+                  ) : (
+                    <span class="fc-badge fc-badge--start">Punto de partida</span>
+                  )}
+                </p>
               </div>
-              {stage.conv ? (
-                <span class="shrink-0 rounded-lg bg-indigo-500/10 px-2 py-1 text-[10px] font-bold text-indigo-600 dark:text-indigo-300">
-                  {stage.conv}
-                </span>
-              ) : (
-                <span class="shrink-0 text-[10px] font-semibold uppercase text-slate-400">Entrada</span>
-              )}
+              <!-- Número -->
+              <div style="text-align:right; flex-shrink:0;">
+                <span class="fc-num" style={`color:${seg.fill};`}>{seg.value}</span>
+                {i > 0 && (
+                  <p class="fc-ofTotal">{pct(seg.value, stages[0].value)} del total</p>
+                )}
+              </div>
             </div>
-          ))
-        }
-      </aside>
+          </div>
+        ))}
+      </div>
+
     </div>
   </div>
 </section>
 
 <style>
-  .funnel-segment-path {
-    transition: filter 0.3s ease, opacity 0.5s ease;
-  }
-
-  .funnel-segment:hover .funnel-segment-path {
-    filter: url(#funnel-glow) brightness(1.12);
-  }
-
-  .funnel-chart:not(.is-animated) .funnel-segment {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  .funnel-chart.is-animated .funnel-segment {
-    animation: funnel-segment-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: var(--delay, 0s);
-  }
-
-  .funnel-chart.is-animated .funnel-base-glow {
-    animation: funnel-glow-pulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes funnel-glow-pulse {
-    0%,
-    100% {
-      opacity: 0.35;
+  @media (max-width: 640px) {
+    #embudo .section-title {
+      white-space: nowrap;
+      font-size: clamp(1rem, 5.5vw, 1.35rem);
     }
-    50% {
-      opacity: 0.7;
+
+    #embudo .funnel-chart-card {
+      width: 100%;
+      max-width: 100%;
     }
   }
 
-  @keyframes funnel-segment-in {
-    from {
-      opacity: 0;
-      transform: translateY(16px) scale(0.96);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+  @media (min-width: 641px) {
+    #embudo .funnel-chart-card {
+      width: 105%;
+      max-width: 105%;
+      margin-inline: auto;
     }
   }
 
+  .funnel-card {
+    background: rgba(248,250,252,0.9);
+    border-top: 1px solid rgba(226,232,240,0.8);
+    border-right: 1px solid rgba(226,232,240,0.8);
+    border-bottom: 1px solid rgba(226,232,240,0.8);
+    transition: background 0.2s;
+  }
+  html.dark .funnel-card {
+    background: rgba(15,23,42,0.6);
+    border-top: 1px solid rgba(51,65,85,0.5);
+    border-right: 1px solid rgba(51,65,85,0.5);
+    border-bottom: 1px solid rgba(51,65,85,0.5);
+  }
+  .funnel-card:hover {
+    background: rgba(241,245,249,1);
+  }
+  html.dark .funnel-card:hover {
+    background: rgba(30,41,59,0.7);
+  }
+
+  .fc-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  html.dark .fc-title { color: #e2e8f0; }
+
+  .fc-meta {
+    margin-top: 3px;
+    font-size: 0.63rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  html.dark .fc-meta { color: #94a3b8; }
+
+  .fc-badge {
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+  .fc-badge--conv {}
+  .fc-badge--start {
+    background: rgba(148,163,184,0.15);
+    color: #64748b;
+  }
+  html.dark .fc-badge--start {
+    background: rgba(100,116,139,0.2);
+    color: #94a3b8;
+  }
+
+  .fc-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.47rem;
+    font-weight: 800;
+    line-height: 1;
+    display: block;
+  }
+
+  .fc-ofTotal {
+    font-size: 0.6rem;
+    color: #94a3b8;
+    margin-top: 1px;
+    text-align: right;
+  }
+  html.dark .fc-ofTotal { color: #64748b; }
+
+  /* ── Grid principal ── */
+  .funnel-main-grid {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 13px;
+  }
+
+  .funnel-pyramid-col,
+  .funnel-cards-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ── Fila (misma altura en ambas columnas) ── */
+  .funnel-row {
+    min-height: 65px;
+    flex: 1;
+  }
+
+  .funnel-card {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 8px;
+  }
+
+  /* ── Texto pirámide ── */
+  .pyr-val { font-size: 1.155rem; }
+  .pyr-lbl { font-size: 0.55rem; }
+
+  /* ── Tablet ── */
+  @media (max-width: 640px) {
+    .funnel-main-grid { grid-template-columns: 110px 1fr; gap: 8px; }
+    .funnel-row { min-height: 64px; }
+    .pyr-val { font-size: 0.9rem; }
+    .pyr-lbl { font-size: 0.46rem; }
+    .fc-title { font-size: 0.82rem; white-space: normal; }
+    .fc-meta { font-size: 0.76rem; }
+    .fc-badge { font-size: 0.72rem; padding: 2px 6px; }
+    .fc-num { font-size: 1.5rem; }
+    .fc-ofTotal { display: none; }
+  }
+
+  /* ── Móvil ── */
+  @media (max-width: 420px) {
+    .funnel-main-grid { grid-template-columns: 80px 1fr; gap: 6px; }
+    .funnel-row { min-height: 62px; }
+    .pyr-val { font-size: 0.78rem; }
+    .pyr-lbl { font-size: 0.38rem; }
+    .fc-title { font-size: 0.78rem; white-space: normal; }
+    .fc-meta { display: flex; font-size: 0.72rem; }
+    .fc-badge { font-size: 0.68rem; padding: 2px 6px; }
+    .fc-num { font-size: 1.4rem; }
+    .funnel-card { padding: 4px 8px; align-items: center; }
+  }
 </style>

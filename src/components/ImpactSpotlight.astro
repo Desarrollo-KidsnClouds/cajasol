@@ -1,0 +1,118 @@
+---
+const photo = {
+  src: "/niño_leticia.jpg",
+  alt: "Niño nadador mirando a cámara tras la competición",
+};
+---
+
+<section id="impacto" class="impact-section mx-auto w-full max-w-6xl px-5" aria-label="Impacto en familias y alumnos">
+  <div class="impact-block">
+    <div class="impact-block__photo img-reveal-left img-reveal-hover" data-reveal-delay="0ms">
+      <button
+        type="button"
+        class="gallery-card impact-block__btn group cursor-zoom-in border-0 bg-transparent p-0"
+        aria-label="Ampliar imagen"
+      >
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          data-zoom-src={photo.src}
+          class="impact-block__img"
+          loading="lazy"
+          decoding="async"
+        />
+      </button>
+    </div>
+
+    <blockquote class="impact-block__quote panel-glass img-reveal-right" data-reveal-delay="120ms">
+      <p class="impact-block__eyebrow">Más allá del aula</p>
+      <p class="impact-block__text">
+        Las familias quieren estar cerca en cada paso: en clase, en deporte y en los logros del día a día.
+        Kids&Clouds acerca ese camino al centro educativo con una comunicación clara y segura.
+      </p>
+    </blockquote>
+  </div>
+</section>
+
+<style>
+  .impact-block {
+    display: grid;
+    gap: 1rem;
+    align-items: center;
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .impact-block {
+      grid-template-columns: 13rem 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .impact-block__photo {
+    width: 100%;
+    max-width: 13rem;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .impact-block__photo {
+      margin-inline: 0;
+    }
+  }
+
+  .impact-block__btn {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    cursor: zoom-in;
+  }
+
+  .impact-block__btn:hover .impact-block__img {
+    opacity: 0.92;
+  }
+
+  .impact-block__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+    transition: opacity 0.25s ease;
+  }
+
+  .impact-block__quote {
+    margin: 0;
+    padding: 1.15rem 1.25rem;
+    border-radius: 0.85rem;
+    border-left: 3px solid #f0b552;
+  }
+
+  .impact-block__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c9923a;
+  }
+
+  html.dark .impact-block__eyebrow {
+    color: #f0b552;
+  }
+
+  .impact-block__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+
+  html.dark .impact-block__text {
+    color: #cbd5e1;
+  }
+</style>

@@ -1,46 +1,110 @@
 ---
-const galleryImages = [
-  {
-    src: "/imagen_.png",
-    alt: "Infraestructura visual del despliegue tecnológico — lámina 1",
-  },
-  {
-    src: "/imagen.png",
-    alt: "Infraestructura visual del despliegue tecnológico — lámina 2",
-  },
-];
+const timelineImage = {
+  src: "/images/presentacion/timeline.png",
+  alt: "Timeline del proyecto — fases de despliegue",
+};
 ---
 
-<section id="presentacion" class="mx-auto w-full max-w-6xl px-5" aria-label="Material de presentación institucional">
-  <header class="reveal mb-3">
-    <p class="section-eyebrow section-eyebrow--amber">Presentación</p>
-    <h2 class="section-title mt-2">Láminas del convenio</h2>
-    <p class="mt-1 max-w-xl text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-      Clic en cualquier lámina para verla a tamaño completo
-    </p>
+<section id="presentacion" class="mx-auto w-full max-w-6xl px-5" aria-label="Fases del proyecto">
+  <header class="reveal mb-8">
+    <p class="section-eyebrow section-eyebrow--amber">FASES</p>
+    <h2 class="section-title mt-2">Timeline del proyecto</h2>
   </header>
 
-  <div class="grid grid-cols-2 gap-4 sm:gap-5" data-scroll-stagger>
-    {
-      galleryImages.map((item, index) => (
-        <article
-          class="gallery-card gallery-card-fx reveal-scale card-fx shine-border group aspect-video flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl"
-          data-reveal-delay={`${index * 60}ms`}
-          role="button"
-          tabindex="0"
-          aria-label={`Ver ${item.alt} a tamaño completo`}
-        >
+  <div class="reveal-scale space-y-6" data-reveal-delay="60ms">
+
+    <!-- Stepper -->
+    <div class="relative flex items-start justify-between px-2">
+
+      <!-- Línea base -->
+      <div class="absolute left-[8%] right-[8%] top-[18px] h-[2px] rounded-full bg-slate-200 dark:bg-slate-700/60">
+        <div class="h-full w-[22%] rounded-full bg-gradient-to-r from-[#f0b552] to-[#b45309]" style="box-shadow:0 0 8px rgba(240,181,82,0.5);"></div>
+      </div>
+
+      <!-- Q1 completado -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full text-white" style="background:linear-gradient(135deg,#f0b552,#b45309); box-shadow:0 0 0 4px rgba(240,181,82,0.2), 0 4px 14px rgba(240,181,82,0.4);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-[#f0b552]" style="font-family:'Poppins'; font-size:1rem;">Q1</span>
+          <span class="hidden text-xs font-semibold text-slate-600 dark:text-slate-400 sm:block">Primer trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">ENE · FEB · MAR</span>
+        </div>
+      </div>
+
+      <!-- Q2 activo -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2">
+        <div class="relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f0b552] bg-[rgba(240,181,82,0.08)]">
+          <span class="h-2.5 w-2.5 rounded-full bg-[#f0b552]"></span>
+          <span class="absolute inset-[-4px] animate-ping rounded-full border border-[rgba(240,181,82,0.35)]"></span>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-slate-700 dark:text-slate-300" style="font-family:'Poppins'; font-size:1rem;">Q2</span>
+          <span class="hidden text-xs font-semibold text-slate-500 dark:text-slate-500 sm:block">Segundo trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">ABR · MAY · JUN</span>
+        </div>
+      </div>
+
+      <!-- Q3 pendiente -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-100" style="opacity:0.75;">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-slate-300 bg-transparent dark:border-slate-700">
+          <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-slate-400 dark:text-slate-600" style="font-family:'Poppins'; font-size:1rem;">Q3</span>
+          <span class="hidden text-xs font-semibold text-slate-400 dark:text-slate-600 sm:block">Tercer trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-300 dark:text-slate-700 sm:block">JUL · AGO · SEP</span>
+        </div>
+      </div>
+
+      <!-- Q4 pendiente -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-100" style="opacity:0.75;">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-slate-300 bg-transparent dark:border-slate-700">
+          <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-slate-400 dark:text-slate-600" style="font-family:'Poppins'; font-size:1rem;">Q4</span>
+          <span class="hidden text-xs font-semibold text-slate-400 dark:text-slate-600 sm:block">Cuarto trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-300 dark:text-slate-700 sm:block">OCT · NOV · DIC</span>
+        </div>
+      </div>
+
+      <!-- Ver timeline -->
+      <article
+        class="gallery-card img-reveal-zoom img-reveal-hover group relative z-10 flex flex-1 cursor-zoom-in flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-100"
+        style="opacity:0.9;"
+        data-reveal-delay="200ms"
+        role="button"
+        tabindex="0"
+        aria-label="Ver timeline completo"
+      >
+        <!-- Miniatura con overlay -->
+        <div class="relative overflow-hidden rounded-lg border border-[#f0b552]/30 shadow-md transition-all duration-300 group-hover:border-[#f0b552]/70 group-hover:shadow-[0_0_12px_rgba(240,181,82,0.3)]">
           <img
-            src={item.src}
-            alt={item.alt}
-            width={640}
-            height={360}
-            class="h-full w-full rounded-xl object-contain opacity-80 transition-all duration-500 group-hover:opacity-100"
-            loading={index === 0 ? "eager" : "lazy"}
+            src={timelineImage.src}
+            alt={timelineImage.alt}
+            data-zoom-src={timelineImage.src}
+            class="block h-16 w-24 object-cover transition-transform duration-300 group-hover:scale-105 sm:h-20 sm:w-28"
+            loading="eager"
             decoding="async"
           />
-        </article>
-      ))
-    }
+          <!-- Icono de zoom encima -->
+          <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <div class="rounded-full bg-[#f0b552] p-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-[#f0b552]" style="font-family:'Poppins'; font-size:0.85rem;">Ver</span>
+          <span class="hidden text-[0.65rem] font-medium text-[#f0b552]/60 sm:block">timeline</span>
+        </div>
+      </article>
+
+    </div>
+
   </div>
 </section>
+
+

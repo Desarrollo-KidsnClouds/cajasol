@@ -1,84 +1,486 @@
-<section class="mx-auto w-full max-w-6xl px-5">
-  <header class="reveal mb-3">
-    <p class="section-eyebrow section-eyebrow--amber">Testimonios Reales</p>
-    <h2 class="section-title mt-2">El Impacto en las Escuelas</h2>
-    <p class="mt-2 text-sm text-slate-300">
-      Experiencias directas del equipo docente sobre la implantación de la agenda digital en los centros del convenio.
-    </p>
-  </header>
+---
+---
 
-  <div class="grid gap-3 lg:grid-cols-3">
-    <article class="reveal-left card-fx shine-border panel-glass overflow-hidden">
-      <span class="badge-glow badge-glow--amber m-4">
-        Acuerdo con Cajasol
-      </span>
-      <button
-        type="button"
-        class="video-play-trigger video-frame group relative mx-4 block w-[calc(100%-2rem)] cursor-pointer border-0 bg-transparent p-0 text-left"
-        data-video-src="/video_acuerdo.mp4"
-        aria-label="Reproducir vídeo institucional del convenio Kids&Clouds y Fundación Cajasol"
-      >
-        <video
-          src="/video_acuerdo.mp4"
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          class="pointer-events-none aspect-video h-44 w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          aria-hidden="true"
-          tabindex="-1"
-        >
-        </video>
-        <div
-          class="absolute inset-0 flex items-center justify-center bg-slate-950/35 transition duration-300 group-hover:bg-slate-950/50"
-          aria-hidden="true"
-        >
-          <span
-            class="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-lg ring-4 ring-white/30 transition duration-300 group-hover:scale-110"
-          >
-            <svg class="ml-1 h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M8 5v14l11-7z"></path>
-            </svg>
-          </span>
-        </div>
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
-        <span class="absolute bottom-2 right-2 rounded-md bg-slate-950/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-200">
-          Convenio institucional
-        </span>
-      </button>
-      <div class="p-4 pt-3">
-        <h3 class="font-bold">Acuerdo con Fundación Cajasol</h3>
-        <p class="mt-2 text-sm text-slate-300">
-          Presentación del convenio estratégico entre Kids&Clouds y Fundación Cajasol para impulsar la educación digital
-          en Andalucía y beneficiar a más de 3.500 familias.
+<section id="repercusion" class="mx-auto w-full max-w-6xl px-5" aria-label="Repercusión del proyecto">
+  <header class="reveal mb-3">
+    <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+      <div class="min-w-0 flex-1">
+        <p class="section-eyebrow section-eyebrow--amber">Repercusión</p>
+        <h2 class="section-title mt-2">El impacto en los medios de comunicación</h2>
+        <p class="mt-2 text-base text-slate-600 dark:text-slate-300 lg:whitespace-nowrap">
+          Seguimiento de la visibilidad pública generada por la alianza en medios, asociaciones y canales digitales.
         </p>
       </div>
-    </article>
+    </div>
+  </header>
 
-    <article class="reveal card-fx shine-border panel-glass p-5" data-reveal-delay="100ms">
-      <span class="inline-flex rounded-full border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-xs font-semibold text-amber-300">Testimonio docente</span>
-      <p class="mt-4 text-3xl leading-none text-indigo-400/80 transition hover:text-indigo-300" aria-hidden="true">“</p>
-      <p class="text-sm leading-relaxed text-slate-300">
-        La gestión de autorizaciones y circulares ha pasado de tomarnos horas a resolverse en un clic. Las familias
-        agradecen la claridad.
-      </p>
-      <div class="mt-4 border-t border-slate-800/80 pt-3 text-sm">
-        <p class="font-bold">María del Mar Ruiz</p>
-        <p class="text-slate-400">Directora de Centro (Sevilla)</p>
+  <div
+    class="repercusion-grid grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3"
+    data-scroll-stagger
+  >
+    <!-- Redes Sociales -->
+    <article class="repercusion-card reveal-left card-fx shine-border panel-glass" data-reveal-delay="0ms">
+      <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
+        <span class="badge-glow badge-glow--amber repercusion-card__badge" style="margin:0;">Redes Sociales</span>
+        <span class="repercusion-status-badge" role="status" aria-label="En curso">
+          <span class="repercusion-status-badge__dot" aria-hidden="true"></span>
+          En curso
+        </span>
+      </div>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="180ms"
+          aria-label="Ver fases de la alianza a tamaño completo"
+        >
+          <img
+            src="/images/presentacion/alianza1.png"
+            alt="Alianza Fundación Cajasol × Kids&Clouds — lámina institucional"
+            data-zoom-src="/images/presentacion/alianza1.png"
+            class="repercusion-visual__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="repercusion-zoom-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="repercusion-card__body">
+        <h3 class="repercusion-card__title">70 centros y 3.500 familias</h3>
+        <p class="repercusion-card__text">
+          La Fundación ha querido poner el foco en impulsar la transformación digital del sector educativo andaluz y en
+          la conciliación laboral & familiar aliandose con la EdTech Kids&Clouds.
+        </p>
+        <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
       </div>
     </article>
 
-    <article class="reveal-right card-fx shine-border panel-glass p-5" data-reveal-delay="200ms">
-      <span class="inline-flex rounded-full border border-amber-500/20 bg-amber-500/10 px-2 py-1 text-xs font-semibold text-amber-300">Experiencia de aula</span>
-      <p class="mt-4 text-3xl leading-none text-indigo-400/80 transition hover:text-indigo-300" aria-hidden="true">“</p>
-      <p class="text-sm leading-relaxed text-slate-300">
-        Ahora registramos asistencia, comedor y comunicación con familias desde una única herramienta. El equipo
-        educativo ahorra tiempo cada día.
-      </p>
-      <div class="mt-4 border-t border-slate-800/80 pt-3 text-sm">
-        <p class="font-bold">Javier Romero López</p>
-        <p class="text-slate-400">Tutor de Primaria (Málaga)</p>
+    <!-- Testimonio docente -->
+    <article class="repercusion-card reveal card-fx shine-border panel-glass" data-reveal-delay="60ms">
+      <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
+        <span class="badge-glow badge-glow--amber repercusion-card__badge" style="margin:0;">Testimonio docente</span>
+        <span class="repercusion-status-badge" role="status" aria-label="En curso">
+          <span class="repercusion-status-badge__dot" aria-hidden="true"></span>
+          En curso
+        </span>
+      </div>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="180ms"
+          aria-label="Ampliar testimonio docente"
+        >
+          <img
+            src="/profesor.png"
+            alt="Profesor en un aula de educación infantil"
+            data-zoom-src="/profesor.png"
+            class="repercusion-visual__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="repercusion-zoom-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="repercusion-card__body">
+        <h3 class="repercusion-card__title">Lo más bonito de la profesión</h3>
+        <p class="repercusion-card__text repercusion-card__text--justify">
+          «Trabajar en una guardería es acompañar los primeros pasos, descubrimientos y sonrisas de cada niño.
+          Ver cómo crecen felices cada día es, sin duda, lo más bonito de nuestra profesión.»
+        </p>
+        <div class="repercusion-card__footer">
+          <p class="repercusion-card__name">Manuel Romero</p>
+          <p class="repercusion-card__role">Educador infantil</p>
+          <p class="repercusion-card__role">Guardería en Sevilla</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Experiencia de aula -->
+    <article class="repercusion-card reveal-right card-fx shine-border panel-glass" data-reveal-delay="120ms">
+      <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
+        <span class="badge-glow badge-glow--amber repercusion-card__badge" style="margin:0;">Experiencia de aula</span>
+        <span class="repercusion-status-badge" role="status" aria-label="En curso">
+          <span class="repercusion-status-badge__dot" aria-hidden="true"></span>
+          En curso
+        </span>
+      </div>
+      <div class="repercusion-card__media repercusion-card__media--full-image">
+        <button
+          type="button"
+          class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+          data-reveal-delay="200ms"
+          aria-label="Ampliar experiencia de aula"
+        >
+          <img
+            src="/experiencia.png"
+            alt="Experiencia de aula acogedora con alumnos y docente"
+            data-zoom-src="/experiencia.png"
+            class="repercusion-visual__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="repercusion-zoom-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="repercusion-card__body">
+        <h3 class="repercusion-card__title">Un aula acogedora y participativa</h3>
+        <p class="repercusion-card__text repercusion-card__text--justify">
+          La experiencia en el aula se vive con cercanía, ilusión y un ambiente agradable en el que
+          los niños aprenden, participan y se sienten acompañados. Kids&Clouds permite que las familias
+          compartan ese día a día educativo de forma sencilla y cercana.
+        </p>
+        <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
       </div>
     </article>
   </div>
 </section>
+
+<style>
+  .repercusion-status-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(220, 38, 38, 0.28);
+    background: rgba(254, 242, 242, 0.95);
+    color: #991b1b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: normal;
+    text-transform: none;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+
+  html.dark .repercusion-status-badge {
+    border-color: rgba(248, 113, 113, 0.35);
+    background: rgba(127, 29, 29, 0.35);
+    color: #fecaca;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .repercusion-status-badge__dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #dc2626;
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+    animation: repercusion-status-pulse 2s ease-in-out infinite;
+  }
+
+  html.dark .repercusion-status-badge__dot {
+    background: #f87171;
+    box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.55);
+  }
+
+  @keyframes repercusion-status-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 5px rgba(220, 38, 38, 0);
+    }
+  }
+
+  .repercusion-grid {
+    align-items: stretch;
+  }
+
+  .repercusion-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .repercusion-card__badge {
+    margin: 0.75rem 0.75rem 0;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-card__badge {
+      margin: 1rem 1rem 0;
+    }
+  }
+
+  /* Misma altura de zona media en las 4 columnas */
+  .repercusion-card__media {
+    flex-shrink: 0;
+    height: 6rem;
+    margin: 0.5rem 0.75rem 0;
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-card__media {
+      height: 7rem;
+      margin: 0.5rem 1rem 0;
+    }
+  }
+
+  .repercusion-card__media--full-image {
+    height: auto;
+    overflow: visible;
+    background: rgba(248, 250, 252, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+  }
+
+  html.dark .repercusion-card__media--full-image {
+    background: rgba(15, 23, 42, 0.45);
+    border-color: rgba(148, 163, 184, 0.12);
+  }
+
+  .repercusion-card__media--full-image .repercusion-visual__img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .repercusion-card__media--quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, rgba(99, 102, 241, 0.12), rgba(240, 181, 82, 0.08));
+    border: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  html.dark .repercusion-card__media--quote {
+    background: linear-gradient(145deg, rgba(99, 102, 241, 0.18), rgba(240, 181, 82, 0.1));
+    border-color: rgba(148, 163, 184, 0.15);
+  }
+
+  .repercusion-card__quote-mark {
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(99, 102, 241, 0.45);
+  }
+
+  html.dark .repercusion-card__quote-mark {
+    color: rgba(129, 140, 248, 0.55);
+  }
+
+  .repercusion-card__body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.5rem 0.75rem 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-card__body {
+      padding: 0.5rem 1rem 0.75rem;
+    }
+  }
+
+  .repercusion-card__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: inherit;
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-card__title {
+      font-size: 0.875rem;
+    }
+  }
+
+  .repercusion-card__text {
+    flex: 1 1 auto;
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgb(71 85 105);
+  }
+
+  .repercusion-card__text--justify {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .repercusion-card__footer--spacer {
+    min-height: 3.5rem;
+    margin-top: auto;
+    padding-top: 0;
+    border-top: none;
+    visibility: hidden;
+  }
+
+  html.dark .repercusion-card__text {
+    color: rgb(203 213 225);
+  }
+
+  .repercusion-card__hint {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgb(100 116 139);
+  }
+
+  html.dark .repercusion-card__hint {
+    color: rgb(148 163 184);
+  }
+
+  .repercusion-card__footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(226, 232, 240, 1);
+  }
+
+  html.dark .repercusion-card__footer {
+    border-top-color: rgba(51, 65, 85, 0.8);
+  }
+
+  .repercusion-card__name {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: rgb(15 23 42);
+  }
+
+  html.dark .repercusion-card__name {
+    color: #fff;
+  }
+
+  .repercusion-card__role {
+    margin-top: 0.15rem;
+    font-size: 0.8125rem;
+    color: rgb(100 116 139);
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-card__role {
+      font-size: 0.875rem;
+    }
+  }
+
+  html.dark .repercusion-card__role {
+    color: rgb(148 163 184);
+  }
+
+
+  .repercusion-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+
+  .repercusion-visual::before,
+  .repercusion-visual::after {
+    display: none;
+  }
+
+  .repercusion-visual__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Cambio de imagen según modo claro/oscuro */
+  .theme-img--dark {
+    display: none;
+  }
+
+  html.dark .theme-img--light {
+    display: none;
+  }
+
+  html.dark .theme-img--dark {
+    display: block;
+  }
+
+  .repercusion-visual:hover .repercusion-visual__img {
+    opacity: 0.88;
+  }
+
+  .repercusion-zoom-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.42);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+
+  .repercusion-zoom-hint svg {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0.55rem;
+    border-radius: 9999px;
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+  }
+
+  html.dark .repercusion-zoom-hint {
+    background: rgba(0, 0, 0, 0.48);
+  }
+
+  html.dark .repercusion-zoom-hint svg {
+    color: #f0b552;
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .repercusion-visual:hover .repercusion-zoom-hint,
+  .repercusion-visual:focus-visible .repercusion-zoom-hint {
+    opacity: 1;
+  }
+
+  @media (min-width: 1280px) {
+    .repercusion-card {
+      min-height: 20.5rem;
+    }
+  }
+</style>
