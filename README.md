@@ -70,23 +70,7 @@ npm run build      # Genera la versión final de producción (carpeta /dist)
 npm run preview    # Previsualiza esa versión final en local
 ```
 
----
 
-## ¿Cómo se publica? (Despliegue en Vercel)
-
-El flujo es siempre el mismo, tres comandos:
-
-```bash
-git add .
-git commit -m "descripción de lo que has cambiado"
-git push 
-```
-
-En cuanto subes el código a GitHub (`git push`), **Vercel lo detecta automáticamente y publica la nueva versión** en la web en aproximadamente 1 minuto. No hay que hacer nada más.
-
-La web no necesita ninguna contraseña ni clave secreta para funcionar.
-
----
 
 ## Repositorio y despliegue en la cuenta de empresa
 
@@ -123,7 +107,7 @@ Cuando termine, entra en [github.com/Desarrollo-KidsnClouds/knc_app](https://git
 
 ---
 
-### Paso 3 — Conectar Vercel al repositorio
+### Paso 2 — Conectar Vercel al repositorio
 
 Vercel es quien toma el código de GitHub y lo convierte en una web pública automáticamente.
 
@@ -143,7 +127,7 @@ A partir de ahora, cada `git push` que hagas actualizará la web automáticament
 
 ---
 
-### Paso 4 —  Enlazar desde WordPress con el plugin Redirection
+### Paso 3 —  Enlazar desde WordPress con el plugin Redirection
 
 El objetivo es que la web sea accesible en `kidsandclouds.es/cajasol`. Para conseguirlo sin tocar el dominio principal ni la web de WordPress:
 
