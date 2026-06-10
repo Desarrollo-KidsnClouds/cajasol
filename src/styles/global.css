@@ -872,13 +872,3 @@ html:not(.dark) .btn-gradient {
   user-select: none;
 }
 
-/* Espacio extra al fondo en móvil para la barra de navegación inferior */
-@media (max-width: 639px) {
-  main {
-    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  footer {
-    margin-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
-  }
-}
