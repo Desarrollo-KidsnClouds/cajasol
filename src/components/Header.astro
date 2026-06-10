@@ -9,7 +9,7 @@ const navLinks = [
 ---
 
 <header
-  class="site-header no-print relative z-50 mx-auto w-[calc(100%-2rem)] max-w-5xl py-3 transition-all duration-300 sm:fixed sm:inset-x-0 sm:top-0 sm:w-[calc(100%-4rem)] sm:max-w-5xl sm:py-2"
+  class="site-header no-print fixed inset-x-0 top-0 z-50 mx-auto w-[calc(100%-2rem)] max-w-5xl py-3 transition-all duration-300 sm:w-[calc(100%-4rem)] sm:max-w-5xl sm:py-2"
 >
   <div class="site-header-inner w-full overflow-visible rounded-2xl border border-slate-200/80 bg-white/90 px-3 py-1.5 shadow-[0_4px_16px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-[rgba(212,175,55,0.15)] dark:bg-[#0f0f0f]/90 dark:shadow-[0_4px_24px_rgba(0,0,0,0.5)] sm:px-5 sm:py-1.5 lg:px-6">
     <div class="header-layout w-full">
@@ -119,7 +119,7 @@ const navLinks = [
   </div>
 </header>
 
-<div class="site-header-spacer no-print hidden sm:block" aria-hidden="true"></div>
+<div class="site-header-spacer no-print" aria-hidden="true"></div>
 
 <script>
   const mobileMenuToggle = document.getElementById("mobileMenuToggle");
@@ -159,14 +159,24 @@ const navLinks = [
 </script>
 
 <style>
-  /* Reserva espacio en escritorio: el header es fixed y sale del flujo del documento */
+  /* Reserva espacio: el header es fixed y sale del flujo del documento */
+  .site-header {
+    top: env(safe-area-inset-top, 0);
+  }
+
   .site-header-spacer {
-    height: 5rem;
+    height: calc(5.5rem + env(safe-area-inset-top, 0px));
+  }
+
+  @media (min-width: 640px) {
+    .site-header-spacer {
+      height: calc(5rem + env(safe-area-inset-top, 0px));
+    }
   }
 
   @media (min-width: 1024px) {
     .site-header-spacer {
-      height: 5.5rem;
+      height: calc(5.5rem + env(safe-area-inset-top, 0px));
     }
   }
 

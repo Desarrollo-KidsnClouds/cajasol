@@ -1,7 +1,7 @@
 <footer class="no-print mt-2 border-t border-slate-200 bg-white dark:border-[rgba(212,175,55,0.1)] dark:bg-[#0b0b0b]">
   <div class="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-6">
     <div class="reveal grid gap-5 sm:gap-6 lg:grid-cols-[1.2fr_2fr]">
-      <div>
+      <div class="footer-brand">
         <a href="#inicio" class="group inline-flex flex-wrap items-center gap-2.5 sm:gap-4">
           <img
             src="/logo_web_nuevo.png"
@@ -115,10 +115,6 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1rem 1.25rem;
-    margin-left: auto;
-    width: 100%;
-    max-width: 22rem;
-    text-align: right;
   }
 
   .footer-side-cols .footer-col {
@@ -126,20 +122,58 @@
   }
 
   .footer-contact-link {
-    justify-content: flex-end;
     max-width: 100%;
   }
 
   .footer-email {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .footer-proyecto-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.35rem 1rem;
+  }
+
+  @media (max-width: 639px) {
+    .footer-brand {
+      width: 100%;
+    }
+
+    .footer-links-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 1rem;
+      width: 100%;
+    }
+
+    .footer-col--proyecto {
+      grid-column: 1 / -1;
+    }
+
+    .footer-side-cols {
+      grid-column: 1 / -1;
+      width: 100%;
+      gap: 1rem;
+    }
+
+    .footer-col {
+      text-align: left;
+    }
+
+    .footer-contact-link {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .footer-proyecto-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem 0.75rem;
+    }
+
+    .footer-proyecto-list a {
+      display: block;
+    }
   }
 
   @media (min-width: 640px) {

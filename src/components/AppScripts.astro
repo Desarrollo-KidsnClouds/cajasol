@@ -148,9 +148,8 @@
   }
 
   const getHeaderScrollOffset = () => {
-    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
-    if (isDesktop && siteHeader) {
-      return siteHeader.getBoundingClientRect().height + 20;
+    if (siteHeader) {
+      return siteHeader.getBoundingClientRect().height + 12;
     }
     return 8;
   };
