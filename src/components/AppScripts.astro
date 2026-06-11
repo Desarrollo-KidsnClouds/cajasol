@@ -161,28 +161,42 @@
     return true;
   };
 
-  const getHeaderScrollOffset = () => {
+  const getSectionScrollOffset = () => {
     const isMobile = window.matchMedia("(max-width: 639px)").matches;
-    const headerInner = document.querySelector(".site-header-inner");
 
-    if (isMobile && headerInner) {
-      return headerInner.getBoundingClientRect().bottom + 2;
+    if (isMobile) {
+      return 10;
     }
 
     if (siteHeader) {
       return siteHeader.getBoundingClientRect().bottom + 12;
     }
 
-    return 8;
+    return 12;
+  };
+
+  const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+  let scrollNavToken = 0;
+
+  const computeSectionScrollY = (target) => {
+    const offset = getSectionScrollOffset();
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
   };
 
   const scrollToSection = (target) => {
-    const y = Math.max(
-      0,
-      target.getBoundingClientRect().top + window.scrollY - getHeaderScrollOffset()
-    );
-    window.scrollTo({ top: y, behavior: "smooth" });
-    history.pushState(null, "", `#${target.id}`);
+    const token = ++scrollNavToken;
+
+    const runScroll = (behavior) => {
+      if (token !== scrollNavToken) return;
+      window.scrollTo({ top: computeSectionScrollY(target), behavior });
+      history.replaceState(null, "", `#${target.id}`);
+    };
+
+    runScroll(scrollBehavior);
+
+    if (!prefersReducedMotion) {
+      window.setTimeout(() => runScroll("auto"), 520);
+    }
   };
 
   const navigateToSection = (target, menuWasOpen = false) => {
@@ -194,27 +208,33 @@
       });
       return;
     }
-    scrollToSection(target);
+
+    requestAnimationFrame(() => scrollToSection(target));
   };
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", (e) => {
-      const id = anchor.getAttribute("href");
-      if (!id || id === "#") return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
+  document.addEventListener("click", (e) => {
+    const anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
 
-      const menuWasOpen = closeMobileMenu();
-      navigateToSection(target, menuWasOpen);
-    });
+    const id = anchor.getAttribute("href");
+    if (!id || id === "#") return;
+
+    const target = document.querySelector(id);
+    if (!target) return;
+
+    e.preventDefault();
+
+    const menuWasOpen = closeMobileMenu();
+    navigateToSection(target, menuWasOpen);
   });
 
   const initialHash = window.location.hash;
   if (initialHash) {
     const initialTarget = document.querySelector(initialHash);
     if (initialTarget) {
-      requestAnimationFrame(() => scrollToSection(initialTarget));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToSection(initialTarget));
+      });
     }
   }
 

@@ -1,0 +1,23 @@
+---
+import { navLinks, mobileNavIcons } from "../data/navigation";
+---
+
+<nav
+  class="no-print mobile-bottom-nav sm:hidden"
+  aria-label="Navegación móvil"
+>
+  <div class="mobile-bottom-nav__inner">
+    <ul class="mobile-bottom-nav__list">
+      {
+        navLinks.map((link, i) => (
+          <li>
+            <a href={link.href} class="mobile-nav-item" data-nav-link>
+              <span class="mobile-nav-icon" set:html={mobileNavIcons[i]} />
+              <span class="mobile-nav-label">{link.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
