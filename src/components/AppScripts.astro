@@ -38,12 +38,6 @@
     mobileBottomNav.style.width = "100%";
     mobileBottomNav.style.margin = "0";
     mobileBottomNav.style.transform = "none";
-
-    const viewport = window.visualViewport;
-    if (!viewport) return;
-
-    const bottomOffset = Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop);
-    mobileBottomNav.style.bottom = `${bottomOffset}px`;
   };
 
   pinMobileBottomNav();
