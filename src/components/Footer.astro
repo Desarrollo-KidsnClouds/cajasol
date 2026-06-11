@@ -1,6 +1,6 @@
 <footer class="no-print mt-2 border-t border-slate-200 bg-white dark:border-[rgba(212,175,55,0.1)] dark:bg-[#0b0b0b]">
   <div class="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-6">
-    <div class="reveal grid gap-5 sm:gap-6 lg:grid-cols-[1.2fr_2fr]">
+    <div class="reveal grid gap-8 sm:gap-10 lg:grid-cols-[1.2fr_2fr] lg:gap-16">
       <div class="footer-brand">
         <a href="#inicio" class="group inline-flex flex-wrap items-center gap-2.5 sm:gap-4">
           <img
@@ -20,7 +20,7 @@
             loading="lazy"
           />
         </a>
-        <p class="mt-4 max-w-sm text-base leading-relaxed text-slate-500 dark:text-[#6b6b6b]">
+        <p class="footer-brand__tagline mt-4 leading-relaxed text-slate-500 dark:text-[#6b6b6b]">
           Alianza estratégica por la innovación educativa en Andalucía.
         </p>
         <button
@@ -36,12 +36,11 @@
         <div class="footer-col footer-col--proyecto">
           <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-[#4a4a4a]">Proyecto</p>
           <ul class="footer-proyecto-list mt-3 space-y-2 text-base text-slate-500 dark:text-[#6b6b6b]">
-            <li><a href="#inicio" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Presentación</a></li>
-            <li><a href="#objetivos" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Objetivo</a></li>
-            <li><a href="#presentacion" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Timeline</a></li>
-            <li><a href="#embudo" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Resultados</a></li>
+            <li><a href="#inicio" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Objetivos</a></li>
+            <li><a href="#presentacion" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Plan</a></li>
+            <li><a href="#embudo" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Logros</a></li>
             <li><a href="#cobertura" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Mapa</a></li>
-            <li><a href="#repercusion" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Repercusión</a></li>
+            <li><a href="#repercusion" class="transition hover:translate-x-1 hover:text-[#D4AF37]">Impacto</a></li>
           </ul>
         </div>
         <div class="footer-side-cols">
@@ -60,9 +59,9 @@
                   670 620 650
                 </a>
               </li>
-              <li>
-                <a href="mailto:leticia.alvarezcervera@visasur.com" class="footer-contact-link inline-flex items-center gap-2 transition hover:text-[#D4AF37]">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <li class="footer-contact-item footer-contact-item--email">
+                <a href="mailto:leticia.alvarezcervera@visasur.com" class="footer-contact-link footer-contact-link--email transition hover:text-[#D4AF37]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="footer-contact-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <rect width="20" height="16" x="2" y="4" rx="2"/>
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                   </svg>
@@ -84,7 +83,7 @@
             <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-[#4a4a4a]">Alianzas</p>
             <ul class="mt-3 space-y-2 text-sm text-slate-500 dark:text-[#6b6b6b]">
               <li>
-                <a href="https://fundacioncajasol.com" target="_blank" rel="noopener noreferrer" class="footer-contact-link inline-flex items-center gap-2 transition hover:text-[#D4AF37]">
+                <a href="https://fundacioncajasol.com" target="_blank" rel="noopener noreferrer" class="footer-contact-link footer-alianza-link inline-flex items-center gap-2 transition hover:text-[#D4AF37]">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
@@ -106,28 +105,88 @@
 </footer>
 
 <style>
+  .footer-brand__tagline {
+    max-width: none;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    white-space: normal;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 640px) {
+    .footer-brand__tagline {
+      font-size: 1.0625rem;
+      line-height: 1.4;
+      white-space: nowrap;
+      letter-spacing: -0.015em;
+    }
+  }
+
   .footer-links-grid {
     display: grid;
-    gap: 1.25rem;
+    align-items: start;
+    gap: 1.75rem;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .footer-col > p:first-child {
+    min-height: 1rem;
+  }
+
+  @media (max-width: 1023px) {
+    .footer-links-grid {
+      margin-top: 0.75rem;
+      padding-top: 0.5rem;
+    }
   }
 
   .footer-side-cols {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1rem 1.25rem;
+    display: contents;
   }
 
-  .footer-side-cols .footer-col {
-    min-width: 0;
+  .footer-col--contacto {
+    overflow: visible;
+  }
+
+  .footer-contact-item--email {
+    overflow: visible;
+    width: 100%;
   }
 
   .footer-contact-link {
     max-width: 100%;
+    min-width: 0;
+  }
+
+  .footer-contact-link__icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .footer-contact-link--email {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+    min-width: 0;
+    line-height: 1.45;
+    flex-wrap: wrap;
   }
 
   .footer-email {
-    overflow-wrap: anywhere;
+    display: block;
+    min-width: 0;
+    flex: 1 1 10rem;
+    overflow-wrap: break-word;
     word-break: break-word;
+    white-space: normal;
+    hyphens: none;
   }
 
   .footer-proyecto-list {
@@ -142,23 +201,15 @@
     }
 
     .footer-links-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5rem 1rem;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
       width: 100%;
-    }
-
-    .footer-col--proyecto {
-      grid-column: 1 / -1;
     }
 
     .footer-side-cols {
-      grid-column: 1 / -1;
-      width: 100%;
-      gap: 1rem;
-    }
-
-    .footer-col {
-      text-align: left;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
     .footer-contact-link {
@@ -167,8 +218,8 @@
     }
 
     .footer-proyecto-list {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.5rem 0.75rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem 1rem;
     }
 
     .footer-proyecto-list a {
@@ -178,20 +229,16 @@
 
   @media (min-width: 640px) {
     .footer-links-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .footer-side-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: none;
-      margin-left: 0;
-      text-align: left;
+      grid-template-columns: minmax(8.5rem, 0.78fr) minmax(18rem, 1.62fr) minmax(10.5rem, 0.72fr);
+      gap: 1.5rem 1.75rem;
     }
 
     .footer-contact-link {
       justify-content: flex-start;
+    }
+
+    .footer-col--alianzas .footer-contact-link {
+      white-space: nowrap;
     }
 
     .footer-proyecto-list {
@@ -200,13 +247,13 @@
   }
 
   @media (min-width: 1024px) {
-    .footer-links-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 2rem;
+    .footer-brand__tagline {
+      padding-right: 1.5rem;
     }
 
-    .footer-side-cols {
-      display: contents;
+    .footer-links-grid {
+      padding-left: 0.5rem;
+      gap: 1.5rem 2rem;
     }
   }
 

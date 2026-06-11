@@ -147,10 +147,32 @@
     });
   }
 
+  const closeMobileMenu = () => {
+    const toggle = document.getElementById("mobileMenuToggle");
+    const menu = document.getElementById("mobileMenu");
+    if (!toggle || !menu || toggle.getAttribute("aria-expanded") !== "true") return false;
+
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Abrir menú de navegación");
+    toggle.classList.remove("is-open");
+    menu.hidden = true;
+    menu.classList.add("hidden");
+    document.body.classList.remove("mobile-menu-open");
+    return true;
+  };
+
   const getHeaderScrollOffset = () => {
-    if (siteHeader) {
-      return siteHeader.getBoundingClientRect().height + 12;
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+    const headerInner = document.querySelector(".site-header-inner");
+
+    if (isMobile && headerInner) {
+      return headerInner.getBoundingClientRect().bottom + 2;
     }
+
+    if (siteHeader) {
+      return siteHeader.getBoundingClientRect().bottom + 12;
+    }
+
     return 8;
   };
 
@@ -163,6 +185,18 @@
     history.pushState(null, "", `#${target.id}`);
   };
 
+  const navigateToSection = (target, menuWasOpen = false) => {
+    if (menuWasOpen) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.setTimeout(() => scrollToSection(target), 80);
+        });
+      });
+      return;
+    }
+    scrollToSection(target);
+  };
+
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (e) => {
       const id = anchor.getAttribute("href");
@@ -170,7 +204,9 @@
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      scrollToSection(target);
+
+      const menuWasOpen = closeMobileMenu();
+      navigateToSection(target, menuWasOpen);
     });
   });
 
@@ -256,19 +292,26 @@
   if (imageLightbox && imageLightboxFrame && imageLightboxImg) {
     const resolveGalleryImg = (el) => {
       if (!el) return null;
+
+      const isDark = document.documentElement.classList.contains("dark");
+      const root = el.tagName === "IMG" ? el.parentElement : el;
+      const themed =
+        root?.querySelector(isDark ? ".theme-img--dark" : ".theme-img--light") ||
+        (el.classList?.contains("theme-img")
+          ? el.classList.contains(isDark ? "theme-img--dark" : "theme-img--light")
+            ? el
+            : null
+          : null);
+      if (themed) return themed;
+
       if (el.tagName === "IMG") return el;
+
       const imgs = Array.from(el.querySelectorAll("img"));
       if (imgs.length === 0) return null;
       if (imgs.length === 1) return imgs[0];
 
       const visibleImg = imgs.find((img) => getComputedStyle(img).display !== "none");
-      if (visibleImg) return visibleImg;
-
-      const isDark = document.documentElement.classList.contains("dark");
-      return (
-        el.querySelector(isDark ? ".theme-img--dark" : ".theme-img--light") ||
-        imgs[0]
-      );
+      return visibleImg || imgs[0];
     };
 
     const fitLightboxImage = (naturalWidth, naturalHeight) => {

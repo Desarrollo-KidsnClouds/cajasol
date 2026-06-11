@@ -1,9 +1,9 @@
 ---
 const stages = [
-  { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 296, conv: null,  convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
-  { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 80,  conv: "27%", convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
-  { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 45,  conv: "56%", convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
-  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 16,  conv: "36%", convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
+  { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 325, convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
+  { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 263,  convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
+  { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 50,   convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
+  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 16,   convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
 ];
 
 const targetCenters = 70;
@@ -26,6 +26,7 @@ const segData = stages.map((s, i) => {
   const tL = (100 - tW) / 2, bL = (100 - bW) / 2;
   return {
     ...s,
+    conv: i > 0 ? pct(s.value, stages[i - 1].value) : null,
     clip: `polygon(${tL.toFixed(1)}% 0%,${(tL+tW).toFixed(1)}% 0%,${(bL+bW).toFixed(1)}% 100%,${bL.toFixed(1)}% 100%)`,
   };
 });
@@ -36,18 +37,18 @@ const implantedPct = pct(implanted, targetCenters);
 
 <section id="embudo" class="mx-auto w-full max-w-6xl px-5" aria-label="Embudo de conversión comercial">
   <header class="reveal mb-3">
-    <p class="section-eyebrow section-eyebrow--amber">Centros educativos</p>
+    <p class="section-eyebrow section-eyebrow--amber">Resultados del proyecto</p>
     <h2 class="section-title mt-1">Del contacto a la implantación</h2>
   </header>
 
   <div class="funnel-chart-card reveal-scale card-fx shine-border panel-glass p-4">
 
     <!-- Barra de progreso resumen -->
-    <div class="mb-4 flex items-center gap-3">
-      <div class="flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" style="height:6px;">
+    <div class="funnel-summary-row mb-4 flex flex-wrap items-center gap-3">
+      <div class="funnel-summary-bar flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" style="height:6px;">
         <div style={`width:${implantedPct}; height:100%; background:linear-gradient(90deg,#f0b552,#b45309); border-radius:9999px;`}></div>
       </div>
-      <span class="funnel-summary-text shrink-0 font-bold text-amber-600 dark:text-amber-400">{implanted}/{targetCenters} implantados — {implantedPct}</span>
+      <span class="funnel-summary-text font-bold text-amber-600 dark:text-amber-400">{implanted}/{targetCenters} implantados — {implantedPct}</span>
     </div>
 
     <!-- Grid principal -->
@@ -106,34 +107,45 @@ const implantedPct = pct(implanted, targetCenters);
 </section>
 
 <style>
+  #embudo {
+    min-width: 0;
+  }
+
+  .funnel-chart-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .funnel-summary-row {
+    min-width: 0;
+  }
+
+  .funnel-summary-bar {
+    min-width: 8rem;
+  }
+
   @media (max-width: 640px) {
     #embudo .section-title {
       white-space: nowrap;
       font-size: clamp(1rem, 5.5vw, 1.35rem);
     }
-
-    #embudo .funnel-chart-card {
-      width: 100%;
-      max-width: 100%;
-    }
   }
 
   @media (min-width: 641px) {
     #embudo .funnel-chart-card {
-      width: 112%;
-      max-width: 112%;
-      margin-inline: auto;
       padding: 1.5rem;
     }
 
     .funnel-main-grid {
-      grid-template-columns: 248px 1fr;
+      grid-template-columns: minmax(11rem, 22%) minmax(0, 1fr);
       gap: 16px;
     }
 
     .funnel-pyramid-col,
     .funnel-cards-col {
       gap: 5px;
+      min-width: 0;
     }
 
     .funnel-row {
@@ -143,10 +155,11 @@ const implantedPct = pct(implanted, targetCenters);
     .funnel-card {
       padding: 0 16px;
       border-radius: 10px;
+      min-width: 0;
     }
 
     .funnel-summary-text { font-size: 0.9rem; }
-    .fc-title { font-size: 0.95rem; }
+    .fc-title { font-size: 0.95rem; white-space: normal; }
     .fc-meta { font-size: 0.8rem; }
     .fc-badge { font-size: 0.76rem; padding: 2px 7px; }
     .fc-num { font-size: 1.86rem; }
@@ -156,13 +169,11 @@ const implantedPct = pct(implanted, targetCenters);
 
   @media (min-width: 1024px) {
     #embudo .funnel-chart-card {
-      width: 115%;
-      max-width: 115%;
       padding: 1.75rem;
     }
 
     .funnel-main-grid {
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: minmax(12.5rem, 24%) minmax(0, 1fr);
       gap: 18px;
     }
 
@@ -264,8 +275,9 @@ const implantedPct = pct(implanted, targetCenters);
   /* ── Grid principal ── */
   .funnel-main-grid {
     display: grid;
-    grid-template-columns: 210px 1fr;
+    grid-template-columns: minmax(9rem, 34%) minmax(0, 1fr);
     gap: 13px;
+    min-width: 0;
   }
 
   .funnel-pyramid-col,
@@ -273,6 +285,7 @@ const implantedPct = pct(implanted, targetCenters);
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
   }
 
   /* ── Fila (misma altura en ambas columnas) ── */

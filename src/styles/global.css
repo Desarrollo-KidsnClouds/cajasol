@@ -48,6 +48,7 @@ body {
   h4,
   h5,
   h6 {
+    font-family: var(--font-sans);
     @apply text-slate-900 dark:text-white;
   }
 
@@ -366,8 +367,10 @@ body {
 
   .header-scrolled {
     border-color: rgba(203, 213, 225, 0.9) !important;
-    background: rgba(255, 255, 255, 0.97) !important;
+    background: #ffffff !important;
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.1) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   html.dark .header-scrolled {
@@ -422,6 +425,7 @@ body {
   }
 
   .section-title {
+    font-family: var(--font-sans);
     @apply relative font-bold text-white;
   }
 
@@ -624,6 +628,12 @@ body {
   padding-bottom: 1.25rem;
 }
 
+@media (min-width: 1024px) {
+  .dashboard-compact #inicio {
+    padding-top: 0.75rem;
+  }
+}
+
 .dashboard-compact footer {
   margin-top: 0.5rem;
 }
@@ -639,14 +649,15 @@ body {
   }
 }
 
-.dashboard-compact #inicio h1 {
-  font-size: clamp(1.95rem, 4.5vw, 2.65rem);
-  line-height: 1.15;
+.dashboard-compact #inicio .hero-title {
+  font-size: clamp(1.85rem, 5.2vw, 2.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
 }
 
 @media (min-width: 1024px) {
-  .dashboard-compact #inicio h1 {
-    font-size: 2.75rem;
+  .dashboard-compact #inicio .hero-title {
+    font-size: clamp(1.65rem, 2.4vw, 2.25rem);
   }
 }
 
@@ -674,14 +685,20 @@ html:not(.dark) .dashboard-compact {
 }
 
 html:not(.dark) .site-header {
-  background: transparent !important;
+  background: #f8fafc !important;
   border: none !important;
   box-shadow: none !important;
 }
 
 html:not(.dark) .site-header-inner {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: #ffffff !important;
   border-color: rgba(226, 232, 240, 0.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html:not(.dark) .site-header-spacer {
+  background: #f8fafc;
 }
 
 html:not(.dark) .header-nav-link {
@@ -751,6 +768,17 @@ html:not(.dark) .btn-gradient {
   color: #0b0b0b;
 }
 
+/* Compensa el header fijo al navegar por anclas */
+.dashboard-compact section[id] {
+  scroll-margin-top: calc(4.75rem + env(safe-area-inset-top, 0px));
+}
+
+@media (min-width: 640px) {
+  .dashboard-compact section[id] {
+    scroll-margin-top: calc(5.25rem + env(safe-area-inset-top, 0px));
+  }
+}
+
 /* ── Espaciado entre secciones ── */
 .dashboard-compact section:not(.section-no-gap) {
   padding-top: 2rem;
@@ -805,6 +833,10 @@ html:not(.dark) .btn-gradient {
   user-select: none;
   caret-color: transparent;
 }
+
+html:not(.dark) .image-lightbox[open] {
+  background: rgba(248, 250, 252, 0.97);
+}
 .image-lightbox::backdrop {
   background: transparent;
 }
@@ -839,6 +871,19 @@ html:not(.dark) .btn-gradient {
   outline: 2px solid #f0b552;
   outline-offset: 2px;
 }
+
+html:not(.dark) .image-lightbox__close {
+  border-color: rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12);
+}
+
+html:not(.dark) .image-lightbox__close:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  background: #f0b552;
+  color: #0f172a;
+}
 .image-lightbox__body {
   display: flex;
   align-items: center;
@@ -862,6 +907,11 @@ html:not(.dark) .btn-gradient {
   border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+}
+
+html:not(.dark) .image-lightbox__frame {
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.18);
 }
 .image-lightbox__frame img {
   display: block;

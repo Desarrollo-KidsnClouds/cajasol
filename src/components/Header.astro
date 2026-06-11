@@ -1,17 +1,17 @@
 ---
 const navLinks = [
-  { href: "#inicio", label: "Presentación" },
-  { href: "#presentacion", label: "Timeline" },
-  { href: "#embudo", label: "Resultados" },
+  { href: "#inicio", label: "Objetivos" },
+  { href: "#presentacion", label: "Plan" },
+  { href: "#embudo", label: "Logros" },
   { href: "#cobertura", label: "Mapa" },
-  { href: "#repercusion", label: "Repercusión" },
+  { href: "#repercusion", label: "Impacto" },
 ];
 ---
 
 <header
   class="site-header no-print fixed inset-x-0 top-0 z-50 mx-auto w-[calc(100%-2rem)] max-w-5xl py-3 transition-all duration-300 sm:w-[calc(100%-4rem)] sm:max-w-5xl sm:py-2"
 >
-  <div class="site-header-inner w-full overflow-visible rounded-2xl border border-slate-200/80 bg-white/90 px-3 py-1.5 shadow-[0_4px_16px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-[rgba(212,175,55,0.15)] dark:bg-[#0f0f0f]/90 dark:shadow-[0_4px_24px_rgba(0,0,0,0.5)] sm:px-5 sm:py-1.5 lg:px-6">
+  <div class="site-header-inner w-full overflow-visible rounded-2xl border border-slate-200/80 bg-white px-3 py-1.5 shadow-[0_4px_16px_rgba(15,23,42,0.08)] dark:border-[rgba(212,175,55,0.15)] dark:bg-[#0f0f0f]/90 dark:shadow-[0_4px_24px_rgba(0,0,0,0.5)] dark:backdrop-blur-xl sm:px-5 sm:py-1.5 lg:px-6">
     <div class="header-layout w-full">
     <button
       id="mobileMenuToggle"
@@ -305,7 +305,7 @@ const navLinks = [
   .mobile-menu-list {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 0.25rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -313,8 +313,11 @@ const navLinks = [
 
   .mobile-menu-link {
     display: block;
-    padding: 0.625rem 0.5rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     border-radius: 0.5rem;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;

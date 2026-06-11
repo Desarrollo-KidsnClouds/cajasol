@@ -22,9 +22,9 @@ const provinces = [
 
   <div class="reveal-scale card-fx shine-border map-stage panel-glass overflow-hidden shadow-xl dark:bg-[#0a111e] dark:shadow-2xl dark:shadow-black/40">
     <div class="map-stage-toolbar border-b border-slate-200 px-4 py-2.5 dark:border-slate-700/80">
-      <div class="map-command inline-flex w-full max-w-full flex-wrap items-center gap-2 rounded-xl border border-slate-600/40 bg-slate-900/70 px-3 py-2 text-sm font-bold leading-snug text-slate-200 backdrop-blur sm:text-base dark:border-slate-600/50 dark:bg-slate-800/80">
-        <span class="status-led"></span>
-        <span>Estatus del Proyecto: 16 Centros Firmados y 75 en Gestión</span>
+      <div class="map-command flex w-full max-w-full flex-nowrap items-center gap-2.5 rounded-xl border border-slate-600/40 bg-slate-900/70 px-3 py-2 text-sm font-bold leading-snug text-slate-200 backdrop-blur sm:text-base dark:border-slate-600/50 dark:bg-slate-800/80">
+        <span class="status-led shrink-0" aria-hidden="true"></span>
+        <span class="min-w-0">Estatus del Proyecto: Centros implantados</span>
       </div>
     </div>
 
@@ -73,12 +73,12 @@ const provinces = [
           <span class="font-extrabold text-slate-900 dark:text-white" style="font-family:'Poppins'; font-size:1.1rem;">30</span>
         </div>
 
-        <div class="alumni-card flex flex-col gap-1 rounded-lg border border-[#D4AF37]/35 bg-[#D4AF37]/8 px-3 py-2">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-sm font-semibold text-[#f0b552]">Total</span>
-            <span class="font-extrabold text-[#f0b552]" style="font-family:'Poppins'; font-size:1.1rem;">998</span>
+        <div class="alumni-card map-total-card flex items-center justify-between gap-2 rounded-lg border border-[#D4AF37]/35 bg-[#D4AF37]/8 px-3 py-2 dark:border-[#D4AF37]/30 dark:bg-[rgba(212,175,55,0.1)]">
+          <div class="map-total-card__labels min-w-0">
+            <span class="block text-sm font-semibold text-[#b8942e] dark:text-[#f0b552]">Total</span>
+            <span class="map-total-card__centros block font-semibold text-[#b8942e]/90 dark:text-[#f0b552]/85">16 centros</span>
           </div>
-          <span class="w-fit rounded-md border border-[#D4AF37]/25 bg-[#D4AF37]/10 px-1.5 py-0.5 text-[10px] font-bold text-[#f0b552]">16 centros</span>
+          <span class="map-total-card__alumnos shrink-0 font-extrabold text-[#b8942e] dark:text-[#f0b552]" style="font-family:'Poppins'; font-size:1.1rem;">998</span>
         </div>
 
       </div>
@@ -151,6 +151,19 @@ const provinces = [
 
   html.dark .andalusia-exec .province-data-item strong {
     color: #f1f5f9;
+  }
+
+  .andalusia-exec .map-total-card__centros {
+    margin-top: 0.125rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 640px) {
+    .andalusia-exec .map-total-card__centros {
+      font-size: 0.875rem;
+    }
   }
 
   /* Modo oscuro: más contraste sobre fondo #0a111e */
@@ -315,34 +328,3 @@ const provinces = [
     max-height: min(400px, 48vh);
   }
 </style>
-
-<!-- ── Impacto en familias ── -->
-<div class="reveal mx-auto mt-6 w-full max-w-6xl px-5">
-
-  <div class="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-    <div class="flex flex-wrap items-center gap-3">
-      <p class="section-eyebrow section-eyebrow--amber">Impacto en familias andaluzas</p>
-      <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">
-        Familias beneficiadas <span class="font-extrabold text-[#f0b552]" style="font-family:'Poppins';">823</span><span class="text-slate-400 dark:text-slate-500"> / 3.500</span>
-      </span>
-    </div>
-    <span class="text-xl font-extrabold text-[#f0b552]" style="font-family:'Poppins';">23,5%</span>
-  </div>
-
-  <!-- Barra -->
-  <div class="relative h-3 w-full rounded-full bg-slate-100 dark:bg-slate-800" style="margin-top: 2rem;">
-    <!-- Relleno -->
-    <div class="h-full rounded-full" style="width:23.5%; background:linear-gradient(90deg,#f0b552,#b45309); box-shadow:0 0 10px rgba(240,181,82,0.45);"></div>
-    <!-- Punto + etiqueta -->
-    <div class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style="left:23.5%;">
-      <div class="h-5 w-5 rounded-full border-2 border-white bg-[#f0b552] shadow-[0_0_10px_rgba(240,181,82,0.8)] dark:border-slate-900"></div>
-      <span class="absolute top-full left-1/2 mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#f0b552] px-2.5 py-0.5 text-xs font-extrabold text-white shadow-md" style="font-family:'Poppins';">823</span>
-    </div>
-  </div>
-
-  <div class="mt-2 flex items-center justify-between text-xs text-slate-400 dark:text-slate-500">
-    <span>0 familias</span>
-    <span>3.500 familias</span>
-  </div>
-
-</div>
