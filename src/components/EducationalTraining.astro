@@ -39,11 +39,10 @@ const webinars = [
 >
   <header class="formacion-section__header reveal">
     <p class="section-eyebrow section-eyebrow--amber">Formación al sector educativo</p>
-    <h2 class="section-title mt-2">Fundación Cajasol te escucha</h2>
+    <h2 class="section-title mt-2">Webinars: Fundación Cajasol te escucha</h2>
     <p class="formacion-intro mt-2 text-base leading-snug text-slate-600 dark:text-slate-300">
-      Fundación Cajasol te escucha es un programa de webinars formativos para acompañar a los centros educativos andaluces en su proceso de digitalización.
-      <span class="formacion-intro__break" aria-hidden="true"><br /></span>
-      Un espacio para compartir buenas prácticas, escuchar necesidades reales y mejorar la comunicación entre centros y familias.
+      <strong class="formacion-intro__quote">«Fundación Cajasol te escucha»</strong> es un programa de webinars formativos para acompañar a los centros educativos andaluces en su proceso de digitalización.
+      <span class="formacion-intro__second">Un espacio para compartir buenas prácticas, escuchar necesidades reales y mejorar la comunicación entre centros y familias.</span>
     </p>
   </header>
 
@@ -74,8 +73,25 @@ const webinars = [
     max-width: 100%;
   }
 
-  .formacion-intro__break {
-    display: none;
+  .formacion-intro__quote {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.06);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0.08em 0.28em;
+    border-radius: 0.3rem;
+  }
+
+  html.dark .formacion-intro__quote {
+    color: #f8fafc;
+    background: rgba(248, 250, 252, 0.08);
+  }
+
+  .formacion-intro__second {
+    display: block;
+    margin-top: 0.5rem;
   }
 
   @media (min-width: 640px) {
@@ -83,10 +99,6 @@ const webinars = [
       max-width: none;
       font-size: 0.9375rem;
       line-height: 1.42;
-    }
-
-    .formacion-intro__break {
-      display: inline;
     }
   }
 

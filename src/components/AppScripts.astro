@@ -22,6 +22,35 @@
 
   const siteHeader = document.querySelector(".site-header");
   const siteHeaderInner = document.querySelector(".site-header-inner");
+  const mobileBottomNav = document.querySelector(".mobile-bottom-nav");
+
+  if (mobileBottomNav && mobileBottomNav.parentElement !== document.body) {
+    document.body.appendChild(mobileBottomNav);
+  }
+
+  const pinMobileBottomNav = () => {
+    if (!mobileBottomNav || !window.matchMedia("(max-width: 639px)").matches) return;
+
+    mobileBottomNav.style.position = "fixed";
+    mobileBottomNav.style.left = "0";
+    mobileBottomNav.style.right = "0";
+    mobileBottomNav.style.bottom = "0";
+    mobileBottomNav.style.width = "100%";
+    mobileBottomNav.style.margin = "0";
+    mobileBottomNav.style.transform = "none";
+
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const bottomOffset = Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop);
+    mobileBottomNav.style.bottom = `${bottomOffset}px`;
+  };
+
+  pinMobileBottomNav();
+  window.addEventListener("scroll", pinMobileBottomNav, { passive: true });
+  window.addEventListener("resize", pinMobileBottomNav, { passive: true });
+  window.visualViewport?.addEventListener("scroll", pinMobileBottomNav);
+  window.visualViewport?.addEventListener("resize", pinMobileBottomNav);
 
   const onScroll = () => {
     const scrolled = window.scrollY > 16;
