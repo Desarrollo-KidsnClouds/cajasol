@@ -1,197 +1,138 @@
 # Dashboard Cajasol × Kids&Clouds
 
-Panel web ejecutivo que muestra en tiempo real el avance del proyecto Kids&Clouds con Fundación Cajasol: centros firmados, alumnos, familias beneficiadas y fases del proyecto.
+Panel web ejecutivo del proyecto de patrocinio entre **Fundación Cajasol** y **Kids&Clouds**: objetivos, plan de fases, logros comerciales, cobertura territorial en Andalucía, impacto mediático y formación al sector educativo.
+
+La web es **100 % estática**: no hay base de datos, ni login, ni panel de administración. Todo el contenido vive en archivos del repositorio. Se edita el código o se sustituyen archivos en `public/` y se publica con un **push** a GitHub; Vercel despliega automáticamente en ~1 minuto.
+
+**Producción:** [fundacion-cajasol.vercel.app](https://fundacion-cajasol.vercel.app/)
 
 ---
 
-## ¿Cómo está construido? (Stack técnico)
-
-Piénsalo como una web normal, pero generada de forma inteligente:
-
-- **Astro** → Es el "motor" que construye la web. Genera páginas HTML estáticas (sin servidor, sin base de datos). Cada sección de la web es un fichero `.astro` independiente.
-- **Tailwind CSS** → Sistema de estilos. En lugar de escribir CSS tradicional, se usan clases directamente en el HTML (`text-xl`, `bg-amber-500`, etc.).
-- **Vercel** → La plataforma donde está publicada la web. Cada vez que se sube un cambio a GitHub, Vercel lo despliega automáticamente en ~1 minuto.
-
-> **Importante:** Esta web es 100% estática. No hay base de datos, no hay servidor, no hay login. Todo el contenido está escrito directamente en los archivos de código.
-
----
-
-## ¿Dónde está cada cosa? (Estructura de archivos)
-
-```
-cajasol/
-│
-├── src/components/          ← AQUÍ están todas las secciones de la web
-│   ├── Hero.astro               → Cabecera: KPIs, badges, presentación
-│   ├── PresentationVisuals.astro → Sección FASES (timeline Q1-Q4)
-│   ├── ConversionFunnel.astro   → Embudo "Del contacto a la implantación"
-│   ├── Map.astro                → Mapa de Andalucía + alumnos + familias
-│   ├── AlliesEcosystem.astro    → Convenio con ACES
-│   ├── Testimonials.astro       → Repercusión mediática (3 cards)
-│   ├── Header.astro             → Barra de navegación superior
-│   ├── Footer.astro             → Pie de página
-│   └── AppScripts.astro         → Código JS: tema oscuro/claro, mapa, lightbox
-│
-├── src/pages/index.astro    ← AQUÍ se decide el ORDEN de las secciones
-│
-├── src/styles/
-│   ├── global.css           ← Estilos generales: animaciones, espaciado
-│   └── theme.css            ← Colores y tipografía del proyecto
-│
-└── public/                  ← Archivos que se sirven directamente (imágenes, PDFs)
-    ├── imagen.png               → Foto del timeline de FASES
-    ├── andalusia-interactive.svg → El mapa SVG de Andalucía
-    ├── Cajasol_mkt.pdf
-    └── Alianza_knc.pdf
-```
-
-**Regla simple:** si algo se ve en la web, está en `src/components/`. Si es una imagen o PDF, está en `public/`.
-
----
-
-## ¿Cómo arrancar en local? (Para ver la web en tu ordenador)
-
-Necesitas tener **Node.js** instalado (es gratis, se descarga en [nodejs.org](https://nodejs.org)).
+## Cómo publicar cambios
 
 ```bash
-# Paso 1: Instalar las dependencias del proyecto (solo la primera vez)
-npm install
-
-# Paso 2: Arrancar el servidor de desarrollo
-npm run dev
-# → Abre el navegador en: http://localhost:4321
-```
-
-Mientras el servidor está corriendo, cualquier cambio que hagas en el código se refleja al instante en el navegador sin recargar.
-
-```bash
-# Otros comandos útiles:
-npm run build      # Genera la versión final de producción (carpeta /dist)
-npm run preview    # Previsualiza esa versión final en local
-```
-
----
-
-## Desplegar cambios manualmente
-
-Si prefieres publicar directamente desde tu máquina sin pasar por Git, usa el CLI de Vercel:
-
-```bash
-vercel --prod
-```
-
-Este comando construye el proyecto y lo sube a producción en ~1 minuto. Al terminar, el resultado es visible en:
-
-**[cajasol.vercel.app](https://cajasol.vercel.app)**
-
-> **Requisito previo:** tener el CLI instalado y la sesión iniciada. Si es la primera vez:
-> ```bash
-> npm install -g vercel   # instalar el CLI (solo una vez)
-> vercel login            # iniciar sesión con la cuenta de empresa
-> ```
-
-| Comando | Qué hace |
-|---|---|
-| `vercel` | Despliega en una URL de previsualización (para probar antes de publicar) |
-| `vercel --prod` | Despliega directamente en producción → `cajasol.vercel.app` |
-
----
-
-## Repositorio y despliegue en la cuenta de empresa
-
-
-
----
-
-
-
-### Paso 1 — Subir el código al repositorio
-
-Abre una terminal en la carpeta del proyecto y ejecuta estos comandos uno a uno:
-
-```bash
-# Inicializar Git en la carpeta (solo si no está ya inicializado)
-git init
-
-# Apuntar al repositorio de empresa 
-git remote add origin https://github.com/Desarrollo-KidsnClouds/knc_app.git
-
-# Añadir todos los archivos
 git add .
-
-# Crear el primer commit (instantánea del proyecto)
-git commit -m "primer commit"
-
-# Subir el código a GitHub
-git push -u origin main
+git commit -m "Describe el cambio"
+git push 
 ```
 
-> Si Git te pide usuario y contraseña de GitHub, introduce los de la cuenta de empresa. Si falla la autenticación, GitHub recomienda usar un **Personal Access Token** en lugar de contraseña: puedes crearlo en *GitHub → Settings → Developer settings → Personal access tokens*.
+Vercel detecta el push y actualiza la web en producción. No hace falta ningún paso adicional.
 
-Cuando termine, entra en [github.com/Desarrollo-KidsnClouds/knc_app](https://github.com/Desarrollo-KidsnClouds/knc_app) y verás todos los archivos del proyecto ahí.
+### Ejemplo: actualizar centros implantados
 
----
-
-### Paso 2 — Conectar Vercel al repositorio 
-
-Vercel es quien toma el código de GitHub y lo convierte en una web pública automáticamente.
-
-1. Entrar en [vercel.com](https://vercel.com) con la cuenta de empresa
-2. Pulsar **"Add New Project"**
-3. En la sección *Import Git Repository*, seleccionar **GitHub** y autorizar el acceso a la organización/empresa
-4. Buscar y seleccionar el repositorio `cajasol`
-5. Vercel detecta que es un proyecto Astro solo. Confirmar la configuración:
-   - Framework Preset: **Astro**
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-6. Pulsar **"Deploy"**
-
-Vercel tardará ~1 minuto en construir y publicar la web. Al terminar te dará una URL del estilo `cajasol.vercel.app`. **La web ya está publicada.**
-
-A partir de ahora, cada `git push` que hagas actualizará la web automáticamente.
-
----
-
-### Paso 3 —  Enlazar desde WordPress con el plugin Redirection
-
-El objetivo es que la web sea accesible en `kidsandclouds.es/cajasol`. Para conseguirlo sin tocar el dominio principal ni la web de WordPress:
-
-1. En WordPress, instalar el plugin gratuito **"Redirection"** (si no lo tienes ya)
-2. Ir a **Herramientas → Redirection → Añadir nueva**
-3. Rellenar:
-   - **URL de origen:** `/cajasol`
-   - **URL de destino:** la URL de Vercel donde está publicado el dashboard *(ej: `https://cajasol.vercel.app`)*
-4. Tipo de redirección: **301 (Permanente)** → así Google no penaliza el posicionamiento
-5. Guardar → funciona al instante
-
-A partir de ese momento, cualquiera que entre a `kidsandclouds.es/cajasol` será redirigido automáticamente al dashboard.
-
-> No requiere tocar DNS, no afecta al resto del sitio WordPress y se puede deshacer en cualquier momento desde el mismo plugin.
-
----
-
-## ¿Cómo actualizar los datos? (Guía de contenido)
-
-Todo se cambia editando los archivos `.astro` correspondientes. No hay formularios ni panel de administración.
-
-| Qué quiero cambiar | Abro este archivo |
-|---|---|
-| Número de centros, familias, KPIs del inicio | `src/components/Hero.astro` |
-| Las fases Q1, Q2, Q3, Q4 y la línea de progreso | `src/components/PresentationVisuals.astro` |
-| El embudo "Del contacto a la implantación" | `src/components/ConversionFunnel.astro` |
-| El mapa, alumnos por provincia, barra de familias | `src/components/Map.astro` |
-| El convenio ACES y sus estadísticas | `src/components/AlliesEcosystem.astro` |
-| Las cards de repercusión mediática | `src/components/Testimonials.astro` |
-| La imagen de la sección FASES | Reemplazar `public/imagen.png` (mismo nombre) |
-| Los PDFs descargables | Reemplazar los archivos en `public/` (mismo nombre) |
-
-**Ejemplo práctico** — Actualizar el número de centros implantados:
 1. Abrir `src/components/ConversionFunnel.astro`
-2. Buscar el número y cambiarlo
-3. Guardar y hacer push:
+2. Localizar el array `stages` y cambiar el valor de «Implantados»
+3. Guardar y publicar:
+
 ```bash
 git add .
-git commit -m "actualiza centros implantados"
-git push origin main
+git commit -m "Actualiza centros implantados"
+git push 
 ```
-Vercel publica el cambio automáticamente.
+
+---
+
+## Cómo está construido
+
+| Tecnología | Rol en el proyecto |
+|---|---|
+| **[Astro 6](https://astro.build)** | Genera HTML estático. Cada sección es un componente `.astro` independiente. |
+| **[Tailwind CSS 4](https://tailwindcss.com)** | Estilos mediante clases utilitarias. |
+| **JavaScript inline** | Tema claro/oscuro, navegación, mapa interactivo, lightbox. |
+| **[Vercel](https://vercel.com)** | Hosting conectado a GitHub. Cada push a `main` despliega solo. |
+
+**Repositorio:** [github.com/Desarrollo-KidsnClouds/knc_app](https://github.com/Desarrollo-KidsnClouds/cajasol)
+
+---
+
+## Estructura del proyecto
+
+```
+Cajasol/
+├── src/
+│   ├── pages/
+│   │   └── index.astro          # Orden de las secciones en la página
+│   ├── layouts/
+│   │   └── Layout.astro         # HTML base, fuentes, barra inferior móvil
+│   ├── components/              # Una sección = un archivo .astro
+│   │   ├── Header.astro
+│   │   ├── MobileBottomNav.astro
+│   │   ├── Hero.astro           # Objetivos (#inicio)
+│   │   ├── PresentationVisuals.astro  # Plan / fases (#presentacion)
+│   │   ├── ConversionFunnel.astro     # Logros (#embudo)
+│   │   ├── FamilyImpact.astro
+│   │   ├── Map.astro            # Mapa (#cobertura)
+│   │   ├── ImpactSpotlight.astro
+│   │   ├── AlliesEcosystem.astro      # Impacto (#repercusion)
+│   │   ├── EducationalTraining.astro  # Formación (#formacion)
+│   │   ├── Testimonials.astro
+│   │   ├── Footer.astro
+│   │   └── AppScripts.astro     # JS global
+│   ├── data/
+│   │   └── navigation.ts        # Enlaces del menú
+│   └── styles/
+│       ├── global.css
+│       └── theme.css
+│
+└── public/                      # Imágenes, PDFs y SVG (sustituir sin tocar código)
+```
+
+**Regla práctica**
+
+- Texto, números o diseño de una sección → `src/components/`
+- Imagen o PDF → `public/` (mismo nombre de archivo)
+- Orden de secciones → `src/pages/index.astro`
+- Menú de navegación → `src/data/navigation.ts`
+
+---
+
+## Orden de las secciones
+
+| Orden | Componente | Ancla | Menú |
+|---|---|---|---|
+| 1 | `Hero` | `#inicio` | Objetivos |
+| 2 | `PresentationVisuals` | `#presentacion` | Plan |
+| 3 | `ConversionFunnel` | `#embudo` | Logros |
+| 4 | `FamilyImpact` | — | — |
+| 5 | `Map` | `#cobertura` | Mapa |
+| 6 | `ImpactSpotlight` | — | — |
+| 7 | `AlliesEcosystem` | `#repercusion` | Impacto |
+| 8 | `EducationalTraining` | `#formacion` | — |
+| 9 | `Testimonials` | — | — |
+| 10 | `Footer` | — | — |
+
+---
+
+## Guía de contenido: qué archivo tocar
+
+| Quiero cambiar… | Archivo |
+|---|---|
+| KPIs del inicio (centros, familias, badges) | `src/components/Hero.astro` |
+| Fases Q1–Q4 y timeline del plan | `src/components/PresentationVisuals.astro` |
+| Embudo «Del contacto a la implantación» | `src/components/ConversionFunnel.astro` |
+| Impacto en familias | `src/components/FamilyImpact.astro` |
+| Mapa y provincias | `src/components/Map.astro` |
+| Convenio ACES y estadísticas | `src/components/AlliesEcosystem.astro` |
+| Webinars y formación | `src/components/EducationalTraining.astro` |
+| Repercusión mediática | `src/components/Testimonials.astro` |
+| Pie de página y contacto | `src/components/Footer.astro` |
+| Menú superior e inferior (móvil) | `src/data/navigation.ts` |
+| PDF «Ver presentación» | `public/Cajasol_mkt.pdf` |
+| Nota de prensa descargable | `public/Cajasol nota de prensa.docx` |
+| Logos | `public/logo_web_nuevo.png`, `public/Logo_Fundación_Cajasol.png` |
+
+---
+
+## Notas útiles
+
+- **No hay CMS:** busca el texto o número en el editor y cámbialo directamente en el `.astro` correspondiente.
+- **Imágenes y PDFs:** sustituye el archivo en `public/` manteniendo el mismo nombre.
+- **Menú móvil:** los iconos y enlaces se definen en `src/data/navigation.ts`.
+
+---
+
+## Resumen
+
+```
+Editar archivo  →  git add .  →  git commit  →  git push  →  Vercel publica
+```
