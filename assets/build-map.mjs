@@ -46,11 +46,11 @@ const pathToProvince = {
 
 const centros = {
   huelva: 0,
-  sevilla: 6,
-  cadiz: 3,
+  sevilla: 16,
+  cadiz: 1,
   cordoba: 2,
   jaen: 0,
-  malaga: 4,
+  malaga: 3,
   granada: 0,
   almeria: 0,
 };
