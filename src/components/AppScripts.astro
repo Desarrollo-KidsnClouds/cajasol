@@ -22,6 +22,29 @@
 
   const siteHeader = document.querySelector(".site-header");
   const siteHeaderInner = document.querySelector(".site-header-inner");
+  const mobileBottomNav = document.querySelector(".mobile-bottom-nav");
+
+  if (mobileBottomNav && mobileBottomNav.parentElement !== document.body) {
+    document.body.appendChild(mobileBottomNav);
+  }
+
+  const pinMobileBottomNav = () => {
+    if (!mobileBottomNav || !window.matchMedia("(max-width: 639px)").matches) return;
+
+    mobileBottomNav.style.position = "fixed";
+    mobileBottomNav.style.left = "0";
+    mobileBottomNav.style.right = "0";
+    mobileBottomNav.style.bottom = "0";
+    mobileBottomNav.style.width = "100%";
+    mobileBottomNav.style.margin = "0";
+    mobileBottomNav.style.transform = "none";
+  };
+
+  pinMobileBottomNav();
+  window.addEventListener("scroll", pinMobileBottomNav, { passive: true });
+  window.addEventListener("resize", pinMobileBottomNav, { passive: true });
+  window.visualViewport?.addEventListener("scroll", pinMobileBottomNav);
+  window.visualViewport?.addEventListener("resize", pinMobileBottomNav);
 
   const onScroll = () => {
     const scrolled = window.scrollY > 16;
@@ -147,39 +170,94 @@
     });
   }
 
-  const getHeaderScrollOffset = () => {
-    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
-    if (isDesktop && siteHeader) {
-      return siteHeader.getBoundingClientRect().height + 20;
+  const closeMobileMenu = () => {
+    const toggle = document.getElementById("mobileMenuToggle");
+    const menu = document.getElementById("mobileMenu");
+    if (!toggle || !menu || toggle.getAttribute("aria-expanded") !== "true") return false;
+
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Abrir menú de navegación");
+    toggle.classList.remove("is-open");
+    menu.hidden = true;
+    menu.classList.add("hidden");
+    document.body.classList.remove("mobile-menu-open");
+    return true;
+  };
+
+  const getSectionScrollOffset = () => {
+    const isMobile = window.matchMedia("(max-width: 639px)").matches;
+
+    if (isMobile) {
+      return 10;
     }
-    return 8;
+
+    if (siteHeader) {
+      return siteHeader.getBoundingClientRect().bottom + 12;
+    }
+
+    return 12;
+  };
+
+  const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+  let scrollNavToken = 0;
+
+  const computeSectionScrollY = (target) => {
+    const offset = getSectionScrollOffset();
+    return Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset);
   };
 
   const scrollToSection = (target) => {
-    const y = Math.max(
-      0,
-      target.getBoundingClientRect().top + window.scrollY - getHeaderScrollOffset()
-    );
-    window.scrollTo({ top: y, behavior: "smooth" });
-    history.pushState(null, "", `#${target.id}`);
+    const token = ++scrollNavToken;
+
+    const runScroll = (behavior) => {
+      if (token !== scrollNavToken) return;
+      window.scrollTo({ top: computeSectionScrollY(target), behavior });
+      history.replaceState(null, "", `#${target.id}`);
+    };
+
+    runScroll(scrollBehavior);
+
+    if (!prefersReducedMotion) {
+      window.setTimeout(() => runScroll("auto"), 520);
+    }
   };
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", (e) => {
-      const id = anchor.getAttribute("href");
-      if (!id || id === "#") return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      scrollToSection(target);
-    });
+  const navigateToSection = (target, menuWasOpen = false) => {
+    if (menuWasOpen) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.setTimeout(() => scrollToSection(target), 80);
+        });
+      });
+      return;
+    }
+
+    requestAnimationFrame(() => scrollToSection(target));
+  };
+
+  document.addEventListener("click", (e) => {
+    const anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+
+    const id = anchor.getAttribute("href");
+    if (!id || id === "#") return;
+
+    const target = document.querySelector(id);
+    if (!target) return;
+
+    e.preventDefault();
+
+    const menuWasOpen = closeMobileMenu();
+    navigateToSection(target, menuWasOpen);
   });
 
   const initialHash = window.location.hash;
   if (initialHash) {
     const initialTarget = document.querySelector(initialHash);
     if (initialTarget) {
-      requestAnimationFrame(() => scrollToSection(initialTarget));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToSection(initialTarget));
+      });
     }
   }
 
@@ -257,19 +335,26 @@
   if (imageLightbox && imageLightboxFrame && imageLightboxImg) {
     const resolveGalleryImg = (el) => {
       if (!el) return null;
+
+      const isDark = document.documentElement.classList.contains("dark");
+      const root = el.tagName === "IMG" ? el.parentElement : el;
+      const themed =
+        root?.querySelector(isDark ? ".theme-img--dark" : ".theme-img--light") ||
+        (el.classList?.contains("theme-img")
+          ? el.classList.contains(isDark ? "theme-img--dark" : "theme-img--light")
+            ? el
+            : null
+          : null);
+      if (themed) return themed;
+
       if (el.tagName === "IMG") return el;
+
       const imgs = Array.from(el.querySelectorAll("img"));
       if (imgs.length === 0) return null;
       if (imgs.length === 1) return imgs[0];
 
       const visibleImg = imgs.find((img) => getComputedStyle(img).display !== "none");
-      if (visibleImg) return visibleImg;
-
-      const isDark = document.documentElement.classList.contains("dark");
-      return (
-        el.querySelector(isDark ? ".theme-img--dark" : ".theme-img--light") ||
-        imgs[0]
-      );
+      return visibleImg || imgs[0];
     };
 
     const fitLightboxImage = (naturalWidth, naturalHeight) => {

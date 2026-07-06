@@ -1,0 +1,243 @@
+---
+const webinars = [
+  {
+    title: "Redes sociales vs. buena comunicación con las familias",
+    date: "30 junio",
+    description:
+      "Cómo diferenciar la visibilidad digital de una comunicación educativa verdaderamente útil.",
+  },
+  {
+    title: "Cómo convertir la queja de una familia en una buena experiencia",
+    date: "7 julio",
+    description:
+      "Claves para transformar una situación difícil en una oportunidad de confianza.",
+  },
+  {
+    title: "Por qué se quejan las familias de la comunicación",
+    date: "14 julio",
+    description: "Qué les molesta, qué esperan y cómo anticiparse a sus necesidades.",
+  },
+  {
+    title: "Dinos qué necesitas para reducir tu carga administrativa en Séneca",
+    date: "21 julio",
+    description:
+      "Sesión de escucha activa para detectar tareas repetitivas, procesos mejorables y necesidades reales de los centros.",
+  },
+  {
+    title: "Formación para empezar a usar Kids&Clouds",
+    date: "28 julio",
+    description:
+      "Sesión práctica para acompañar a los centros en los primeros pasos de implantación y uso de la plataforma.",
+  },
+];
+---
+
+<section
+  id="formacion"
+  class="mx-auto w-full max-w-6xl px-5"
+  aria-label="Formación al sector educativo — Fundación Cajasol te escucha"
+>
+  <header class="formacion-section__header reveal">
+    <p class="section-eyebrow section-eyebrow--amber">Formación al sector educativo</p>
+    <h2 class="section-title mt-2">Webinars: Fundación Cajasol te escucha</h2>
+    <p class="formacion-intro mt-2 text-base leading-snug text-slate-600 dark:text-slate-300">
+      <strong class="formacion-intro__quote">«Fundación Cajasol te escucha»</strong> es un programa de webinars formativos para acompañar a los centros educativos andaluces en su proceso de digitalización.
+      <span class="formacion-intro__second">Un espacio para compartir buenas prácticas, escuchar necesidades reales y mejorar la comunicación entre centros y familias.</span>
+    </p>
+  </header>
+
+  <article class="reveal card-fx shine-border panel-glass formacion-panel max-w-5xl" data-reveal-delay="60ms">
+    <h3 class="formacion-panel__heading">Webinars planificados</h3>
+    <ul class="formacion-webinars" role="list">
+      {webinars.map((webinar, index) => (
+        <li
+          class="formacion-webinars__item"
+          data-reveal-delay={`${(index + 1) * 40}ms`}
+        >
+          <span class="formacion-webinars__check" aria-hidden="true">✓</span>
+          <div class="formacion-webinars__content">
+            <p class="formacion-webinars__title">
+              <span class="formacion-webinars__title-text">{webinar.title}</span>
+              <span class="formacion-webinars__date">({webinar.date})</span>
+            </p>
+            <p class="formacion-webinars__description">{webinar.description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </article>
+</section>
+
+<style>
+  .formacion-intro {
+    max-width: 100%;
+  }
+
+  .formacion-intro__quote {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.06);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0.08em 0.28em;
+    border-radius: 0.3rem;
+  }
+
+  html.dark .formacion-intro__quote {
+    color: #f8fafc;
+    background: rgba(248, 250, 252, 0.08);
+  }
+
+  .formacion-intro__second {
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .formacion-intro {
+      max-width: none;
+      font-size: 0.9375rem;
+      line-height: 1.42;
+    }
+  }
+
+  .formacion-section__header {
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .formacion-section__header {
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  .formacion-panel {
+    padding: 0.875rem 1rem 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .formacion-panel {
+      padding: 1rem 1.125rem 1.125rem;
+    }
+  }
+
+  .formacion-panel__heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(51 65 85);
+  }
+
+  html.dark .formacion-panel__heading {
+    color: rgb(226 232 240);
+  }
+
+  .formacion-webinars {
+    margin-top: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .formacion-webinars__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 0.5625rem;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: rgba(248, 250, 252, 0.75);
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .formacion-webinars__item:hover {
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.05);
+  }
+
+  html.dark .formacion-webinars__item {
+    border-color: rgba(51, 65, 85, 0.75);
+    background: rgba(30, 41, 59, 0.45);
+  }
+
+  html.dark .formacion-webinars__item:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.1);
+  }
+
+  .formacion-webinars__check {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.0625rem;
+    height: 1.0625rem;
+    margin-top: 0.15rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.15);
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(4 120 87);
+  }
+
+  html.dark .formacion-webinars__check {
+    color: rgb(110 231 183);
+  }
+
+  .formacion-webinars__content {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .formacion-webinars__title {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.5rem;
+    align-items: start;
+    font-size: 0.91875rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: rgb(30 41 59);
+  }
+
+  .formacion-webinars__title-text {
+    min-width: 0;
+    text-wrap: pretty;
+  }
+
+  html.dark .formacion-webinars__title {
+    color: rgb(241 245 249);
+  }
+
+  .formacion-webinars__date {
+    margin-left: 0;
+    padding-top: 0.05rem;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-align: right;
+    color: rgb(100 116 139);
+  }
+
+  html.dark .formacion-webinars__date {
+    color: rgb(148 163 184);
+  }
+
+  .formacion-webinars__description {
+    margin-top: 0.2rem;
+    font-size: 0.853125rem;
+    line-height: 1.45;
+    color: rgb(71 85 105);
+  }
+
+  html.dark .formacion-webinars__description {
+    color: rgb(148 163 184);
+  }
+</style>

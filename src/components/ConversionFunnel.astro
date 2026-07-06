@@ -1,9 +1,9 @@
 ---
 const stages = [
-  { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 296, conv: null,  convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
-  { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 80,  conv: "27%", convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
-  { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 45,  conv: "56%", convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
-  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 16,  conv: "36%", convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
+  { label: "Contactados",        legendLabel: "Centros educativos contactados",  value: 588, convNote: null,                            fill: "#4338ca", fillLight: "#818cf8", icon: "📋" },
+  { label: "A formación",        legendLabel: "Centros invitados a formación",   value: 149,  convNote: "de contactados",                fill: "#2563eb", fillLight: "#60a5fa", icon: "🎓" },
+  { label: "Con reunión",        legendLabel: "Reuniones de presentación",       value: 64,   convNote: "de invitados",                  fill: "#0891b2", fillLight: "#38bdf8", icon: "🤝" },
+  { label: "Implantados",        legendLabel: "Centros implantados activos",     value: 22,   convNote: "de reuniones",                  fill: "#b45309", fillLight: "#f0b552", icon: "✅" },
 ];
 
 const targetCenters = 70;
@@ -26,6 +26,7 @@ const segData = stages.map((s, i) => {
   const tL = (100 - tW) / 2, bL = (100 - bW) / 2;
   return {
     ...s,
+    conv: i > 0 ? pct(s.value, stages[i - 1].value) : null,
     clip: `polygon(${tL.toFixed(1)}% 0%,${(tL+tW).toFixed(1)}% 0%,${(bL+bW).toFixed(1)}% 100%,${bL.toFixed(1)}% 100%)`,
   };
 });
@@ -36,18 +37,18 @@ const implantedPct = pct(implanted, targetCenters);
 
 <section id="embudo" class="mx-auto w-full max-w-6xl px-5" aria-label="Embudo de conversión comercial">
   <header class="reveal mb-3">
-    <p class="section-eyebrow section-eyebrow--amber">Centros educativos</p>
+    <p class="section-eyebrow section-eyebrow--amber">Resultados del proyecto</p>
     <h2 class="section-title mt-1">Del contacto a la implantación</h2>
   </header>
 
   <div class="funnel-chart-card reveal-scale card-fx shine-border panel-glass p-4">
 
     <!-- Barra de progreso resumen -->
-    <div class="mb-4 flex items-center gap-3">
-      <div class="flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" style="height:6px;">
+    <div class="funnel-summary-row mb-4 flex flex-wrap items-center gap-3">
+      <div class="funnel-summary-bar flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700" style="height:6px;">
         <div style={`width:${implantedPct}; height:100%; background:linear-gradient(90deg,#f0b552,#b45309); border-radius:9999px;`}></div>
       </div>
-      <span class="shrink-0 text-xs font-bold text-amber-600 dark:text-amber-400">{implanted}/{targetCenters} implantados — {implantedPct}</span>
+      <span class="funnel-summary-text font-bold text-amber-600 dark:text-amber-400">{implanted}/{targetCenters} implantados — {implantedPct}</span>
     </div>
 
     <!-- Grid principal -->
@@ -106,24 +107,91 @@ const implantedPct = pct(implanted, targetCenters);
 </section>
 
 <style>
+  #embudo {
+    min-width: 0;
+  }
+
+  .funnel-chart-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .funnel-summary-row {
+    min-width: 0;
+  }
+
+  .funnel-summary-bar {
+    min-width: 8rem;
+  }
+
   @media (max-width: 640px) {
     #embudo .section-title {
       white-space: nowrap;
       font-size: clamp(1rem, 5.5vw, 1.35rem);
     }
-
-    #embudo .funnel-chart-card {
-      width: 100%;
-      max-width: 100%;
-    }
   }
 
   @media (min-width: 641px) {
     #embudo .funnel-chart-card {
-      width: 105%;
-      max-width: 105%;
-      margin-inline: auto;
+      padding: 1.5rem;
     }
+
+    .funnel-main-grid {
+      grid-template-columns: minmax(11rem, 22%) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .funnel-pyramid-col,
+    .funnel-cards-col {
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .funnel-row {
+      min-height: 77px;
+    }
+
+    .funnel-card {
+      padding: 0 16px;
+      border-radius: 10px;
+      min-width: 0;
+    }
+
+    .funnel-summary-text { font-size: 0.9rem; }
+    .fc-title { font-size: 0.95rem; white-space: normal; }
+    .fc-meta { font-size: 0.8rem; }
+    .fc-badge { font-size: 0.76rem; padding: 2px 7px; }
+    .fc-num { font-size: 1.86rem; }
+    .fc-ofTotal { font-size: 0.76rem; }
+    .pyr-val { font-size: 1.46rem; }
+  }
+
+  @media (min-width: 1024px) {
+    #embudo .funnel-chart-card {
+      padding: 1.75rem;
+    }
+
+    .funnel-main-grid {
+      grid-template-columns: minmax(12.5rem, 24%) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .funnel-row {
+      min-height: 84px;
+    }
+
+    .funnel-card {
+      padding: 0 18px;
+    }
+
+    .funnel-summary-text { font-size: 0.95rem; }
+    .fc-title { font-size: 1rem; }
+    .fc-meta { font-size: 0.85rem; }
+    .fc-badge { font-size: 0.8rem; }
+    .fc-num { font-size: 2rem; }
+    .fc-ofTotal { font-size: 0.8rem; }
+    .pyr-val { font-size: 1.58rem; }
   }
 
   .funnel-card {
@@ -146,8 +214,12 @@ const implantedPct = pct(implanted, targetCenters);
     background: rgba(30,41,59,0.7);
   }
 
+  .funnel-summary-text {
+    font-size: 0.825rem;
+  }
+
   .fc-title {
-    font-size: 0.75rem;
+    font-size: 0.825rem;
     font-weight: 600;
     color: #1e293b;
     line-height: 1.3;
@@ -159,7 +231,7 @@ const implantedPct = pct(implanted, targetCenters);
 
   .fc-meta {
     margin-top: 3px;
-    font-size: 0.63rem;
+    font-size: 0.693rem;
     color: #64748b;
     display: flex;
     align-items: center;
@@ -171,7 +243,7 @@ const implantedPct = pct(implanted, targetCenters);
   .fc-badge {
     border-radius: 4px;
     padding: 1px 5px;
-    font-size: 0.6rem;
+    font-size: 0.66rem;
     font-weight: 700;
   }
   .fc-badge--conv {}
@@ -186,14 +258,14 @@ const implantedPct = pct(implanted, targetCenters);
 
   .fc-num {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.47rem;
+    font-size: 1.617rem;
     font-weight: 800;
     line-height: 1;
     display: block;
   }
 
   .fc-ofTotal {
-    font-size: 0.6rem;
+    font-size: 0.66rem;
     color: #94a3b8;
     margin-top: 1px;
     text-align: right;
@@ -203,8 +275,9 @@ const implantedPct = pct(implanted, targetCenters);
   /* ── Grid principal ── */
   .funnel-main-grid {
     display: grid;
-    grid-template-columns: 210px 1fr;
+    grid-template-columns: minmax(9rem, 34%) minmax(0, 1fr);
     gap: 13px;
+    min-width: 0;
   }
 
   .funnel-pyramid-col,
@@ -212,6 +285,7 @@ const implantedPct = pct(implanted, targetCenters);
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
   }
 
   /* ── Fila (misma altura en ambas columnas) ── */
@@ -228,19 +302,20 @@ const implantedPct = pct(implanted, targetCenters);
   }
 
   /* ── Texto pirámide ── */
-  .pyr-val { font-size: 1.155rem; }
-  .pyr-lbl { font-size: 0.55rem; }
+  .pyr-val { font-size: 1.2705rem; }
+  .pyr-lbl { font-size: 0.605rem; }
 
   /* ── Tablet ── */
   @media (max-width: 640px) {
     .funnel-main-grid { grid-template-columns: 110px 1fr; gap: 8px; }
     .funnel-row { min-height: 64px; }
-    .pyr-val { font-size: 0.9rem; }
-    .pyr-lbl { font-size: 0.46rem; }
-    .fc-title { font-size: 0.82rem; white-space: normal; }
-    .fc-meta { font-size: 0.76rem; }
-    .fc-badge { font-size: 0.72rem; padding: 2px 6px; }
-    .fc-num { font-size: 1.5rem; }
+    .funnel-summary-text { font-size: 0.825rem; }
+    .pyr-val { font-size: 0.99rem; }
+    .pyr-lbl { font-size: 0.506rem; }
+    .fc-title { font-size: 0.902rem; white-space: normal; }
+    .fc-meta { font-size: 0.836rem; }
+    .fc-badge { font-size: 0.792rem; padding: 2px 6px; }
+    .fc-num { font-size: 1.65rem; }
     .fc-ofTotal { display: none; }
   }
 
@@ -248,12 +323,13 @@ const implantedPct = pct(implanted, targetCenters);
   @media (max-width: 420px) {
     .funnel-main-grid { grid-template-columns: 80px 1fr; gap: 6px; }
     .funnel-row { min-height: 62px; }
-    .pyr-val { font-size: 0.78rem; }
-    .pyr-lbl { font-size: 0.38rem; }
-    .fc-title { font-size: 0.78rem; white-space: normal; }
-    .fc-meta { display: flex; font-size: 0.72rem; }
-    .fc-badge { font-size: 0.68rem; padding: 2px 6px; }
-    .fc-num { font-size: 1.4rem; }
+    .funnel-summary-text { font-size: 0.825rem; }
+    .pyr-val { font-size: 0.858rem; }
+    .pyr-lbl { font-size: 0.418rem; }
+    .fc-title { font-size: 0.858rem; white-space: normal; }
+    .fc-meta { display: flex; font-size: 0.792rem; }
+    .fc-badge { font-size: 0.748rem; padding: 2px 6px; }
+    .fc-num { font-size: 1.54rem; }
     .funnel-card { padding: 4px 8px; align-items: center; }
   }
 </style>

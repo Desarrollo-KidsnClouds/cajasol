@@ -1,11 +1,5 @@
 ---
-const navLinks = [
-  { href: "#inicio", label: "Presentación" },
-  { href: "#presentacion", label: "Timeline" },
-  { href: "#embudo", label: "Resultados" },
-  { href: "#cobertura", label: "Mapa" },
-  { href: "#repercusion", label: "Repercusión" },
-];
+import { navLinks } from "../data/navigation";
 ---
 
 <header
@@ -17,7 +11,7 @@ const navLinks = [
       class="header-logos-link header-layout__logos group flex shrink-0 items-center"
       aria-label="Kids&Clouds y Fundación Cajasol — Inicio"
     >
-      <div class="header-logos flex shrink-0 items-center gap-1 sm:gap-1.5" aria-label="Kids&Clouds y Fundación Cajasol">
+      <div class="header-logos flex shrink-0 items-center gap-2 sm:gap-2.5" aria-label="Kids&Clouds y Fundación Cajasol">
         <span class="header-logo-wrap header-logo-wrap--knc">
           <img
             src="/logo_web_nuevo.png"
@@ -48,12 +42,13 @@ const navLinks = [
       class="header-nav-scroll header-layout__nav hidden min-w-0 border-l border-slate-200/70 pl-3 dark:border-[rgba(212,175,55,0.1)] sm:block md:pl-4"
       aria-label="Navegación principal"
     >
-      <ul class="flex items-center gap-2.5 pr-1 sm:gap-3 md:gap-4 lg:gap-4">
+      <ul class="header-nav-list flex items-center gap-2.5 pr-1 sm:gap-3 md:gap-4">
         {
           navLinks.map((link) => (
             <li class="shrink-0">
               <a
                 href={link.href}
+                data-nav-link
                 class="header-nav-link whitespace-nowrap rounded-md px-2 py-1 font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-[#6b6b6b] dark:hover:text-white"
               >
                 {link.label}
@@ -85,63 +80,34 @@ const navLinks = [
 
 <div class="site-header-spacer no-print hidden sm:block" aria-hidden="true"></div>
 
-<!-- ── Barra de navegación inferior (solo móvil) ── -->
-<nav
-  class="no-print mobile-bottom-nav fixed bottom-0 left-0 right-0 z-50 sm:hidden"
-  aria-label="Navegación móvil"
->
-  <div class="border-t border-slate-200/90 bg-white/96 px-1 pb-safe pt-1 backdrop-blur-xl dark:border-[rgba(212,175,55,0.2)] dark:bg-[#0f0f0f]/96">
-    <ul class="grid grid-cols-5 items-center">
-      {
-        navLinks.map((link, i) => {
-          const icons = [
-            /* Presentación */
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-            /* Timeline */
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-            /* Resultados */
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
-            /* Mapa */
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`,
-            /* Repercusión */
-            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-          ];
-          return (
-            <li>
-              <a href={link.href} class="mobile-nav-item flex flex-col items-center gap-0.5 py-2">
-                <span class="mobile-nav-icon" set:html={icons[i]} />
-                <span class="mobile-nav-label">{link.label}</span>
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-  </div>
-</nav>
-
 <style>
-  /* Reserva espacio en escritorio: el header es fixed y sale del flujo del documento */
+  @media (min-width: 640px) {
+    .site-header {
+      top: env(safe-area-inset-top, 0);
+    }
+  }
+
   .site-header-spacer {
-    height: 5rem;
+    height: calc(5rem + env(safe-area-inset-top, 0px));
   }
 
   @media (min-width: 1024px) {
     .site-header-spacer {
-      height: 5.5rem;
+      height: calc(5.5rem + env(safe-area-inset-top, 0px));
     }
   }
 
   .header-layout {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas: "logos nav theme";
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "logos theme";
     gap: 0 0.75rem;
     align-items: center;
   }
 
   .header-layout__logos {
     grid-area: logos;
+    justify-self: center;
   }
 
   .header-layout__nav {
@@ -154,9 +120,21 @@ const navLinks = [
     justify-self: end;
   }
 
+  .header-nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   @media (min-width: 640px) {
     .header-layout {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "logos nav theme";
       gap: 0 1rem;
+    }
+
+    .header-layout__logos {
+      justify-self: start;
     }
   }
 
@@ -165,19 +143,14 @@ const navLinks = [
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .header-nav-scroll::-webkit-scrollbar {
     display: none;
   }
 
   .header-nav-link {
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     line-height: 1.25;
-  }
-
-  @media (min-width: 640px) {
-    .header-nav-link {
-      font-size: 0.85rem;
-    }
   }
 
   @media (min-width: 1024px) {
@@ -225,28 +198,32 @@ const navLinks = [
   }
 
   .header-logo--knc {
-    height: 3rem;
+    width: auto;
+    height: auto;
+    max-height: 5.5rem;
+    max-width: min(50vw, 12rem);
     margin-left: 0;
-    margin-top: -0.6rem;
-    margin-bottom: -0.6rem;
-    transform-origin: left center;
-    object-position: left center;
+    margin-top: -1.1rem;
+    margin-bottom: -1.1rem;
+    transform-origin: center center;
+    object-position: center center;
     filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.12));
     transition: transform 0.3s ease, filter 0.3s ease;
   }
 
   .header-logo--cajasol {
-    height: 2.5rem;
-    max-width: none;
-    margin-top: -0.4rem;
-    margin-bottom: -0.4rem;
-    transform-origin: left center;
-    object-position: left center;
+    width: auto;
+    height: auto;
+    max-height: 4.5rem;
+    max-width: min(40vw, 9.5rem);
+    margin-top: -0.85rem;
+    margin-bottom: -0.85rem;
+    transform-origin: center center;
+    object-position: center center;
     filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.1));
     transition: transform 0.3s ease, filter 0.3s ease;
   }
 
-  /* Modo oscuro: logos en blanco */
   html.dark .header-logo--knc,
   html.dark .header-logo--cajasol {
     filter: brightness(0) invert(1);
@@ -264,82 +241,39 @@ const navLinks = [
 
   @media (min-width: 640px) {
     .header-logo--knc {
-      height: 3.25rem;
-      margin-top: -0.7rem;
-      margin-bottom: -0.7rem;
+      width: auto;
+      height: 5rem;
+      max-height: none;
+      max-width: none;
+      margin-top: -1.575rem;
+      margin-bottom: -1.575rem;
+      transform-origin: left center;
+      object-position: left center;
     }
+
     .header-logo--cajasol {
-      height: 2.75rem;
-      margin-top: -0.5rem;
-      margin-bottom: -0.5rem;
+      width: auto;
+      height: 4.25rem;
+      max-height: none;
+      max-width: none;
+      margin-top: -1.25rem;
+      margin-bottom: -1.25rem;
+      transform-origin: left center;
+      object-position: left center;
     }
   }
 
   @media (min-width: 1024px) {
     .header-logo--knc {
-      height: 3.5rem;
-      margin-top: -0.8rem;
-      margin-bottom: -0.8rem;
+      height: 5.5rem;
+      margin-top: -1.8rem;
+      margin-bottom: -1.8rem;
     }
+
     .header-logo--cajasol {
-      height: 3rem;
-      margin-top: -0.6rem;
-      margin-bottom: -0.6rem;
+      height: 4.5rem;
+      margin-top: -1.35rem;
+      margin-bottom: -1.35rem;
     }
-  }
-
-  /* ── Barra inferior móvil ── */
-  .mobile-bottom-nav {
-    /* soporte para el safe area de iPhone (barra de inicio) */
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-
-  .pb-safe {
-    padding-bottom: max(env(safe-area-inset-bottom, 0px), 4px);
-  }
-
-  .mobile-nav-item {
-    color: #94a3b8;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-    width: 100%;
-  }
-
-  .mobile-nav-item:active,
-  .mobile-nav-item:hover {
-    color: #f0b552;
-  }
-
-  html.dark .mobile-nav-item {
-    color: #6b7280;
-  }
-
-  html.dark .mobile-nav-item:active,
-  html.dark .mobile-nav-item:hover {
-    color: #f0b552;
-  }
-
-  .mobile-nav-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .mobile-nav-icon :global(svg) {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-
-  .mobile-nav-label {
-    font-size: 0.55rem;
-    font-weight: 600;
-    line-height: 1;
-    text-align: center;
-    letter-spacing: 0.01em;
-    font-family: 'Poppins', sans-serif;
-    white-space: nowrap;
   }
 </style>
