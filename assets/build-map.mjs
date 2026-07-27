@@ -46,13 +46,13 @@ const pathToProvince = {
 
 const centros = {
   huelva: 0,
-  sevilla: 19,
+  sevilla: 24,
   cadiz: 1,
-  cordoba: 3,
+  cordoba: 5,
   jaen: 0,
-  malaga: 3,
-  granada: 0,
-  almeria: 2,
+  malaga: 7,
+  granada: 1,
+  almeria: 1,
 };
 
 const paths = [...blank.matchAll(/<path[^>]*id="(path[^"]+)"[^>]*d="([^"]+)"[^>]*style="([^"]+)"/g)]

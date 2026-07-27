@@ -1,13 +1,14 @@
 ---
 const alumniByProvince = [
-  { name: "Sevilla", students: 1272 },
-  { name: "Málaga", students: 210 },
-  { name: "Córdoba", students: 141 },
-  { name: "Almería", students: 116 },
+  { name: "Sevilla", students: 1378 },
+  { name: "Málaga", students: 419 },
+  { name: "Córdoba", students: 179 },
+  { name: "Almería", students: 86 },
   { name: "Cádiz", students: 106 },
+  { name: "Granada", students: 30 },
 ];
-const totalStudents = 1845;
-const totalCenters = 28;
+const totalStudents = 1875;
+const totalCenters = 39;
 
 function fmt(n: number) {
   return n.toLocaleString("es-ES");
@@ -46,7 +47,7 @@ function fmt(n: number) {
 
       <!-- Alumnos por provincia -->
       <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-slate-400 dark:text-slate-400">Alumnos incorporados por provincia</p>
-      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
         {alumniByProvince.map((province) => (
           <div class="alumni-card flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700/40 dark:bg-slate-800/30">
             <span class="text-sm font-semibold text-slate-600 dark:text-slate-300">{province.name}</span>
