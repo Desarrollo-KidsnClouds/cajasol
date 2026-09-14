@@ -1,4 +1,72 @@
 ---
+const OFFICIAL_URL =
+  "https://fundacioncajasol.com/la-fundacion-cajasol-impulsa-la-comunicacion-entre-centros-educativos-y-familias-andaluzas-con-el-proyecto-kidsclouds-que-alcanzara-a-mas-de-47-500-hogares/";
+
+const pressClippings = [
+  {
+    name: "La Razón",
+    src: "/images/prensa/la-razon-1.png",
+    title: "La Fundación Cajasol impulsa la comunicación entre centros y familias",
+    text: "Alcanzará a más de 47.500 hogares, con sensibilización en 950 centros educativos y apoyo directo a 3.500 familias andaluzas.",
+    href: null,
+  },
+  {
+    name: "Diario de Sevilla",
+    src: "/images/prensa/diario-de-sevilla-1.png",
+    title: "Fundación Cajasol y Kids&Clouds impulsan la comunicación educativa",
+    text: "La alianza estratégica busca transformar la interacción entre escuelas y hogares en 950 centros andaluces.",
+    href: null,
+  },
+  {
+    name: "Diario de Sevilla",
+    src: "/images/prensa/diario-de-sevilla-2.png",
+    title: "Fundación Cajasol y Kids&Clouds impulsan la comunicación educativa",
+    text: "Cobertura en la edición impresa del periódico, con la firma del acuerdo entre ambas entidades.",
+    href: null,
+  },
+  {
+    name: "El Día de Córdoba",
+    src: "/images/prensa/diario-de-cordoba.png",
+    title: "Fundación Cajasol y Kids&Clouds impulsan la comunicación educativa",
+    text: "La alianza estratégica busca transformar la interacción entre escuelas y hogares en 950 centros andaluces.",
+    href: null,
+  },
+  {
+    name: "Diario de Jerez",
+    src: "/images/prensa/diario-de-jerez.png",
+    title: "Fundación Cajasol y Kids&Clouds impulsan la comunicación educativa",
+    text: "Cobertura en la edición impresa del periódico gaditano sobre el acuerdo con Kids&Clouds.",
+    href: null,
+  },
+  {
+    name: "Fundación Cajasol",
+    src: "/images/prensa/fundacion-cajasol.png",
+    title: "Setenta centros podrán usar gratis Kids&Clouds durante un año",
+    text: "Publicación oficial de la Fundación anunciando el acuerdo y su alcance a cerca de 3.500 familias.",
+    href: OFFICIAL_URL,
+  },
+  {
+    name: "Fundación Cajasol",
+    src: "/images/prensa/fundacion-cajasol-2.png",
+    title: "Nota de prensa oficial del acuerdo con Kids&Clouds",
+    text: "El comunicado completo, publicado en la web de la Fundación Cajasol.",
+    href: OFFICIAL_URL,
+  },
+  {
+    name: "La Razón",
+    src: "/images/prensa/la-razon-2.png",
+    title: "Antonio Pulido y Leticia Álvarez-Cervera, sobre el acuerdo",
+    text: "Ambos destacan la importancia de una comunicación más eficaz entre centros educativos y familias.",
+    href: null,
+  },
+  {
+    name: "La Razón",
+    src: "/images/prensa/la-razon-3.png",
+    title: "El compromiso de Cajasol con la educación andaluza",
+    text: "El acuerdo refuerza la línea de trabajo de la Fundación en innovación educativa y apoyo a las familias.",
+    href: null,
+  },
+];
 ---
 
 <section id="repercusion-medios" class="mx-auto w-full max-w-6xl px-5" aria-label="Repercusión en medios de comunicación">
@@ -15,17 +83,13 @@
   </header>
 
   <div
-    class="repercusion-grid grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3"
+    class="repercusion-grid repercusion-scroll"
     data-scroll-stagger
   >
     <!-- Redes Sociales -->
     <article class="repercusion-card reveal-left card-fx shine-border panel-glass" data-reveal-delay="0ms">
       <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
         <span class="badge-glow badge-glow--amber repercusion-card__badge" style="margin:0;">Redes Sociales</span>
-        <span class="repercusion-status-badge" role="status" aria-label="Próximamente">
-          <span class="repercusion-status-badge__dot" aria-hidden="true"></span>
-          Próximamente
-        </span>
       </div>
       <div class="repercusion-card__media repercusion-card__media--full-image">
         <button
@@ -62,6 +126,7 @@
       </div>
     </article>
 
+    {false && (
     <!-- Testimonio de dirección (placeholder) -->
     <article class="repercusion-card reveal card-fx shine-border panel-glass" data-reveal-delay="60ms">
       <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
@@ -108,7 +173,9 @@
         </div>
       </div>
     </article>
+    )}
 
+    {false && (
     <!-- Testimonio docente (placeholder) -->
     <article class="repercusion-card reveal-right card-fx shine-border panel-glass" data-reveal-delay="120ms">
       <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
@@ -156,10 +223,86 @@
         </div>
       </div>
     </article>
+    )}
+
+    {pressClippings.map((clip, index) => (
+      <article class="repercusion-card reveal card-fx shine-border panel-glass" data-reveal-delay={`${180 + index * 40}ms`}>
+        <div class="flex items-center gap-2 px-3 pt-3 sm:px-4 sm:pt-4">
+          <span class="badge-glow badge-glow--amber repercusion-card__badge" style="margin:0;">{clip.name}</span>
+        </div>
+        <div class="repercusion-card__media repercusion-card__media--full-image">
+          <button
+            type="button"
+            class="gallery-card repercusion-visual img-reveal-zoom img-reveal-hover group h-full w-full cursor-zoom-in border-0 bg-transparent p-0"
+            aria-label={`Ampliar aparición en prensa: ${clip.name}`}
+          >
+            <img
+              src={clip.src}
+              alt={`Aparición en prensa de la alianza Fundación Cajasol × Kids&Clouds en ${clip.name}`}
+              data-zoom-src={clip.src}
+              class="repercusion-visual__img"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="repercusion-zoom-hint" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="repercusion-card__body">
+          <h3 class="repercusion-card__title">{clip.title}</h3>
+          <p class="repercusion-card__text">{clip.text}</p>
+          {clip.href ? (
+            <div class="repercusion-card__footer">
+              <a
+                href={clip.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repercusion-card__link"
+              >
+                Leer noticia completa
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M7 7h10v10"></path></svg>
+              </a>
+            </div>
+          ) : (
+            <div class="repercusion-card__footer repercusion-card__footer--spacer" aria-hidden="true"></div>
+          )}
+        </div>
+      </article>
+    ))}
   </div>
 </section>
 
 <style>
+  .repercusion-scroll {
+    display: flex;
+    gap: 0.875rem;
+    overflow-x: auto;
+    padding: 0.25rem 0.25rem 1rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .repercusion-scroll .repercusion-card {
+    flex: 0 0 auto;
+    width: 16.5rem;
+    height: 26rem;
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 640px) {
+    .repercusion-scroll .repercusion-card {
+      width: 19rem;
+      height: 28rem;
+    }
+  }
+
   .repercusion-status-badge {
     display: inline-flex;
     flex-shrink: 0;
@@ -252,7 +395,8 @@
 
   .repercusion-card__media--full-image {
     height: auto;
-    overflow: visible;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
     background: rgba(248, 250, 252, 0.6);
     border: 1px solid rgba(148, 163, 184, 0.15);
   }
@@ -264,9 +408,10 @@
 
   .repercusion-card__media--full-image .repercusion-visual__img {
     width: 100%;
-    height: auto;
+    height: 100%;
     max-height: none;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: top center;
   }
 
   .repercusion-card__media--placeholder {
@@ -425,6 +570,10 @@
   }
 
   .repercusion-card__title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     font-size: 0.8125rem;
     font-weight: 700;
     line-height: 1.3;
@@ -438,8 +587,12 @@
   }
 
   .repercusion-card__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     flex: 1 1 auto;
     margin-top: 0.4rem;
+    overflow: hidden;
     font-size: 0.9rem;
     line-height: 1.6;
     color: rgb(71 85 105);
@@ -475,7 +628,41 @@
     color: rgb(148 163 184);
   }
 
+  .repercusion-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #b8942e;
+    text-decoration: none;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+
+  .repercusion-card__link svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .repercusion-card__link:hover {
+    color: #f0b552;
+    gap: 0.5rem;
+  }
+
+  .repercusion-card__link:hover svg {
+    transform: translate(1px, -1px);
+  }
+
+  html.dark .repercusion-card__link {
+    color: #f0b552;
+  }
+
   .repercusion-card__footer {
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
     margin-top: auto;
     padding-top: 0.75rem;
     border-top: 1px solid rgba(226, 232, 240, 1);
