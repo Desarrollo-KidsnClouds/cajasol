@@ -1,6 +1,6 @@
 ---
 const timelineImage = {
-  src: "/images/presentacion/timeline.png",
+  src: "/images/presentacion/timeline-octubre-2026.png",
   alt: "Timeline del proyecto — fases de despliegue",
 };
 ---
@@ -18,7 +18,7 @@ const timelineImage = {
 
       <!-- Línea base -->
       <div class="absolute left-[8%] right-[8%] top-[18px] h-[2px] rounded-full bg-slate-200 dark:bg-slate-700/60">
-        <div class="h-full w-[22%] rounded-full bg-gradient-to-r from-[#f0b552] to-[#b45309]" style="box-shadow:0 0 8px rgba(240,181,82,0.5);"></div>
+        <div class="h-full w-[74%] rounded-full bg-gradient-to-r from-[#f0b552] to-[#b45309]" style="box-shadow:0 0 8px rgba(240,181,82,0.5);"></div>
       </div>
 
       <!-- Q1 completado -->
@@ -33,40 +33,40 @@ const timelineImage = {
         </div>
       </div>
 
-      <!-- Q2 activo -->
+      <!-- Q2 completado -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full text-white" style="background:linear-gradient(135deg,#f0b552,#b45309); box-shadow:0 0 0 4px rgba(240,181,82,0.2), 0 4px 14px rgba(240,181,82,0.4);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-[#f0b552]" style="font-family:'Poppins'; font-size:1rem;">Q2</span>
+          <span class="hidden text-xs font-semibold text-slate-600 dark:text-slate-400 sm:block">Segundo trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">ABR · MAY · JUN</span>
+        </div>
+      </div>
+
+      <!-- Q3 completado -->
+      <div class="relative z-10 flex flex-1 flex-col items-center gap-2">
+        <div class="flex h-9 w-9 items-center justify-center rounded-full text-white" style="background:linear-gradient(135deg,#f0b552,#b45309); box-shadow:0 0 0 4px rgba(240,181,82,0.2), 0 4px 14px rgba(240,181,82,0.4);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="flex flex-col items-center gap-0.5 text-center">
+          <span class="font-bold text-[#f0b552]" style="font-family:'Poppins'; font-size:1rem;">Q3</span>
+          <span class="hidden text-xs font-semibold text-slate-600 dark:text-slate-400 sm:block">Tercer trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">JUL · AGO · SEP</span>
+        </div>
+      </div>
+
+      <!-- Q4 activo -->
       <div class="relative z-10 flex flex-1 flex-col items-center gap-2">
         <div class="relative flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f0b552] bg-[rgba(240,181,82,0.08)]">
           <span class="h-2.5 w-2.5 rounded-full bg-[#f0b552]"></span>
           <span class="absolute inset-[-4px] animate-ping rounded-full border border-[rgba(240,181,82,0.35)]"></span>
         </div>
         <div class="flex flex-col items-center gap-0.5 text-center">
-          <span class="font-bold text-slate-700 dark:text-slate-300" style="font-family:'Poppins'; font-size:1rem;">Q2</span>
-          <span class="hidden text-xs font-semibold text-slate-500 dark:text-slate-500 sm:block">Segundo trimestre</span>
-          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">ABR · MAY · JUN</span>
-        </div>
-      </div>
-
-      <!-- Q3 pendiente -->
-      <div class="relative z-10 flex flex-1 flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-100" style="opacity:0.75;">
-        <div class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-slate-300 bg-transparent dark:border-slate-700">
-          <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-        </div>
-        <div class="flex flex-col items-center gap-0.5 text-center">
-          <span class="font-bold text-slate-400 dark:text-slate-600" style="font-family:'Poppins'; font-size:1rem;">Q3</span>
-          <span class="hidden text-xs font-semibold text-slate-400 dark:text-slate-600 sm:block">Tercer trimestre</span>
-          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-300 dark:text-slate-700 sm:block">JUL · AGO · SEP</span>
-        </div>
-      </div>
-
-      <!-- Q4 pendiente -->
-      <div class="relative z-10 flex flex-1 flex-col items-center gap-2 transition-opacity duration-300 hover:opacity-100" style="opacity:0.75;">
-        <div class="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-slate-300 bg-transparent dark:border-slate-700">
-          <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-        </div>
-        <div class="flex flex-col items-center gap-0.5 text-center">
-          <span class="font-bold text-slate-400 dark:text-slate-600" style="font-family:'Poppins'; font-size:1rem;">Q4</span>
-          <span class="hidden text-xs font-semibold text-slate-400 dark:text-slate-600 sm:block">Cuarto trimestre</span>
-          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-300 dark:text-slate-700 sm:block">OCT · NOV · DIC</span>
+          <span class="font-bold text-slate-700 dark:text-slate-300" style="font-family:'Poppins'; font-size:1rem;">Q4</span>
+          <span class="hidden text-xs font-semibold text-slate-500 dark:text-slate-500 sm:block">Cuarto trimestre</span>
+          <span class="hidden text-[0.68rem] font-medium tracking-widest text-slate-400 dark:text-slate-600 sm:block">OCT · NOV · DIC</span>
         </div>
       </div>
 

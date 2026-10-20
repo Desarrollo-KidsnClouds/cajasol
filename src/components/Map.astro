@@ -7,11 +7,12 @@ const alumniByProvince = [
   { name: "Cádiz", students: 283 },
   { name: "Granada", students: 104 },
 ];
-const totalStudents = 3287;
-const totalCenters = 52;
+const totalStudents = 3620;
+const totalCenters = 59;
 
 function fmt(n: number) {
-  return n.toLocaleString("es-ES");
+  // es-ES no agrupa números de 4 cifras ("3620"); forzamos el punto de miles como en el resto de la web
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 ---
 
